@@ -1,7 +1,39 @@
+
 .App {
   text-align: center;
+  background-position:center;
+  background-repeat: no-repeat;
+  background-size:cover;
+  height: 500px;
 }
 
+.homeDiv {
+  background-image: url("./img/bg2.jpg");
+}
+
+.contactDiv {
+  background-image: url("./img/bgContact.jpg");
+  text-align: justify;
+}
+
+.contactDiv h1{
+  font-size: 100px;
+  color: whitesmoke;
+  text-decoration: underline;
+  text-shadow: 5px 5px #111111;
+}
+
+.ratingDiv {
+  background-image: url("./img/bgTestimonials.jpg");
+  opacity: 0.3;
+}
+
+.userHomeDiv {
+  background-image: url("./img/background.jpg");
+}
+
+
+/* By Default , Remove it if no use */
 .App-logo {
   height: 40vmin;
   pointer-events: none;
