@@ -6,7 +6,7 @@ import { Button } from 'react-bootstrap';
 import logo from '../img/service.jpg';
 function Home() {
     return (
-        <div className="homeDiv">
+        <div id="home" className="homeDiv">
             <table>
                 <tr>
                     <td>
