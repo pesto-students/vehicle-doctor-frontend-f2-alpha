@@ -1,14 +1,36 @@
 
 .App {
   text-align: center;
-  background-position:center;
-  background-repeat: no-repeat;
-  background-size:cover;
-  height: 500px;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  letter-spacing: 3px;
+}
+
+Nav {
+  font-size: 20px;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  letter-spacing: 3px;
 }
 
 .homeDiv {
-  background-image: url("./img/bg2.jpg");
+  margin: 10%;
+  position: relative;
+  animation: mymove 2s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes mymove {
+  from {top:-20px;}
+  to {top: 0px;}
+}
+
+@media screen and (max-width: 1200px) {
+  div.example {
+    display: none;
+  }
+}
+
+.divHnavbar{
+  margin: 10%;
 }
 
 .contactDiv {

@@ -1,13 +1,13 @@
 import React from 'react';
-import CustomerNav from './elements/CustomerNav';
+import logo from '../../img/VehicleDr_logo.jpg';
 
-function UserHome() {
+function CustomerNav() {
     return (
-        <div className="userHomeDiv App">
+        <div>
             <table>
                 <tr>
                     <td>
-                        <CustomerNav/>
+                        <img alt="icon" src={logo} width="50px%" height="20px" />
                     </td>
                 </tr>
             </table>
@@ -15,4 +15,4 @@ function UserHome() {
     );
 }
 
-export default UserHome;
+export default CustomerNav;

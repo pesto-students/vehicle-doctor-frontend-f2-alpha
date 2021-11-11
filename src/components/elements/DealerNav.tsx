@@ -1,6 +1,6 @@
 import React from 'react';
 
-function userNav() {
+function DealerNav() {
     return (
         <div>
             
@@ -8,4 +8,4 @@ function userNav() {
     );
 }
 
-export default userNav;
+export default DealerNav;
