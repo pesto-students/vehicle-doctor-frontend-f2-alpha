@@ -21,7 +21,7 @@ function Home() {
                         <Container>
                             <Box borderRadius={1} component="div" sx={{ p: 2,backgroundColor:'white', border: '1px light grey', boxShadow: '0 0 5px 2px', margin: '80px' }} >
                                     <Typography variant="h4" component="h2">
-                                       LOGIN AS USER
+                                        USER LOGIN
                                     </Typography>
                                 <Box component="form" sx={{ p: 2, border: '2px solid grey', borderRadius: '10px', margin: '10px' }}>
                                     {/* <div style={{ margin: '10px' }}>

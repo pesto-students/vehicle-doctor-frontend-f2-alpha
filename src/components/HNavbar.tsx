@@ -13,7 +13,7 @@ function HNavbar() {
                         
                     </Navbar.Brand>
                     <br />
-                    <Navbar.Brand>VehicleDr.com</Navbar.Brand>
+                    <Navbar.Brand>VehicleDr</Navbar.Brand>
                     
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
