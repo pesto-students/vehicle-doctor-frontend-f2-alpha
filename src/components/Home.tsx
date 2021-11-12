@@ -2,12 +2,12 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField'
 import Container from '@mui/material/Container';
-import { Button } from 'react-bootstrap';
+import { Button, Table } from 'react-bootstrap';
 import logo from '../img/service.jpg';
 function Home() {
     return (
         <div id="home" className="homeDiv">
-            <table>
+            <Table>
                 <tr>
                     <td>
                         <div className="example">
@@ -16,14 +16,14 @@ function Home() {
                     </td>
                     <td>
                         <Container>
-                            <Box component="div" sx={{ p: 2, border: '1px solid grey', boxShadow: '0 0 5px 2px', margin: '80px' }} >
+                            <Box component="div" sx={{ p: 2,backgroundColor:'rgb(235, 231, 231)', border: '1px solid grey', boxShadow: '0 0 5px 2px', margin: '80px' }} >
                                 <Button style={{ margin: '5px' }} variant="primary" disabled size="lg" active>
                                     Login As User
                                 </Button>{' '}
                                 <Box component="form" sx={{ p: 2, border: '3px solid grey', borderRadius: '20px', margin: '10px' }}>
-                                    <div style={{ margin: '10px' }}>
+                                    {/* <div style={{ margin: '10px' }}>
                                         <TextField id="outlined-basic" color="warning" label="Location" variant="outlined" />
-                                    </div>
+                                    </div> */}
                                     <div style={{ margin: '10px' }}>
                                         <TextField id="outlined-basic" color="info" type="number" label="Mobile No." variant="outlined" />
                                     </div>
@@ -33,7 +33,7 @@ function Home() {
                         </Container>
                     </td>
                 </tr>
-            </table>
+            </Table>
         </div>
     );
 }

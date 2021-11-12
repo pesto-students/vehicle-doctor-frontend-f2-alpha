@@ -3,7 +3,7 @@ import HNavbar from './components/HNavbar';
 import Home from "./components/Home";
 import ContactUs from "./components/ContactUs";
 import Testimonials from "./components/Testimonials";
-import UserHome from "./components/UserHome";
+import Services from "./components/Services";
 import './App.css';
 
 function App() {
@@ -11,9 +11,9 @@ function App() {
     <div className="App">
       <HNavbar />
       <Home />
+      <Services/>
       <Testimonials/>
       <ContactUs/>
-      <UserHome/>
     </div>
   );
 }

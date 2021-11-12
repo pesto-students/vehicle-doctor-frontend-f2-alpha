@@ -5,7 +5,7 @@ import '../App.css';
 
 function HNavbar() {
     return (
-        <div className="divHnavbar">
+        <div>
             <Navbar collapseOnSelect expand="lg" fixed="top" bg="light" variant="light">
                 <Container>
                     <Navbar.Brand>
