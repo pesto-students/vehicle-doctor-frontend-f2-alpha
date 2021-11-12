@@ -6,12 +6,15 @@ import '../App.css';
 function HNavbar() {
     return (
         <div>
-            <Navbar collapseOnSelect expand="lg" fixed="top" bg="light" variant="light">
+            <Navbar  collapseOnSelect expand="lg" fixed="top" bg="primary" variant="dark">
                 <Container>
-                    <Navbar.Brand>
-                        <img src={logo} width="30px" className="d-inline-block align-top" alt="logo" />
-                         VehicleDr.com
+                    <Navbar.Brand style={{fontSize:'30px'}} >
+                        <img src={logo} width="40px" className="d-inline-block align-top" alt="logo" />
+                        
                     </Navbar.Brand>
+                    <br />
+                    <Navbar.Brand>VehicleDr.com</Navbar.Brand>
+                    
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="justify-content-end flex-grow-1 pe-3">
