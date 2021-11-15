@@ -9,21 +9,21 @@ import Typography from '@mui/material/Typography';
 
 function Home() {
     return (
-        <div id="home" className="homeDiv">
+        <div id="home" className="homeDiv altApp">
             <Table>
                 <tr>
                     <td>
-                        <div>
+                        <div className="homeImg">
                             <img src={logo} alt="logo" />
                         </div>
                     </td>
                     <td>
                         <Container>
-                            <Box borderRadius={1} component="div" sx={{ p: 2,backgroundColor:'white', border: '1px light grey', boxShadow: '0 0 5px 2px', margin: '80px' }} >
-                                    <Typography variant="h4" component="h2">
-                                        USER LOGIN
-                                    </Typography>
-                                <Box component="form" sx={{ p: 2, border: '2px solid grey', borderRadius: '10px', margin: '10px' }}>
+                            <Box component="div" sx={{ p: 2,backgroundColor:'rgb(235, 231, 231)',boxShadow: '0 0 0.5px 0.2px'}} >
+                                <Button style={{ margin: '5px' }} variant="primary" disabled size="lg" active>
+                                    Login As User
+                                </Button>{' '}
+                                <Box component="form" sx={{ p: 2, border: '0.3px solid grey', borderRadius: '20px', margin: '10px' }}>
                                     {/* <div style={{ margin: '10px' }}>
                                         <TextField id="outlined-basic" color="warning" label="Location" variant="outlined" />
                                     </div> */}

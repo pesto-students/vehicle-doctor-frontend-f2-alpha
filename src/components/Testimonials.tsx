@@ -8,45 +8,19 @@ import Typography from '@mui/material/Typography';
 
 function Testimonials() {
     return (
-        <div id="rewards" className="App">
-            <Table>
-                <tr>
-                    <td>
-                    <Container>
-                            <Box  height={300}
-      width={300} borderRadius={3} component="div" sx={{ backgroundColor:'white',  border: '1px light grey', boxShadow: '0 0 5px 2px', margin: '30px' }} >
-                               
-                            </Box>
-                        </Container>
-                    </td>
-                    <td>
-                        <Container>
-                            <Box height={300}
-      width={300} borderRadius={3} component="div" sx={{ backgroundColor:'white',  border: '1px light grey', boxShadow: '0 0 5px 2px', margin: '10px' }} >
-                                    
-                              
-                            </Box>
-                        </Container>
-                    </td>
-                    <td>
-                        <Container>
-                            <Box height={300}
-      width={300} borderRadius={3} component="div" sx={{ backgroundColor:'white',  border: '1px light grey', boxShadow: '0 0 5px 2px', margin: '10px' }} >
-                                    
-                              
-                            </Box>
-                        </Container>
-                    </td>
-                    <td>
-                        <Container>
-                            <Box height={300}
-      width={300} borderRadius={3} component="div" sx={{ backgroundColor:'white', border: '1px light grey', boxShadow: '0 0 5px 2px', margin: '10px' }} >
-                            </Box>
-                        </Container>
-                    </td>
-                </tr>
-            </Table>
-        
+        <div id="rewards" className="ratingDiv  altApp">
+            <h3>Testimonials</h3>
+            <div className="flex-container">
+                <div style={{borderRadius:'10px', boxShadow: '0 0 5px 0.2px', flex:'20%', margin:'3%', padding:'10px'}}>
+                    <p>"A real life saver. Awesome customer service - not just from the Vehicle Dr. team but also from the on ground service partners. Goes to show the value they see in the platform. Highly recommended. Keep up!"</p>
+                </div>
+                <div style={{borderRadius:'10px', boxShadow: '0 0 5px 0.2px', flex:'20%', margin:'3%', padding:'10px'}}>
+                    <p>"A real life saver. Awesome customer service - not just from the Vehicle Dr. team but also from the on ground service partners. Goes to show the value they see in the platform. Highly recommended. Keep up!"</p>
+                </div>
+                <div style={{borderRadius:'10px', boxShadow: '0 0 5px 0.2px', flex:'20%', margin:'3%', padding:'10px'}}>
+                    <p>"A real life saver. Awesome customer service - not just from the Vehicle Dr. team but also from the on ground service partners. Goes to show the value they see in the platform. Highly recommended. Keep up!"</p>
+                </div>
+            </div>
         </div>
     );
 }

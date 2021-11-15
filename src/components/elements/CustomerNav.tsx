@@ -7,7 +7,7 @@ function CustomerNav() {
             <table>
                 <tr>
                     <td>
-                        <img alt="icon" src={logo} width="50px%" height="20px" />
+                        <img alt="icon" src={logo} width="50px" height="20px" />
                     </td>
                 </tr>
             </table>

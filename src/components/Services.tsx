@@ -6,7 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
-import { Row, Col } from "react-bootstrap";
+import logo from '../img/s1.jpg';
 
 function Services() {
     const [serviceData, setServiceData] = useState<Service[]>([]);
@@ -21,21 +21,22 @@ function Services() {
     console.log('Service Data', serviceData);
 
     return (
-        <div id="services">
+        <div id="services" className="homeDiv">
             <div>
-                <h1>Services</h1>
+                <h3>Services</h3>
             </div>
-            <Row className="g-2">
+            <div style={{ display: 'flex', flexWrap: 'wrap',alignItems: 'center', justifyContent:'center'}}>
                 {
                     serviceData.map((item, idx) =>
-                        <Col key={idx}>
-                            <Card sx={{ maxWidth: 345 }}>
+                        <div style={{margin:'10px'}} key={idx}>
+                            <Card>
                                 <CardActionArea>
                                     <CardMedia
                                         component="img"
                                         height="140"
-                                        image={`https://picsum.photos/200/300?random-${item.id}`}
-                                        alt="green iguana"
+                                        image={logo}
+                                        // image={`https://picsum.photos/200/300?random-${item.id}`}
+                                        alt="icon"
                                     />
                                     <CardContent>
                                         <Typography gutterBottom variant="h5" component="div">
@@ -50,11 +51,10 @@ function Services() {
                                     </CardContent>
                                 </CardActionArea>
                             </Card>
-                        </Col>
+                        </div>
                     )
                 }
-            </Row>
-
+            </div>
         </div>
     );
 }
