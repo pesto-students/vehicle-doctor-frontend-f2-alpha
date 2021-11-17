@@ -7,6 +7,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import logo from '../img/s1.jpg';
+import Marquee from "react-fast-marquee";
 
 function Services() {
     const [serviceData, setServiceData] = useState<Service[]>([]);
@@ -21,10 +22,11 @@ function Services() {
     console.log('Service Data', serviceData);
 
     return (
-        <div id="services" className="homeDiv">
+        <div id="services" style={{padding:'5%'}} className="anim">
             <div>
-                <h3>Services</h3>
+                <h3>OUR SERVICES</h3>
             </div>
+            <Marquee>
             <div style={{ display: 'flex', flexWrap: 'wrap',alignItems: 'center', justifyContent:'center'}}>
                 {
                     serviceData.map((item, idx) =>
@@ -55,6 +57,7 @@ function Services() {
                     )
                 }
             </div>
+            </Marquee> 
         </div>
     );
 }

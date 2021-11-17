@@ -5,6 +5,8 @@ import ContactUs from "./components/ContactUs";
 import Testimonials from "./components/Testimonials";
 import Services from "./components/Services";
 import AboutUs from "./components/AboutUs"
+import logo from './img/banner.jpg';
+import Marquee from "react-fast-marquee";
 import './App.css';
 
 function App() {
@@ -12,10 +14,13 @@ function App() {
     <div className="App">
       <HNavbar />
       <Home />
-      <AboutUs/>
-      <Services/>
-      <Testimonials/>
-      <ContactUs/>
+      <AboutUs />
+      <Services />
+      <Testimonials />
+      <Marquee>
+        <img src={logo} alt="logo" />
+      </Marquee>
+      <ContactUs />
     </div>
   );
 }

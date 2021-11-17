@@ -1,25 +1,46 @@
 
 .App {
-  margin:0px;
   text-align: center;
-  letter-spacing: 3px;
-  background-color:rgba(var(--b3f,250,250,250),1)
+  letter-spacing: 1px;
+  background-color:white;
 }
 
 .altApp {
-  background-color: #f7f7f7;
-  margin-top: 8%;
+  background-color: rgb(223 223 223);
+  align-items: center;
+  justify-content:center;
 }
 
 Nav {
-  font-size: 28px;
+  font-size: 15px;
+  font-weight: bold;
 }
 
 .homeDiv {
   position: relative;
+  height: 80vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  background:linear-gradient(0deg, rgba(51, 50, 51, 0.5), rgba(37, 37, 37, 0.5)),url(./img/bg.jpg);
+  background-size: cover;
+}
+
+input[type=number], select {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 2%;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.anim{
+  position: relative;
   animation: mymove 2s;
   animation-fill-mode: forwards;
-  padding-top: 70px;
 }
 
 @keyframes mymove {
@@ -48,16 +69,42 @@ Nav {
 }
 
 .contactDiv {
-  background-color: rgb(43, 42, 42);
+  background:linear-gradient(0deg, rgba(51, 50, 51, 0.5), rgba(37, 37, 37, 0.5)),url(./img/cbg.jpg);
+  /* background-color: rgb(43, 42, 42); */
   box-shadow: 0 0 5px 2px;
 }
 
-ul {
-  list-style-type:none;
+.ratingDiv {
+  border-radius:10px;
+  box-shadow: 0 0 5px 0.2px;
+  background-color:rgb(245, 244, 240);
+  font-style: italic;
+  flex:20%;
+  margin:3%;
+  padding:10px;
+  align-items: center;
+  justify-content:center;
+  /* text-align: left; */
+}
+
+span {
+  color:blue
+}
+
+.aboutDiv{
+  align-items: center;
+  justify-content:center;
+}
+
+.divInfo{
+  border:1px dotted grey;
+  padding: 15px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .userHomeDiv {
   background-image: url("./img/background.jpg");
 }
+
 
 
