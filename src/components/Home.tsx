@@ -17,7 +17,7 @@ function Home() {
                 </tr>
                 <tr>
                     <td>
-                        <input type="number" id="mNum" name="mNum" placeholder="Enter your Mobile No." />
+                        <input type="mobile" id="mNum" name="mNum" placeholder="Enter your Mobile No." />
                         <Button  size="lg" variant="primary">Send OTP</Button>
                     </td>
                 </tr>
