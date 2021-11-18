@@ -8,13 +8,9 @@ import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import logo from '../img/s1.jpg';
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
     Link
   } from "react-router-dom";
 
-  import DealerListPage from './elements/DealerNav'
 
 function Services() {
     const [serviceData, setServiceData] = useState<Service[]>([]);
@@ -34,13 +30,13 @@ function Services() {
             <div>
                 <h3>OUR SERVICES</h3>
             </div>
-            <Router>
             <div style={{ display: 'flex', flexWrap: 'wrap',alignItems: 'center', justifyContent:'center'}}>
                 {
                     serviceData.map((item, idx) =>
-                        <div style={{margin:'10px'}} key={idx}>
-                             <Link to={{pathname:`/dealers/${item.id}`}}><Card>
-                                <CardActionArea>
+                    <div style={{margin:'10px'}} key={idx}>
+                             <Link to="/dealers">
+                               <Card>
+                                 <CardActionArea>
                                     <CardMedia
                                         component="img"
                                         height="140"
@@ -53,17 +49,12 @@ function Services() {
                                         </Typography>
                                     </CardContent>
                                 </CardActionArea>
-                            </Card></Link>
+                             </Card>
+                        </Link>
                         </div>
                     )
                 }
             </div>
-            <Switch>
-            <Route path="/dealers/:id">
-                <DealerListPage/>
-             </Route>
-            </Switch>
-            </Router>
         </div>
         </>
     );

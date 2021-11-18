@@ -6,21 +6,33 @@ import Testimonials from "./components/Testimonials";
 import Services from "./components/Services";
 import AboutUs from "./components/AboutUs"
 import logo from './img/banner.jpg';
-import Marquee from "react-fast-marquee";
 import './App.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import DealerListPage from './components/elements/DealerNav';
 
 function App() {
   return (
     <div className="App">
       <HNavbar />
-      <Home />
-      <AboutUs />
-      <Services />
-      <Testimonials />
-      <Marquee>
-        <img src={logo} alt="logo" />
-      </Marquee>
-      <ContactUs />
+            <Router>
+                  <Switch>
+                  <Route exact path="/">
+                    <Home />
+                    <AboutUs />
+                    <Services />
+                    <Testimonials />
+                  </Route>
+                  <Route path="/dealers">
+                    <DealerListPage />
+                  </Route>
+                  </Switch>
+            </Router>
+        <ContactUs />
     </div>
   );
 }
