@@ -11,15 +11,17 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  useParams
 } from "react-router-dom";
-import DealerListPage from './components/elements/DealerNav';
-
+import DealerListPage from './components/DealerList';
 function App() {
+  
   return (
     <div className="App">
-      <HNavbar />
+      
             <Router>
+            <HNavbar />
                   <Switch>
                   <Route exact path="/">
                     <Home />
@@ -27,12 +29,13 @@ function App() {
                     <Services />
                     <Testimonials />
                   </Route>
-                  <Route path="/dealers">
+                  <Route path='/dealers/:id'>
                     <DealerListPage />
                   </Route>
                   </Switch>
+                  <ContactUs />
             </Router>
-        <ContactUs />
+       
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { Service } from './Interfaces';
 import axios, { AxiosResponse } from 'axios';
 import Card from '@mui/material/Card';
@@ -21,9 +21,6 @@ function Services() {
                 setServiceData(response.data);
             })
     }, []);
-
-    console.log('Service Data', serviceData);
-
     return (
         <>
         <div id="services" style={{padding:'5%'}} className="anim">
@@ -34,7 +31,7 @@ function Services() {
                 {
                     serviceData.map((item, idx) =>
                     <div style={{margin:'10px'}} key={idx}>
-                             <Link to="/dealers">
+                             <Link to={{pathname:`/dealers/${item.id}`}} >
                                <Card>
                                  <CardActionArea>
                                     <CardMedia

@@ -1,6 +1,9 @@
 import React from 'react';
 import { Nav, Container, Navbar, Button } from 'react-bootstrap';
 import logo from '../img/logo.jpg';
+import {
+    Link
+  } from "react-router-dom";
 
 function HNavbar() {
     return (
@@ -19,7 +22,14 @@ function HNavbar() {
                             <Nav.Link href="#services">SERVICES</Nav.Link>
                             <Nav.Link href="#rewards">TESTIMONIALS</Nav.Link>
                             <Nav.Link href="#contactUs">CONTACTUS</Nav.Link>
-                            <Button variant="outline-primary">PARTNERS</Button>
+                            {/* <Button variant="outline-primary">PARTNERS</Button> */}
+                            <Link to={{ pathname: '/partners' }}>
+
+                                {/* <Button variant='outline-primary'>PARTNERS</Button> */}
+
+                                PARTNERS
+
+                            </Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
