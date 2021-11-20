@@ -18,7 +18,7 @@ Nav {
 
 .homeDiv {
   position: relative;
-  height: 80vh;
+  height: 90vh;
   width: 100%;
   display: flex;
   align-items: center;
@@ -27,7 +27,7 @@ Nav {
   background-size: cover;
 }
 
-input[type=number], select {
+input, select {
   width: 50%;
   padding: 12px 20px;
   margin: 2%;
@@ -106,5 +106,9 @@ span {
   background-image: url("./img/background.jpg");
 }
 
+.divModal {
+  border:0.1px dotted grey;
+  padding: 15px;
+}
 
 
