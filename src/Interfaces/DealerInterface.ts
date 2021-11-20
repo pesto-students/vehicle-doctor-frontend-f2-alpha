@@ -1,0 +1,26 @@
+export interface Dealer{
+    dealer_id:number,
+    name:string,
+    mobile:number,
+    email:string,
+    gst_no:string,
+    locality:string,
+    city:string,
+    state:string,
+    pincode:string,
+    Vehicletype:{
+        vehicle_type:string
+    };
+    Services:[
+        {
+            discription:string,
+            cost:string
+        }
+    ],
+    dealer_history:[
+        {
+            rating:number,
+            comments:string
+        }
+    ]
+}

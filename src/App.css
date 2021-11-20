@@ -12,13 +12,13 @@
 }
 
 Nav {
-  font-size: 28px;
+  font-size: 15px;
   font-weight: bold;
 }
 
 .homeDiv {
   position: relative;
-  height: 80vh;
+  height: 90vh;
   width: 100%;
   display: flex;
   align-items: center;
@@ -27,7 +27,7 @@ Nav {
   background-size: cover;
 }
 
-input[type=number], select {
+input, select {
   width: 50%;
   padding: 12px 20px;
   margin: 2%;
@@ -83,9 +83,9 @@ input[type=number], select {
   /* text-align: left; */
 }
 
-span {
+/* span {
   color:blue
-}
+} */
 
 .aboutDiv{
   align-items: center;
@@ -102,5 +102,9 @@ span {
   background-image: url("./img/background.jpg");
 }
 
+.divModal {
+  border:0.1px dotted grey;
+  padding: 15px;
+}
 
 
