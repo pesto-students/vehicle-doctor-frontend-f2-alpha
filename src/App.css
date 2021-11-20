@@ -68,11 +68,7 @@ input, select {
   }
 }
 
-.contactDiv {
-  background:linear-gradient(0deg, rgba(51, 50, 51, 0.5), rgba(37, 37, 37, 0.5)),url(./img/cbg.jpg);
-  /* background-color: rgb(43, 42, 42); */
-  box-shadow: 0 0 5px 2px;
-}
+
 
 .ratingDiv {
   border-radius:10px;
@@ -87,9 +83,9 @@ input, select {
   /* text-align: left; */
 }
 
-span {
+/* span {
   color:blue
-}
+} */
 
 .aboutDiv{
   align-items: center;

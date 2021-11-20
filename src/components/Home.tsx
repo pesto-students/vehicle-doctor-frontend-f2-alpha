@@ -10,11 +10,11 @@ function Home() {
     const [showInfo, setShowInfo] = useState(false);
     const [showHome, setShowHome] = useState(false);
     let [txtName, setTxtName] = useState("");
-    interface dealersList{
-        label:string;
-        value: string
-    }
-
+    // interface dealersList{
+    //     label:string;
+    //     value: number;
+    // }
+S
     /**
      * this method willl
      * @param name -
@@ -25,7 +25,7 @@ function Home() {
         setShowHome(true);
       }
 
-      const dealers : dealersList = [
+      const dealers = [
         { label: 'ABC', value: 1 },
         { label: 'XYZ', value: 2 },];
 

@@ -1,10 +1,11 @@
 import React from 'react';
+import Box from '@mui/material/Box';
 
 function DealerNav() {
     return (
-        <div>
-            
-        </div>
+        <Box height={1000} width={1000} sx={{ p: 10,backgroundColor:'black'}}>
+
+        </Box>
     );
 }
 
