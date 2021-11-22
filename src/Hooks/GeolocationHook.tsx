@@ -11,7 +11,7 @@ const useGeoLocation = () =>{
        
         navigator.geolocation.getCurrentPosition(function(position){
                 console.log(position);
-                axios.get("https://maps.googleapis.com/maps/api/geocode/json?latlng="+position.coords.latitude+","+ position.coords.longitude + "&key=AIzaSyCkQRA2ry4N0m0dfsp_OuoPNMNi3-b5N8M").then(
+                axios.get("https://maps.googleapis.com/maps/api/geocode/json?latlng="+position.coords.latitude+","+ position.coords.longitude + "&key=API_KEY").then(
                     res =>{
                         console.log("Map Result",res)
                         if(res.data.error_message == null){
