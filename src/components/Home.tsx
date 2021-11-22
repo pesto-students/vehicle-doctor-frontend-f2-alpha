@@ -1,20 +1,48 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import SOS from './SOS';
 import DealerSearch from './DealerSearch';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-// import logo from '../img/service.jpg';
-function Home() {
+import { DealerService } from '../Interfaces/DealerServiceInterface';
+import { Vehicle } from '../Interfaces/VehicleInterface';
+import { Dealer } from '../Interfaces/DealerInterface';
+import axios, { AxiosResponse } from 'axios';
 
+
+function Home() {
     const [showInfo, setShowInfo] = useState(false);
     const [showHome, setShowHome] = useState(false);
     let [txtName, setTxtName] = useState("");
-    // interface dealersList{
-    //     label:string;
-    //     value: number;
-    // }
-S
+    const [vehicleData, setVehicleData] = useState<Vehicle[]>([]);
+    const [serviceData, setServiceData] = useState<DealerService[]>([]);
+    const [dealersData, setDealersData] = useState<Dealer[]>([]);
+
+    useEffect(() => {
+        axios.get<Vehicle[]>('http://localhost:3001/vehicle/types/')
+        .then((response: AxiosResponse) => {
+            setVehicleData(response.data);
+        })
+
+    }, []);
+
+    
+    function updateDealers(event:any,newValue:any){
+        console.log(JSON.stringify(newValue, null, ' '));
+       axios.get<Dealer[]>(`http://localhost:3001/dealer/dealersByCity/Moga/${newValue.id}`)
+        .then((response: AxiosResponse) => {
+            setDealersData(response.data);
+        })
+     }
+
+     function updateServices(event:any,newValue:any){
+        console.log(JSON.stringify(newValue, null, ' '));
+        axios.get<DealerService[]>('http://localhost:3001/dealer/serviceByDealerID/1')
+            .then((response: AxiosResponse) => {
+                setServiceData(response.data);
+            })
+     }
+
     /**
      * this method willl
      * @param name -
@@ -25,9 +53,6 @@ S
         setShowHome(true);
       }
 
-      const dealers = [
-        { label: 'ABC', value: 1 },
-        { label: 'XYZ', value: 2 },];
 
     return (
         <div id="home" className="homeDiv altApp anim">
@@ -45,9 +70,9 @@ S
                 <tr>
                     <td>
                     <div className="flex-container" >
-                        <div><Autocomplete disablePortal  style={{backgroundColor: 'gray'}} options={dealers} autoHighlight sx={{ width: 300 }} renderInput={(params) => <TextField {...params} label="Vehicle Type" />} /></div>
-                        <div><Autocomplete disablePortal  style={{backgroundColor: 'gray'}} options={dealers} autoHighlight sx={{ width: 300 }} renderInput={(params) => <TextField {...params} label="Dealer Name" />} /></div>
-                        <div><Autocomplete disablePortal  style={{backgroundColor: 'gray'}} options={dealers} autoHighlight sx={{ width: 300 }} renderInput={(params) => <TextField {...params} label="Services" />} /></div>
+                        <div><Autocomplete disablePortal  onChange={updateDealers}  style={{backgroundColor: 'white'}}    options={vehicleData} getOptionLabel={option => option.vehicle_type} autoHighlight sx={{ width: 300 }} renderInput={(params) => <TextField {...params} label="Vehicle Type" />} /></div>
+                        <div><Autocomplete disablePortal  onChange={updateServices} style={{backgroundColor: 'white'}} options={dealersData} getOptionLabel={option => option.name} autoHighlight sx={{ width: 300 }} renderInput={(params) => <TextField {...params} label="Dealer Name" />} /></div>
+                        <div><Autocomplete disablePortal  style={{backgroundColor: 'white'}} options={serviceData} getOptionLabel={option => option.serviceTypes.service_type} autoHighlight sx={{ width: 300 }} renderInput={(params) => <TextField {...params} label="Services" />} /></div>
                         <div><Button size="lg" style={{margin:'2%'}} variant="primary" onClick={() => setShowInfo(!showInfo)}>SEARCH</Button></div>
                     </div>
                         {/* <input type="number" id="mNum" name="mNum" placeholder="Enter your Mobile No." /> */}
