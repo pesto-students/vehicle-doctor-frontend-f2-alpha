@@ -1,5 +1,5 @@
 import  { useEffect, useState } from 'react';
-import { Service } from './Interfaces';
+import { Service } from '../Interfaces/ServiceInterfaces';
 import axios, { AxiosResponse } from 'axios';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
