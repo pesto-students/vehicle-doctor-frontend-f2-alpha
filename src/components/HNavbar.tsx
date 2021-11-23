@@ -32,7 +32,7 @@ const HNavbar: React.FunctionComponent =() => {
                 </Container>
             </Navbar>                       
             <Modal aria-labelledby="contained-modal-title-vcenter" centered show={show} onHide={() => setShow(!show)}>
-                <Modal.Header closeButton style={{color:'white',backgroundColor:'#d9534f'}}>SOS</Modal.Header>
+                <Modal.Header closeButton style={{color:'white',backgroundColor:'#d9534f'}}>ROADSIDE ASSISTANCE</Modal.Header>
                 <Modal.Body>
                     <div className="divModal">
                         <SOS/>
