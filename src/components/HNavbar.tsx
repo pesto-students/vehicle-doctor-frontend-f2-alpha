@@ -40,7 +40,7 @@ const HNavbar: React.FunctionComponent = () => {
                             <Nav.Link href="#services">SERVICES</Nav.Link>
                             <Nav.Link href="#rewards">TESTIMONIALS</Nav.Link>
                             <Nav.Link href="#contactUs">CONTACTUS</Nav.Link>
-                            <Button variant="outline-primary" onClick={() => setShowLogin(!showLogin)}>LOGIN</Button>
+                            <Button variant="outline-primary" style={{margin:'1px'}} onClick={() => setShowLogin(!showLogin)}>LOGIN</Button>
                             <Button variant="outline-primary">PARTNERS</Button>
                         </Nav>
                     </Navbar.Collapse>
