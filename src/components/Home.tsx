@@ -13,66 +13,26 @@ import ViewDealer from '../components/elements/ViewDealerModal';
 function Home() {
 	const [showInfo, setShowInfo] = useState(false);
 	const [showHome, setShowHome] = useState(false);
-	const [open, setOpen] = useState<boolean>(false);
 	let [txtName, setTxtName] = useState('');
-	const [vehicleData, setVehicleData] = useState<Vehicle[]>([]);
-	const [servicesData, setServicesData] = useState<DealerService[]>([]);
-	const [dealersData, setDealersData] = useState<Dealer[]>([]);
-	const [dealerData, setDealerData] = useState<Dealer>();
-	const [serviceData, setServiceData] = useState<DealerService>();
-	useEffect(() => {
-		axios.get<Vehicle[]>('http://localhost:3001/vehicle/types/').then((response: AxiosResponse) => {
-			setVehicleData(response.data);
-		});
-	}, []);
-
-	const handleOpen = () => {
-		setOpen(true);
-	};
-
-	const handleClose = () => {
-		setOpen(false);
-	};
-
-	function updateDealers(event: any, newValue: any) {
-		setDealersData([]);
-		if (newValue != null) {
-			axios
-				.get<Dealer[]>(`http://localhost:3001/dealer/dealersByCity/Moga/${newValue.id}`)
-				.then((response: AxiosResponse) => {
-					setDealersData(response.data);
-				});
-		}
-	}
-
-	function updateServices(event: any, newValue: any) {
-		//console.log(JSON.stringify(newValue, null, ' '));
-		setDealerData(newValue);
-		setServicesData([]);
-		if (newValue != null) {
-			axios
-				.get<DealerService[]>(
-					`http://localhost:3001/dealer/serviceByDealerID/${newValue.dealer_id}`
-				)
-				.then((response: AxiosResponse) => {
-					setServicesData(response.data);
-				});
-		}
-	}
-
-	function serviceSelected(event: any, newValue: any) {
-		setServiceData(newValue);
-	}
+	// interface dealersList{
+	//     label:string;
+	//     value: number;
+	// }
 
 	/**
 	 * this method willl
 	 * @param name -
 	 * @returns
 	 */
-	// function handleShow() : void{
-	//     setShowInfo(false);
-	//     setShowHome(true);
-	//   }
+	function handleShow(): void {
+		setShowInfo(false);
+		setShowHome(true);
+	}
+
+	const dealers = [
+		{ label: 'ABC', value: 1 },
+		{ label: 'XYZ', value: 2 }
+	];
 
 	return (
 		<div id='home' className='homeDiv altApp anim'>
@@ -93,10 +53,8 @@ function Home() {
 							<div>
 								<Autocomplete
 									disablePortal
-									onChange={updateDealers}
-									style={{ backgroundColor: 'white' }}
-									options={vehicleData}
-									getOptionLabel={(option) => option.vehicle_type}
+									style={{ backgroundColor: 'gray' }}
+									options={dealers}
 									autoHighlight
 									sx={{ width: 300 }}
 									renderInput={(params) => <TextField {...params} label='Vehicle Type' />}
@@ -105,10 +63,8 @@ function Home() {
 							<div>
 								<Autocomplete
 									disablePortal
-									onChange={updateServices}
-									style={{ backgroundColor: 'white' }}
-									options={dealersData}
-									getOptionLabel={(option) => option.name}
+									style={{ backgroundColor: 'gray' }}
+									options={dealers}
 									autoHighlight
 									sx={{ width: 300 }}
 									renderInput={(params) => <TextField {...params} label='Dealer Name' />}
@@ -117,46 +73,60 @@ function Home() {
 							<div>
 								<Autocomplete
 									disablePortal
-									onChange={serviceSelected}
-									style={{ backgroundColor: 'white' }}
-									options={servicesData}
-									getOptionLabel={(option) => option.serviceTypes.service_type}
+									style={{ backgroundColor: 'gray' }}
+									options={dealers}
 									autoHighlight
 									sx={{ width: 300 }}
 									renderInput={(params) => <TextField {...params} label='Services' />}
 								/>
 							</div>
 							<div>
-								<Button size='lg' style={{ margin: '2%' }} variant='primary' onClick={handleOpen}>
+								<Button
+									size='lg'
+									style={{ margin: '2%' }}
+									variant='primary'
+									onClick={() => setShowInfo(!showInfo)}>
 									SEARCH
 								</Button>
 							</div>
 						</div>
+						{/* <input type="number" id="mNum" name="mNum" placeholder="Enter your Mobile No." /> */}
 					</td>
 				</tr>
 			</table>
-
-			{dealerData && serviceData ? (
-				<ViewDealer
-					open={open}
-					dealerData={dealerData}
-					serviceData={serviceData}
-					handleClose={handleClose}
-				/>
-			) : null}
-
-			{/* <Modal size="lg" aria-labelledby="contained-modal-title-vcenter" centered show={showInfo} onHide={() => setShowInfo(!showInfo)} backdrop="static" keyboard={false}>
-                <Modal.Header closeButton>Dealer Information</Modal.Header>
-                <Modal.Body>
-                    <div className="divModal">
-                    {}
+			<Modal
+				size='lg'
+				aria-labelledby='contained-modal-title-vcenter'
+				centered
+				show={showInfo}
+				onHide={() => setShowInfo(!showInfo)}
+				backdrop='static'
+				keyboard={false}>
+				<Modal.Header closeButton>Dealer Information</Modal.Header>
+				<Modal.Body>
+					<div className='divModal'>
+						{/* <div>NAME & E-MAIL ID -</div>
+                        <input type="text" id="fName" name="fName" onChange={(e) => setTxtName(e.target.value)} placeholder="Full Name" />
+                        <input type="text" id="eMailId" name="eMailId" placeholder="E-Mail" />
                     </div>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button size="sm" variant="primary" 
-                    >BOOK NOW</Button>
-                </Modal.Footer>
-            </Modal>             */}
+                    <div className="divModal">
+                        <div>ADDRESS -</div>                        
+                        <input type="text" id="houseNo" name="houseNo" placeholder="House No." />
+                        <input type="text" id="street" name="street" placeholder="Street" />
+                        <input type="text" id="location" name="location" placeholder="Location/City" disabled />
+                        <input type="text" id="state" name="state" placeholder="State" /> */}
+					</div>
+				</Modal.Body>
+				<Modal.Footer>
+					<Button
+						size='sm'
+						variant='primary'
+						// onClick={() => handleShow()}
+					>
+						BOOK NOW
+					</Button>
+				</Modal.Footer>
+			</Modal>
 			<Modal
 				size='lg'
 				fullscreen={true}
