@@ -1,5 +1,47 @@
 .card {
-    max-width: 345;
-    box-shadow: "0 5px 8px 0 rgba(0, 0, 0, 0.3)";
-    background-color: "#fafafa";
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.3);
+    background-color: #fafafa;
   }
+
+  h5 {
+    text-transform: uppercase;
+  }
+
+.cardDiv {  
+  text-align: left;
+  background-color:rgb(236, 233, 233);
+  padding: 10px;
+}
+
+@media screen and (max-width: 1000px) {
+  td.filter {
+    display: none;
+  }
+  td.content{
+    width:100%;
+  }
+  div.navFilter{
+    display: block;
+  }
+}
+
+@media screen and (min-width: 1010px) {
+  div.navFilter{
+    display: none;
+    width:100%;
+  }
+}
+
+input, select {
+  width: 20%;
+  padding: 12px 20px;
+  margin: 2%;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.navDiv{
+  margin:1%;
+}
