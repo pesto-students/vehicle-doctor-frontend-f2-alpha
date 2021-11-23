@@ -1,1 +1,2 @@
 export const ROADSIDE_ASSISTANCE = 'ROADSIDE ASSISTANCE';
+export const PARTNERS = 'PARTNERS';
