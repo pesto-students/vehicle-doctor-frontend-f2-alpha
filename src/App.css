@@ -68,7 +68,14 @@ input, select {
   }
 }
 
+.modalHeader{
+  color:white;
+  background-color: #0275d8;
+}
 
+.modalBody{
+  margin:5%;
+}
 
 .ratingDiv {
   border-radius:10px;

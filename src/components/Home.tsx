@@ -14,18 +14,18 @@ function Home() {
     //     label:string;
     //     value: number;
     // }
-S
+
     /**
      * this method willl
      * @param name -
      * @returns 
      */
-    function handleShow() : void{
+    function handleShow(): void {
         setShowInfo(false);
         setShowHome(true);
-      }
+    }
 
-      const dealers = [
+    const dealers = [
         { label: 'ABC', value: 1 },
         { label: 'XYZ', value: 2 },];
 
@@ -44,12 +44,12 @@ S
                 </tr>
                 <tr>
                     <td>
-                    <div className="flex-container" >
-                        <div><Autocomplete disablePortal  style={{backgroundColor: 'gray'}} options={dealers} autoHighlight sx={{ width: 300 }} renderInput={(params) => <TextField {...params} label="Vehicle Type" />} /></div>
-                        <div><Autocomplete disablePortal  style={{backgroundColor: 'gray'}} options={dealers} autoHighlight sx={{ width: 300 }} renderInput={(params) => <TextField {...params} label="Dealer Name" />} /></div>
-                        <div><Autocomplete disablePortal  style={{backgroundColor: 'gray'}} options={dealers} autoHighlight sx={{ width: 300 }} renderInput={(params) => <TextField {...params} label="Services" />} /></div>
-                        <div><Button size="lg" style={{margin:'2%'}} variant="primary" onClick={() => setShowInfo(!showInfo)}>SEARCH</Button></div>
-                    </div>
+                        <div className="flex-container" >
+                            <div><Autocomplete disablePortal style={{ backgroundColor: 'gray' }} options={dealers} autoHighlight sx={{ width: 300 }} renderInput={(params) => <TextField {...params} label="Vehicle Type" />} /></div>
+                            <div><Autocomplete disablePortal style={{ backgroundColor: 'gray' }} options={dealers} autoHighlight sx={{ width: 300 }} renderInput={(params) => <TextField {...params} label="Dealer Name" />} /></div>
+                            <div><Autocomplete disablePortal style={{ backgroundColor: 'gray' }} options={dealers} autoHighlight sx={{ width: 300 }} renderInput={(params) => <TextField {...params} label="Services" />} /></div>
+                            <div><Button size="lg" style={{ margin: '2%' }} variant="primary" onClick={() => setShowInfo(!showInfo)}>SEARCH</Button></div>
+                        </div>
                         {/* <input type="number" id="mNum" name="mNum" placeholder="Enter your Mobile No." /> */}
                     </td>
                 </tr>
@@ -58,42 +58,12 @@ S
                 <Modal.Header closeButton>Dealer Information</Modal.Header>
                 <Modal.Body>
                     <div className="divModal">
-                        {/* <div>NAME & E-MAIL ID -</div>
-                        <input type="text" id="fName" name="fName" onChange={(e) => setTxtName(e.target.value)} placeholder="Full Name" />
-                        <input type="text" id="eMailId" name="eMailId" placeholder="E-Mail" />
-                    </div>
-                    <div className="divModal">
-                        <div>ADDRESS -</div>                        
-                        <input type="text" id="houseNo" name="houseNo" placeholder="House No." />
-                        <input type="text" id="street" name="street" placeholder="Street" />
-                        <input type="text" id="location" name="location" placeholder="Location/City" disabled />
-                        <input type="text" id="state" name="state" placeholder="State" /> */}
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button size="sm" variant="primary" 
+                    <Button size="sm" variant="primary"
                     // onClick={() => handleShow()}
                     >BOOK NOW</Button>
-                </Modal.Footer>
-            </Modal>            
-            <Modal size="lg"  fullscreen={true} aria-labelledby="contained-modal-title-vcenter" centered show={showHome} onHide={() => setShowHome(!showHome)} backdrop="static" keyboard={false}>
-                <Modal.Header closeButton>Hi {txtName} ..!</Modal.Header>
-                <Modal.Body>
-                    <div className="divModal">
-                        <table width="100%">
-                            <tr>
-                                <td>
-                                    <SOS/>
-                                </td>
-                                <td>
-                                    <DealerSearch/>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </Modal.Body>
-                <Modal.Footer>
-                    {/* <Button size="sm" variant="primary" onClick={() => setShow(!showHome)}>Register</Button> */}
                 </Modal.Footer>
             </Modal>
         </div>
