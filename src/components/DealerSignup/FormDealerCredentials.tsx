@@ -3,39 +3,24 @@ import { Container, Grid, TextField, Typography, Button } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
+import { IDealerCredentials, IDealerCredForm } from '../../Interfaces/DealerCredInterface';
 
-interface IProps {
-	nextStep: Function;
-	handleFormData: any;
-	values: {
-		name: string;
-		mobile: string;
-		email_ID: string;
-		password: string;
-		confirmPassword?: string;
-	};
-}
-
-interface IFormInput {
-	name: string;
-	mobile: string;
-	email_ID: string;
-	password: string;
-	confirmPassword?: string;
-}
-
-const FormDealerCredentials: React.FC<IProps> = ({ nextStep, handleFormData, values }) => {
-	// const [disabled, setDisabled] = useState(true);
+const FormDealerCredentials: React.FC<IDealerCredentials> = ({
+	nextStep,
+	handleFormData,
+	values
+}) => {
+	//Regex for Mobile No field
 	const phoneRegExp = /^[1-9][0-9]{9}$/;
 
-	// Method call to continue to next step of the form
+	// Function to continue to next step of the form
 	const Continue = (e: any) => {
 		e.preventDefault();
 		nextStep();
 	};
 
 	// Yup Validation schema for fields
-	const validationSchema: Yup.SchemaOf<IFormInput> = Yup.object().shape({
+	const validationSchema: Yup.SchemaOf<IDealerCredForm> = Yup.object().shape({
 		name: Yup.string().required('Please enter the Name'),
 		mobile: Yup.string()
 			.matches(phoneRegExp, 'Mobile Number is invalid')
@@ -53,19 +38,20 @@ const FormDealerCredentials: React.FC<IProps> = ({ nextStep, handleFormData, val
 			.oneOf([Yup.ref('password'), null], 'Confirm Password does not match')
 	});
 
+	//Resolve useForm hook with the validation schema declared above
 	const {
 		register,
 		control,
 		handleSubmit,
 		formState: { errors, isValid }
-	} = useForm<IFormInput>({
+	} = useForm<IDealerCredForm>({
 		mode: 'all',
 		resolver: yupResolver(validationSchema)
 	});
 
 	return (
 		<div>
-			<Container sx={{ p: 2 }}>
+			<Container sx={{ p: 1 }}>
 				<form noValidate autoComplete='off'>
 					<Grid direction={'column'} container spacing={2}>
 						<Grid item>
@@ -91,11 +77,13 @@ const FormDealerCredentials: React.FC<IProps> = ({ nextStep, handleFormData, val
 							<TextField
 								id='mobile'
 								label='Mobile'
+								type='number'
 								{...register('mobile')}
 								name='mobile'
 								placeholder='Enter 10-digit Mobile Number'
 								variant='outlined'
 								defaultValue={values.mobile}
+								inputProps={{ maxLength: 10 }}
 								onChange={handleFormData('mobile')}
 								fullWidth
 								required
