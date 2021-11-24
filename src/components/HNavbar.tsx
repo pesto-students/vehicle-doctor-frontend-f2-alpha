@@ -43,7 +43,7 @@ const HNavbar: React.FunctionComponent = () => {
 							<Nav.Link href='#home'>HOME</Nav.Link>
 							<Nav.Link href='#services'>SERVICES</Nav.Link>
 							<Nav.Link href='#rewards'>TESTIMONIALS</Nav.Link>
-							<Nav.Link href='#contactUs'>CONTACTUS</Nav.Link>
+							<Nav.Link href='#contactUs'>CONTACT US</Nav.Link>
 							<Button
 								variant='outline-primary'
 								style={{ margin: '1px' }}
@@ -51,7 +51,7 @@ const HNavbar: React.FunctionComponent = () => {
 								LOGIN
 							</Button>
 							<Button variant='outline-primary' onClick={() => setShowDealer(!showDealer)}>
-								PARTNERS
+								{PARTNERS}
 							</Button>
 						</Nav>
 					</Navbar.Collapse>
