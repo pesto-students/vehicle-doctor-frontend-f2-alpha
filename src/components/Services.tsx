@@ -16,7 +16,7 @@ function Services() {
     const [serviceData, setServiceData] = useState<Service[]>([]);
 
     useEffect(() => {
-        axios.get<Service[]>('http://localhost:3001/service/types/')
+        axios.get<Service[]>('http://localhost:3001/service/types/GeneralService')
             .then((response: AxiosResponse) => {
                 setServiceData(response.data);
             })

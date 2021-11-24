@@ -1,30 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import SOS from './SOS';
-import DealerSearch from './DealerSearch';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { DealerService } from '../Interfaces/DealerServiceInterface';
-import { Vehicle } from '../Interfaces/VehicleInterface';
 import { Dealer } from '../Interfaces/DealerInterface';
 import axios, { AxiosResponse } from 'axios';
 import ViewDealer from '../components/elements/ViewDealerModal';
+import useGeoLocation from '../Hooks/GeolocationHook';
+import useVehicleData from '../Hooks/VehicleDataHook';
 
 function Home() {
 	const [showInfo, setShowInfo] = useState(false);
 	const [showHome, setShowHome] = useState(false);
 	const [open, setOpen] = useState<boolean>(false);
-	let [txtName, setTxtName] = useState('');
-	const [vehicleData, setVehicleData] = useState<Vehicle[]>([]);
 	const [servicesData, setServicesData] = useState<DealerService[]>([]);
 	const [dealersData, setDealersData] = useState<Dealer[]>([]);
 	const [dealerData, setDealerData] = useState<Dealer>();
 	const [serviceData, setServiceData] = useState<DealerService>();
-	useEffect(() => {
-		axios.get<Vehicle[]>('http://localhost:3001/vehicle/types/').then((response: AxiosResponse) => {
-			setVehicleData(response.data);
-		});
-	}, []);
+	const location = useGeoLocation();
+	const vehicleData = useVehicleData();
 
 	const handleOpen = () => {
 		setOpen(true);
@@ -35,10 +29,11 @@ function Home() {
 	};
 
 	function updateDealers(event: any, newValue: any) {
+		const city = location?.data[0]?.address_components[3].long_name;
 		setDealersData([]);
-		if (newValue != null) {
+		if (newValue != null && city != null) {
 			axios
-				.get<Dealer[]>(`http://localhost:3001/dealer/dealersByCity/Moga/${newValue.id}`)
+				.get<Dealer[]>(`http://localhost:3001/dealer/dealersByCity/${city}/${newValue.id}`)
 				.then((response: AxiosResponse) => {
 					setDealersData(response.data);
 				});
@@ -64,15 +59,6 @@ function Home() {
 		setServiceData(newValue);
 	}
 
-	/**
-	 * this method willl
-	 * @param name -
-	 * @returns
-	 */
-	// function handleShow() : void{
-	//     setShowInfo(false);
-	//     setShowHome(true);
-	//   }
 
 	return (
 		<div id='home' className='homeDiv altApp anim'>
@@ -134,6 +120,11 @@ function Home() {
 						</div>
 					</td>
 				</tr>
+				<tr>
+					<td>
+						<span style={{ backgroundColor: "white" }}>{location?.loaded ? location?.data[0]?.address_components[3].long_name : "Location data not avaialble"}</span>
+					</td>
+				</tr>
 			</table>
 
 			{dealerData && serviceData ? (
@@ -145,46 +136,7 @@ function Home() {
 				/>
 			) : null}
 
-			{/* <Modal size="lg" aria-labelledby="contained-modal-title-vcenter" centered show={showInfo} onHide={() => setShowInfo(!showInfo)} backdrop="static" keyboard={false}>
-                <Modal.Header closeButton>Dealer Information</Modal.Header>
-                <Modal.Body>
-                    <div className="divModal">
-                    {}
-                    </div>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button size="sm" variant="primary" 
-                    >BOOK NOW</Button>
-                </Modal.Footer>
-            </Modal>             */}
-			<Modal
-				size='lg'
-				fullscreen={true}
-				aria-labelledby='contained-modal-title-vcenter'
-				centered
-				show={showHome}
-				onHide={() => setShowHome(!showHome)}
-				backdrop='static'
-				keyboard={false}>
-				<Modal.Header closeButton>Hi {txtName} ..!</Modal.Header>
-				<Modal.Body>
-					<div className='divModal'>
-						<table width='100%'>
-							<tr>
-								<td>
-									<SOS />
-								</td>
-								<td>
-									<DealerSearch />
-								</td>
-							</tr>
-						</table>
-					</div>
-				</Modal.Body>
-				<Modal.Footer>
-					{/* <Button size="sm" variant="primary" onClick={() => setShow(!showHome)}>Register</Button> */}
-				</Modal.Footer>
-			</Modal>
+
 		</div>
 	);
 }

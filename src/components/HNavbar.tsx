@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { Nav, Container, Navbar, Button, Modal } from 'react-bootstrap';
-import SOS from './SOS';
+import RoadSideAssitanceModal from '../components/elements/RoadSideAssitanceModal';
 import DealerReg from './DealerReg';
 import logo from '../img/logo.jpg';
 import { ROADSIDE_ASSISTANCE, PARTNERS } from '../Constants/common.constant';
-import { Link } from 'react-router-dom';
-import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import CallIcon from '@mui/icons-material/Call';
 import TextField from '@mui/material/TextField';
@@ -15,16 +13,26 @@ import Room from '@mui/icons-material/Room';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
 
+
 const HNavbar: React.FunctionComponent = () => {
 	const [showSOS, setShowSOS] = useState<boolean>(false);
 	const [showLogin, setShowLogin] = useState<boolean>(false);
 	const [showInfo, setShowInfo] = useState<boolean>(false);
 	const [showDealer, setShowDealer] = useState<boolean>(false);
-
+	const [open, setOpen] = useState<boolean>(false);
 	function handleShow(): void {
 		setShowInfo(true);
 		setShowLogin(false);
 	}
+
+	const SOShandleOpen = () => {
+		setShowSOS(true);
+	};
+
+	const SOShandleClose = () => {
+		setShowSOS(false);
+	};
+
 
 	return (
 		<div className='anim'>
@@ -37,7 +45,7 @@ const HNavbar: React.FunctionComponent = () => {
 					<Navbar.Toggle aria-controls='responsive-navbar-nav' />
 					<Navbar.Collapse id='responsive-navbar-nav'>
 						<Nav className='justify-content-end flex-grow-1 pe-3'>
-							<Button variant='danger' onClick={() => setShowSOS(!showSOS)}>
+							<Button variant='danger' onClick={SOShandleOpen}>
 								{ROADSIDE_ASSISTANCE}
 							</Button>
 							<Nav.Link href='#home'>HOME</Nav.Link>
@@ -57,25 +65,9 @@ const HNavbar: React.FunctionComponent = () => {
 					</Navbar.Collapse>
 				</Container>
 			</Navbar>
-			<Modal
-				aria-labelledby='contained-modal-title-vcenter'
-				centered
-				show={showSOS}
-				onHide={() => setShowSOS(!showSOS)}>
-				<Modal.Header closeButton style={{ color: 'white', backgroundColor: '#d9534f' }}>
-					SOS
-				</Modal.Header>
-				<Modal.Body>
-					<div className='divModal'>
-						<SOS />
-					</div>
-				</Modal.Body>
-				<Modal.Footer>
-					<Button size='sm' variant='primary' onClick={() => setShowSOS(!showSOS)}>
-						Register
-					</Button>
-				</Modal.Footer>
-			</Modal>
+
+			<RoadSideAssitanceModal open={showSOS} handleClose={SOShandleClose} />
+
 			<Modal
 				aria-labelledby='contained-modal-title-vcenter'
 				centered
