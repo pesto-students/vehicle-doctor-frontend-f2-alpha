@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Container, Grid, TextField, Typography, Button } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
+import { NEXT } from '../../Constants/common.constant';
 import { IDealerCredentials, IDealerCredForm } from '../../Interfaces/DealerCredInterface';
 
 const FormDealerCredentials: React.FC<IDealerCredentials> = ({
@@ -53,7 +54,7 @@ const FormDealerCredentials: React.FC<IDealerCredentials> = ({
 		<div>
 			<Container sx={{ p: 1 }}>
 				<form noValidate autoComplete='off'>
-					<Grid direction={'column'} container spacing={2}>
+					<Grid direction={'column'} container spacing={2} rowSpacing={1}>
 						<Grid item>
 							<Typography variant='h5'>Enter your details below</Typography>
 						</Grid>
@@ -145,7 +146,7 @@ const FormDealerCredentials: React.FC<IDealerCredentials> = ({
 
 						<Grid item>
 							<Button variant='contained' fullWidth onClick={Continue} disabled={!isValid}>
-								Next
+								{NEXT}
 							</Button>
 						</Grid>
 					</Grid>
