@@ -28,27 +28,46 @@ function DealerList() {
     const [showReview, setShowReview] = useState<boolean>(false);
     const [showBook, setShowBook] = useState<boolean>(false);
     const { id } = useParams<{ id: string }>();
-    const [value, setValue] = React.useState<number[]>([150, 600]);
+    const [value, setValue] = React.useState<number[]>([0, 100]);
+    const [activeFilter,setactiveFilter] = useState<number[]>([]);
 
     const handleChange = (event: Event, newValue: number | number[]) => {
         setValue(newValue as number[]);
         console.log('value1',value[0]);
         console.log('value2',value[1])
         let result=[];
+        setFilteredData([]);
         result = dealersData.filter((data) =>{
-            return data.Services.filter(dataItem => dataItem.cost === value[0] );
+            return data.Services.filter(dataItem => dataItem.cost > value[0]  &&  dataItem.cost < value[1] );
         });
         console.log(result);
 
         setFilteredData(result);
     };
+    const onFilterChange =(e: React.ChangeEvent<HTMLInputElement>) =>{
+        let data= activeFilter;
+        activeFilter.push(Number(e.target.value));
+        setactiveFilter(data);
+        let result =[];
+        result = dealersData.filter((data)=>{
+                 
+        })
+        console.log(activeFilter);
+    }
 
+    const onPriceMinChange =() =>{
+
+    }
+
+    const onPriceMaxChange=()=>{
+
+    }
 
     useEffect(() => {
         axios.get<[]>(`http://localhost:3001/dealer/serviceType/${id}`)
             .then((response: AxiosResponse) => {
                 setDealersData(response.data);
-                setFilteredData(response.data);
+                //setFilteredData(response.data);
             })
     }, []);
 
@@ -63,18 +82,18 @@ function DealerList() {
                                 <td>
                                     PRICE:
                                     <div style={{ margin: '2%' }}>
-                                        <Slider getAriaLabel={() => 'Price'} value={value} onChange={handleChange} valueLabelDisplay="auto" getAriaValueText={valuetext} min={250} max={1000} />
+                                        <Slider getAriaLabel={() => 'Price'} value={value} onChange={handleChange} valueLabelDisplay="auto" getAriaValueText={valuetext} min={0} max={100} />
                                     </div>
                                 </td>
                             </tr>
                             <tr style={{ border: '1px solid #ddd' }}>
                                 <td>
                                     RATING:
-                                    <div><Checkbox color="primary" value="5" /><Rating name="size-small" size="small" value={5} readOnly /></div>
-                                    <div><Checkbox color="primary" value="4" /><Rating name="size-small" size="small" value={4} readOnly /></div>
-                                    <div><Checkbox color="primary" value="3" /><Rating name="size-small" size="small" value={3} readOnly /></div>
-                                    <div><Checkbox color="primary" value="2" /><Rating name="size-small" size="small" value={2} readOnly /></div>
-                                    <div><Checkbox color="primary" value="1" /><Rating name="size-small" size="small" value={1} readOnly /></div>
+                                    <div><Checkbox color="primary" value="5" onChange={(e)=>onFilterChange(e)} /><Rating name="size-small" size="small" value={5} readOnly /></div>
+                                    <div><Checkbox color="primary" value="4" onChange={(e)=>onFilterChange(e)}/><Rating name="size-small" size="small" value={4} readOnly /></div>
+                                    <div><Checkbox color="primary" value="3" onChange={(e)=>onFilterChange(e)} /><Rating name="size-small" size="small" value={3} readOnly /></div>
+                                    <div><Checkbox color="primary" value="2" onChange={(e)=>onFilterChange(e)}/><Rating name="size-small" size="small" value={2} readOnly /></div>
+                                    <div><Checkbox color="primary" value="1" onChange={(e)=>onFilterChange(e)}/><Rating name="size-small" size="small" value={1} readOnly /></div>
                                 </td>
                             </tr>
                         </table>
@@ -128,10 +147,10 @@ function DealerList() {
                                         <Navbar.Collapse id="responsive-navbar-nav">
                                             <Nav className="justify-content-end flex-grow-1 pe-3">
                                                 <div className="navDiv">
-                                                    <span>Price: </span><input type="number"></input> - <input type="number"></input>
+                                                    <span>Price: </span><input type="number" placeholder="min" onChange={onPriceMinChange}></input> - <input type="number" placeholder="max" onChange={onPriceMaxChange}></input>
                                                 </div>
                                                 <div className="navDiv">
-                                                    <span>Rating: </span><input type="number"></input> - <input type="number"></input>
+                                                    <span>Rating: </span><input type="number" defaultValue="1"></input> - <input type="number" defaultValue="5"></input>
                                                 </div>
                                             </Nav>
                                         </Navbar.Collapse>
