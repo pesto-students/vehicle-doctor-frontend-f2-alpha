@@ -10,8 +10,6 @@ import useGeoLocation from '../Hooks/GeolocationHook';
 import useVehicleData from '../Hooks/VehicleDataHook';
 
 function Home() {
-	const [showInfo, setShowInfo] = useState(false);
-	const [showHome, setShowHome] = useState(false);
 	const [open, setOpen] = useState<boolean>(false);
 	const [servicesData, setServicesData] = useState<DealerService[]>([]);
 	const [dealersData, setDealersData] = useState<Dealer[]>([]);
@@ -41,7 +39,6 @@ function Home() {
 	}
 
 	function updateServices(event: any, newValue: any) {
-		//console.log(JSON.stringify(newValue, null, ' '));
 		setDealerData(newValue);
 		setServicesData([]);
 		if (newValue != null) {
