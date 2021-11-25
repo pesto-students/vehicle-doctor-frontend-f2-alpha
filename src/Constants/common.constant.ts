@@ -4,3 +4,5 @@ export const PREVIOUS = 'PREVIOUS';
 export const NEXT = 'NEXT';
 export const DEALER_SIGNUP_FORM_HEADER = 'ENTER YOUR DETAILS BELOW';
 export const DEALER_SIGNUP_MODAL_HEADER = 'PARTNER WITH US';
+export const SUBMIT='SUBMIT'
+export const BOOKNOW='BOOK NOW'

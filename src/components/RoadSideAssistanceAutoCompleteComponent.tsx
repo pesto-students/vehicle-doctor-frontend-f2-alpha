@@ -7,11 +7,14 @@ import { useState } from 'react';
 import { Service } from '../Interfaces/ServiceInterfaces';
 import useGeoLocation from '../Hooks/GeolocationHook';
 
-function SOS() {
+const RoadSideAssistanceAutoCompleteComponent: React.FC = () => {
+
 	const [serviceData, setServiceData] = useState<Service[]>([]);
 	const location = useGeoLocation();
-
-	function updateServices(event: any, newValue: any) {
+	const vehicleData = useVehicleData();
+   
+	//function to update the emergeny services
+	const updateServices = (event: any, newValue: any): void => {
 		setServiceData([]);
 		if (newValue != null) {
 			axios.get<Service[]>('http://localhost:3001/service/types/SOS')
@@ -21,7 +24,6 @@ function SOS() {
 		}
 	}
 
-	const vehicleData = useVehicleData();
 	return (
 		<div>
 			<div>
@@ -59,4 +61,4 @@ function SOS() {
 	);
 }
 
-export default SOS;
+export default RoadSideAssistanceAutoCompleteComponent;
