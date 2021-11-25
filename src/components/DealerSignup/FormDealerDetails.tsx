@@ -3,7 +3,7 @@ import { Container, Grid, TextField, Typography, Button } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-import { PREVIOUS, NEXT } from '../../Constants/common.constant';
+import { PREVIOUS, NEXT, DEALER_SIGNUP_FORM_HEADER } from '../../Constants/common.constant';
 import { IDealerDetails, IDealerDetailForm } from '../../Interfaces/DealerDetailsInterface';
 
 const FormDealerDetails: React.FC<IDealerDetails> = ({
@@ -62,7 +62,7 @@ const FormDealerDetails: React.FC<IDealerDetails> = ({
 				<form noValidate autoComplete='off'>
 					<Grid container spacing={2} rowSpacing={1}>
 						<Grid item xs={12}>
-							<Typography variant='h5'>Enter your details below</Typography>
+							<Typography variant='h5'>{DEALER_SIGNUP_FORM_HEADER}</Typography>
 						</Grid>
 
 						<Grid item xs={12}>
