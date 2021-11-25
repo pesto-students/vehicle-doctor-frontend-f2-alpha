@@ -39,7 +39,6 @@ function Home() {
 	}
 
 	function updateServices(event: any, newValue: any) {
-		//console.log(JSON.stringify(newValue, null, ' '));
 		setDealerData(newValue);
 		setServicesData([]);
 		if (newValue != null) {
