@@ -63,6 +63,7 @@ const FormDealerService: React.FC<IDealerVehService> = ({
 		services: Yup.array().of(
 			Yup.object().shape({
 				service_type: Yup.string().required('Please select a Service Type'),
+				service_name: Yup.string().required('Please select a Service Type'),
 				cost: Yup.number().required('Please enter Service Cost')
 			})
 		)
@@ -106,8 +107,8 @@ const FormDealerService: React.FC<IDealerVehService> = ({
 										fullWidth
 										required>
 										{vehicleData.map((item) => (
-											<MenuItem value={item.vehicle_type} key={item.id}>
-												{item.vehicle_type}
+											<MenuItem value={item.vehicletype.vehicle_type} key={item.vehicletype.id}>
+												{item.vehicletype.vehicle_type}
 											</MenuItem>
 										))}
 									</Select>
@@ -130,8 +131,8 @@ const FormDealerService: React.FC<IDealerVehService> = ({
 										fullWidth
 										required>
 										{serviceData.map((item) => (
-											<MenuItem value={item.service_name} key={item.id}>
-												{item.service_type} - {item.service_name}
+											<MenuItem value={item.services[0].service_name} key={item.services[0].id}>
+												{item.services[0].service_type} - {item.services[0].service_name}
 											</MenuItem>
 										))}
 									</Select>
