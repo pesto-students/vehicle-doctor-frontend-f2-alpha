@@ -14,7 +14,7 @@ import { Nav, Navbar, Modal } from 'react-bootstrap';
 import Checkbox from '@mui/material/Checkbox';
 import Slider from '@mui/material/Slider';
 import Booking from './Booking';
-import '../cssFiles/dealerlist.css';
+import '../css/dealerlist.css';
 
 function valuetext(value: number) {
     return `${value}RS`;

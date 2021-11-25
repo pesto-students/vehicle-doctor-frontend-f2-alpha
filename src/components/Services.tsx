@@ -42,7 +42,7 @@ function Services() {
                                     />
                                     <CardContent>
                                         <Typography variant="h4" color="text.secondary">
-                                            {item.service_type}
+                                            {item.service_name}
                                         </Typography>
                                     </CardContent>
                                 </CardActionArea>
