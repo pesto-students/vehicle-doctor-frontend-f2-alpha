@@ -23,13 +23,24 @@ function valuetext(value: number) {
 function DealerList() {
 
     const [dealersData, setDealersData] = useState<Dealer[]>([]);
+    const [filteredData, setFilteredData] = useState<Dealer[]>(dealersData);
+
     const [showReview, setShowReview] = useState<boolean>(false);
     const [showBook, setShowBook] = useState<boolean>(false);
     const { id } = useParams<{ id: string }>();
-    const [value, setValue] = React.useState<number[]>([20, 37]);
+    const [value, setValue] = React.useState<number[]>([150, 600]);
 
     const handleChange = (event: Event, newValue: number | number[]) => {
         setValue(newValue as number[]);
+        console.log('value1',value[0]);
+        console.log('value2',value[1])
+        let result=[];
+        result = dealersData.filter((data) =>{
+            return data.Services.filter(dataItem => dataItem.cost === value[0] );
+        });
+        console.log(result);
+
+        setFilteredData(result);
     };
 
 
@@ -37,6 +48,7 @@ function DealerList() {
         axios.get<[]>(`http://localhost:3001/dealer/serviceType/${id}`)
             .then((response: AxiosResponse) => {
                 setDealersData(response.data);
+                setFilteredData(response.data);
             })
     }, []);
 
@@ -51,7 +63,7 @@ function DealerList() {
                                 <td>
                                     PRICE:
                                     <div style={{ margin: '2%' }}>
-                                        <Slider getAriaLabel={() => 'Price'} value={value} onChange={handleChange} valueLabelDisplay="auto" getAriaValueText={valuetext} />
+                                        <Slider getAriaLabel={() => 'Price'} value={value} onChange={handleChange} valueLabelDisplay="auto" getAriaValueText={valuetext} min={250} max={1000} />
                                     </div>
                                 </td>
                             </tr>
@@ -70,7 +82,7 @@ function DealerList() {
                     <td className="content" width='80%'>
                         <Container sx={{ p: 15 }}>
                             <Grid container spacing={4}>
-                                {dealersData.map((item) => (
+                                {filteredData.map((item) => (
                                     <Grid item sm={3} key={item.dealer_id}>
                                         <Card className="card">
                                             <CardContent >

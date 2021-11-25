@@ -14,7 +14,7 @@ export interface Dealer{
     Services:[
         {
             discription:string,
-            cost:string
+            cost:number
         }
     ],
     dealer_history:[
