@@ -4,10 +4,11 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { DealerService } from '../Interfaces/DealerServiceInterface';
 import { Dealer } from '../Interfaces/DealerInterface';
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import ViewDealer from '../components/elements/ViewDealerModal';
 import useGeoLocation from '../Hooks/GeolocationHook';
 import useVehicleData from '../Hooks/VehicleDataHook';
+import axios from '../BaseURL';
 
 const Home: React.FC = () =>{
 	const [open, setOpen] = useState<boolean>(false);
@@ -31,7 +32,7 @@ const Home: React.FC = () =>{
 		setDealersData([]);
 		if (newValue != null && city != null) {
 			axios
-				.get<Dealer[]>(`http://localhost:3001/dealer/dealersByCity/Moga/${newValue.id}`)
+				.get<Dealer[]>(`/dealer/dealersByCity/Moga/${newValue.id}`)
 				.then((response: AxiosResponse) => {
 					setDealersData(response.data);
 				});
@@ -44,7 +45,7 @@ const Home: React.FC = () =>{
 		if (newValue != null) {
 			axios
 				.get<DealerService[]>(
-					`http://localhost:3001/dealer/serviceByDealerID/${newValue.dealer_id}`
+					`/dealer/serviceByDealerID/${newValue.dealer_id}`
 				)
 				.then((response: AxiosResponse) => {
 					setServicesData(response.data);

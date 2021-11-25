@@ -2,10 +2,11 @@ import React from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import useVehicleData from '../Hooks/VehicleDataHook';
-import axios, { AxiosResponse } from 'axios';
+import  { AxiosResponse } from 'axios';
 import { useState } from 'react';
 import { Service } from '../Interfaces/ServiceInterfaces';
 import useGeoLocation from '../Hooks/GeolocationHook';
+import axios from '../BaseURL';
 
 const RoadSideAssistanceAutoCompleteComponent: React.FC = () => {
 	const [serviceData, setServiceData] = useState<Service[]>([]);
@@ -16,7 +17,7 @@ const RoadSideAssistanceAutoCompleteComponent: React.FC = () => {
 	const updateServices = (event: any, newValue: any): void => {
 		setServiceData([]);
 		if (newValue != null) {
-			axios.get<Service[]>('http://localhost:3001/service/types/SOS')
+			axios.get<Service[]>('/service/types/SOS')
 				.then((response: AxiosResponse) => {
 					setServiceData(response.data);
 				})

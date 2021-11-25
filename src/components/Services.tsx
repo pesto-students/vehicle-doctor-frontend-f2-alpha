@@ -1,6 +1,6 @@
 import  { useEffect, useState } from 'react';
 import { Service } from '../Interfaces/ServiceInterfaces';
-import axios, { AxiosResponse } from 'axios';
+import  { AxiosResponse } from 'axios';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -10,13 +10,14 @@ import logo from '../img/s1.jpg';
 import {
     Link
   } from "react-router-dom";
+import axios from '../BaseURL';
 
 
 function Services() {
     const [serviceData, setServiceData] = useState<Service[]>([]);
 
     useEffect(() => {
-        axios.get<Service[]>('http://localhost:3001/service/types/GeneralService')
+        axios.get<Service[]>('/service/types/GeneralService')
             .then((response: AxiosResponse) => {
                 setServiceData(response.data);
             })

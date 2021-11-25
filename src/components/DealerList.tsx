@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import  { AxiosResponse } from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Dealer } from '../Interfaces/DealerInterface';
 import Card from '@mui/material/Card';
@@ -15,6 +15,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Slider from '@mui/material/Slider';
 import Booking from './Booking';
 import '../css/dealerlist.css';
+import axios from '../BaseURL';
 
 function valuetext(value: number) {
     return `${value}RS`;
@@ -64,7 +65,7 @@ function DealerList() {
     }
 
     useEffect(() => {
-        axios.get<[]>(`http://localhost:3001/dealer/serviceType/${id}`)
+        axios.get<[]>(`/dealer/serviceType/${id}`)
             .then((response: AxiosResponse) => {
                 setDealersData(response.data);
                 //setFilteredData(response.data);
