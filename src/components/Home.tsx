@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Modal } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { DealerService } from '../Interfaces/DealerServiceInterface';
@@ -9,7 +9,7 @@ import ViewDealer from '../components/elements/ViewDealerModal';
 import useGeoLocation from '../Hooks/GeolocationHook';
 import useVehicleData from '../Hooks/VehicleDataHook';
 
-function Home() {
+const Home: React.FC = () =>{
 	const [open, setOpen] = useState<boolean>(false);
 	const [servicesData, setServicesData] = useState<DealerService[]>([]);
 	const [dealersData, setDealersData] = useState<Dealer[]>([]);
@@ -27,11 +27,11 @@ function Home() {
 	};
 
 	function updateDealers(event: any, newValue: any) {
-		const city = location?.data[0]?.address_components[3].long_name;
+		const city = location?.data[0]?.address_components[3].long_name || 'Moga';
 		setDealersData([]);
 		if (newValue != null && city != null) {
 			axios
-				.get<Dealer[]>(`http://localhost:3001/dealer/dealersByCity/${city}/${newValue.id}`)
+				.get<Dealer[]>(`http://localhost:3001/dealer/dealersByCity/Moga/${newValue.id}`)
 				.then((response: AxiosResponse) => {
 					setDealersData(response.data);
 				});
@@ -103,7 +103,7 @@ function Home() {
 									onChange={serviceSelected}
 									style={{ backgroundColor: 'white' }}
 									options={servicesData}
-									getOptionLabel={(option) => option.serviceTypes.service_type}
+									getOptionLabel={(option) => option.serviceTypes.service_name}
 									autoHighlight
 									sx={{ width: 300 }}
 									renderInput={(params) => <TextField {...params} label='Services' />}

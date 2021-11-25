@@ -8,12 +8,11 @@ import { Service } from '../Interfaces/ServiceInterfaces';
 import useGeoLocation from '../Hooks/GeolocationHook';
 
 const RoadSideAssistanceAutoCompleteComponent: React.FC = () => {
-
 	const [serviceData, setServiceData] = useState<Service[]>([]);
 	const location = useGeoLocation();
 	const vehicleData = useVehicleData();
    
-	//function to update the emergeny services
+	//function to get the emergeny services names
 	const updateServices = (event: any, newValue: any): void => {
 		setServiceData([]);
 		if (newValue != null) {
@@ -46,7 +45,7 @@ const RoadSideAssistanceAutoCompleteComponent: React.FC = () => {
 					getOptionLabel={(option) => option.service_name}
 					autoHighlight
 					sx={{ width: 300 }}
-					renderInput={(params) => <TextField {...params} label='Dealer Name' />}
+					renderInput={(params) => <TextField {...params} label='Services Name' />}
 				/>
 			</div>
 			<div>

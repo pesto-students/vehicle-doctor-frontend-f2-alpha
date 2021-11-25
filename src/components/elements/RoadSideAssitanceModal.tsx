@@ -31,7 +31,7 @@ const RoadSideAssisstanceModal: React.FC<Props> = ({ open, handleClose }) => {
 				</Modal.Body>
 				<Modal.Footer>
 					<Button size='sm' variant='primary' onClick={handleSubmit}>
-						{{SUBMIT}}
+						{SUBMIT}
 					</Button>
 				</Modal.Footer>
 			</Modal>

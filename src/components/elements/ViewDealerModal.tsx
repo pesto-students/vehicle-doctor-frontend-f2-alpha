@@ -28,7 +28,7 @@ const ViewDealer: React.FC<Props> = ({ open, handleClose, dealerData, serviceDat
         </Modal.Body>
         <Modal.Footer>
           <Button size="sm" variant="primary"
-          >{{BOOKNOW}}</Button>
+          >{BOOKNOW}</Button>
         </Modal.Footer>
       </Modal>
     </>
