@@ -21,7 +21,7 @@ import {
 	IServices,
 	IVehicleType,
 	IDealerServiceForm
-} from '../../Interfaces/DealerVehServInterface';
+} from '../../Interfaces/IDealerServiceType';
 
 const FormDealerService: React.FC<IDealerVehService> = ({
 	nextStep,
