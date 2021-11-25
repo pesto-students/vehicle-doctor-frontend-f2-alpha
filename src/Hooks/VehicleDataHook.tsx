@@ -1,7 +1,7 @@
 import  { AxiosResponse } from 'axios';
 import axios from '../BaseURL';
 import { useEffect, useState } from 'react'
-import { Vehicle } from '../Interfaces/VehicleInterface';
+import { Vehicle } from '../Interfaces/IVehicleInterface';
 
 
 const useVehicleData = () => {

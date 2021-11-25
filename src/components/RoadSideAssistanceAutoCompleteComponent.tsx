@@ -4,7 +4,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import useVehicleData from '../Hooks/VehicleDataHook';
 import  { AxiosResponse } from 'axios';
 import { useState } from 'react';
-import { Service } from '../Interfaces/ServiceInterfaces';
+import { Service } from '../Interfaces/IServiceInterfaces';
 import useGeoLocation from '../Hooks/GeolocationHook';
 import axios from '../BaseURL';
 

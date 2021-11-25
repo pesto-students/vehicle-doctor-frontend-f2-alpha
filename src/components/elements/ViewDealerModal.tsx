@@ -1,6 +1,6 @@
 import { Button, Modal } from 'react-bootstrap';
-import { Dealer } from '../../Interfaces/DealerInterface';
-import { DealerService } from '../../Interfaces/DealerServiceInterface';
+import { Dealer } from '../../Interfaces/IDealerInterface';
+import { DealerService } from '../../Interfaces/IDealerServiceInterface';
 import { BOOKNOW} from '../../Constants/common.constant';
 
 type Props = {

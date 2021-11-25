@@ -1,6 +1,6 @@
 import  { AxiosResponse } from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Dealer } from '../Interfaces/DealerInterface';
+import { Dealer } from '../Interfaces/IDealerInterface';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
