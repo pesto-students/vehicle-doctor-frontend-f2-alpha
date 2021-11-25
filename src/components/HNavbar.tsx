@@ -3,7 +3,13 @@ import { Nav, Container, Navbar, Button, Modal } from 'react-bootstrap';
 import RoadSideAssitanceModal from '../components/elements/RoadSideAssitanceModal';
 import DealerReg from './DealerReg';
 import logo from '../img/logo.jpg';
-import { ROADSIDE_ASSISTANCE, PARTNERS } from '../Constants/common.constant';
+import {
+	ROADSIDE_ASSISTANCE,
+	PARTNERS,
+	DEALER_SIGNUP_MODAL_HEADER
+} from '../Constants/common.constant';
+import { Link } from 'react-router-dom';
+import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import CallIcon from '@mui/icons-material/Call';
 import TextField from '@mui/material/TextField';
@@ -12,7 +18,6 @@ import EmailIcon from '@mui/icons-material/Email';
 import Room from '@mui/icons-material/Room';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
-
 
 const HNavbar: React.FunctionComponent = () => {
 	const [showSOS, setShowSOS] = useState<boolean>(false);
@@ -32,7 +37,6 @@ const HNavbar: React.FunctionComponent = () => {
 	const SOShandleClose = () => {
 		setShowSOS(false);
 	};
-
 
 	return (
 		<div className='anim'>
@@ -74,7 +78,7 @@ const HNavbar: React.FunctionComponent = () => {
 				show={showDealer}
 				onHide={() => setShowDealer(!showDealer)}>
 				<Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0d6efd' }}>
-					PARTNER WITH US
+					{DEALER_SIGNUP_MODAL_HEADER}
 				</Modal.Header>
 				<Modal.Body>
 					<div className='divModal'>
