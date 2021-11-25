@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { NEXT, DEALER_SIGNUP_FORM_HEADER } from '../../Constants/common.constant';
-import { IDealerCredentials, IDealerCredForm } from '../../Interfaces/DealerCredInterface';
+import { IDealerCredentials, IDealerCredForm } from '../../Interfaces/IDealerCredentials';
 
 const FormDealerCredentials: React.FC<IDealerCredentials> = ({
 	nextStep,

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DealerSignup } from '../Interfaces/DealerRegInterface';
+import { DealerSignup } from '../Interfaces/IDealerRegistration';
 import FormDealerCredentials from './DealerSignup/FormDealerCredentials';
 import FormDealerDetails from './DealerSignup/FormDealerDetails';
 import FormDealerService from './DealerSignup/FormDealerService';
