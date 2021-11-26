@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Nav, Container, Navbar, Button, Modal } from 'react-bootstrap';
 import RoadSideAssitanceModal from '../components/elements/RoadSideAssitanceModal';
+import LoginModal from '../components/elements/LoginModal';
 import DealerReg from './DealerReg';
 import logo from '../img/logo.jpg';
 import {
@@ -39,6 +40,13 @@ const HNavbar: React.FunctionComponent = () => {
 		setShowSOS(false);
 	};
 
+	const LoginHandleOpen =() =>{
+		setShowLogin(true)
+	}
+	const LoginHandleClose =() =>{
+		setShowLogin(false)
+	}
+
 	return (
 		<div className='anim'>
 			<Navbar collapseOnSelect expand='lg' fixed='top' bg='light' variant='light'>
@@ -60,7 +68,7 @@ const HNavbar: React.FunctionComponent = () => {
 							<Button
 								variant='outline-primary'
 								style={{ margin: '1px' }}
-								onClick={() => setShowLogin(!showLogin)}>
+								onClick={LoginHandleOpen}>
 								LOGIN
 							</Button>
 							<Button variant='outline-primary' onClick={() => setShowDealer(!showDealer)}>
@@ -90,7 +98,8 @@ const HNavbar: React.FunctionComponent = () => {
 					{/* <Button size="sm" variant="primary" onClick={() => setShow(!showHome)}>Register</Button> */}
 				</Modal.Footer>
 			</Modal>
-			<Modal
+            <LoginModal open={showLogin} handleClose={LoginHandleClose}/>
+			{/* <Modal
 				size='sm'
 				aria-labelledby='contained-modal-title-vcenter'
 				centered
@@ -121,8 +130,11 @@ const HNavbar: React.FunctionComponent = () => {
 					<Button size='sm' variant='primary' onClick={handleShow}>
 						SEND OTP
 					</Button>
+					<Button size='sm' variant='primary' onClick={handleShow}>
+						Submit OTP
+					</Button>
 				</Modal.Footer>
-			</Modal>
+			</Modal> */}
 			<Modal
 				size='sm'
 				aria-labelledby='contained-modal-title-vcenter'
