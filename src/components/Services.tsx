@@ -48,7 +48,7 @@ function Services() {
                                             alt="icon"
                                         />
                                         <CardContent>
-                                            <button onClick={() => handleShow(`${item.id}`)}>{item.service_type}</button>
+                                            <button onClick={() => handleShow(`${item.id}`)}>{item.service_name}</button>
                                         </CardContent>
                                     </CardActionArea>
                                 </Card>
