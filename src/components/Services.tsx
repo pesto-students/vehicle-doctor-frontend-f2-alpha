@@ -10,6 +10,7 @@ import serviceImg from '../img/s1.jpg';
 import DealerList from './DealerList';
 import logo from '../img/logo.jpg';
 import { Modal } from 'react-bootstrap';
+import axios from '../BaseURL';
 
 function Services() {
     const [serviceData, setServiceData] = useState<Service[]>([]);
