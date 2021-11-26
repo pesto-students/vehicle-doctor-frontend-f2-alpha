@@ -1,11 +1,15 @@
 .card {
     box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.3);
     background-color: #fafafa;
+    height:100%;
+    width:100%
   }
 
   h5 {
     text-transform: uppercase;
+    text-align:center;
   }
+  
 
 .cardDiv {  
   text-align: left;
@@ -22,6 +26,7 @@
   }
   div.navFilter{
     display: block;
+    margin-top: 10%;
   }
 }
 

@@ -25,6 +25,7 @@ const HNavbar: React.FunctionComponent = () => {
 	const [showInfo, setShowInfo] = useState<boolean>(false);
 	const [showDealer, setShowDealer] = useState<boolean>(false);
 	const [open, setOpen] = useState<boolean>(false);
+	
 	function handleShow(): void {
 		setShowInfo(true);
 		setShowLogin(false);
