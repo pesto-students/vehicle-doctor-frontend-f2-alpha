@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DealerSignup } from '../Interfaces/DealerRegInterface';
+import { IDealerSignup } from '../Interfaces/IDealerRegistration';
 import FormDealerCredentials from './DealerSignup/FormDealerCredentials';
 import FormDealerDetails from './DealerSignup/FormDealerDetails';
 import FormDealerService from './DealerSignup/FormDealerService';
@@ -8,7 +8,7 @@ import Success from './DealerSignup/Success';
 const DealerReg: React.FC = () => {
 	const [step, setStep] = useState<number>(1);
 
-	const [formData, setFormData] = useState<DealerSignup>({
+	const [formData, setFormData] = useState<IDealerSignup>({
 		name: '',
 		locality: '',
 		city: '',

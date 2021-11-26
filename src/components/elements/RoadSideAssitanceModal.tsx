@@ -1,7 +1,7 @@
 
 import { Button, Modal } from 'react-bootstrap';
 import RoadSideAssistanceAutoCompleteComponent from '../RoadSideAssistanceAutoCompleteComponent';
-import { ROADSIDE_ASSISTANCE } from '../../Constants/common.constant';
+import { ROADSIDE_ASSISTANCE,SUBMIT } from '../../Constants/common.constant';
 
 
 type Props = {
@@ -9,7 +9,8 @@ type Props = {
     handleClose: (val: boolean) => void;
 }
 
-const ViewDealer: React.FC<Props> = ({ open, handleClose }) => {
+const RoadSideAssisstanceModal: React.FC<Props> = ({ open, handleClose }) => {
+	// function which will be invoked on click of Submit
     const handleSubmit = () =>{
         handleClose(true);
     }
@@ -30,7 +31,7 @@ const ViewDealer: React.FC<Props> = ({ open, handleClose }) => {
 				</Modal.Body>
 				<Modal.Footer>
 					<Button size='sm' variant='primary' onClick={handleSubmit}>
-						Register
+						{SUBMIT}
 					</Button>
 				</Modal.Footer>
 			</Modal>
@@ -38,4 +39,4 @@ const ViewDealer: React.FC<Props> = ({ open, handleClose }) => {
     )
 }
 
-export default ViewDealer;
+export default RoadSideAssisstanceModal;

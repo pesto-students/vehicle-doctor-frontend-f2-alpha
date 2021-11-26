@@ -1,5 +1,6 @@
+// Intrface for Dealer Registration
 //prettier-ignore
-export interface DealerSignup {
+export interface IDealerSignup {
 	name: string,
 	mobile: string,
 	gst_no: string,

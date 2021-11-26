@@ -2,26 +2,28 @@ import React from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import useVehicleData from '../Hooks/VehicleDataHook';
-import axios, { AxiosResponse } from 'axios';
+import  { AxiosResponse } from 'axios';
 import { useState } from 'react';
-import { Service } from '../Interfaces/ServiceInterfaces';
+import { Service } from '../Interfaces/IServiceInterfaces';
 import useGeoLocation from '../Hooks/GeolocationHook';
+import axios from '../BaseURL';
 
-function SOS() {
+const RoadSideAssistanceAutoCompleteComponent: React.FC = () => {
 	const [serviceData, setServiceData] = useState<Service[]>([]);
 	const location = useGeoLocation();
-
-	function updateServices(event: any, newValue: any) {
+	const vehicleData = useVehicleData();
+   
+	//function to get the emergeny services names
+	const updateServices = (event: any, newValue: any): void => {
 		setServiceData([]);
 		if (newValue != null) {
-			axios.get<Service[]>('http://localhost:3001/service/types/SOS')
+			axios.get<Service[]>('/service/types/SOS')
 				.then((response: AxiosResponse) => {
 					setServiceData(response.data);
 				})
 		}
 	}
 
-	const vehicleData = useVehicleData();
 	return (
 		<div>
 			<div>
@@ -44,7 +46,7 @@ function SOS() {
 					getOptionLabel={(option) => option.service_name}
 					autoHighlight
 					sx={{ width: 300 }}
-					renderInput={(params) => <TextField {...params} label='Dealer Name' />}
+					renderInput={(params) => <TextField {...params} label='Services Name' />}
 				/>
 			</div>
 			<div>
@@ -59,4 +61,4 @@ function SOS() {
 	);
 }
 
-export default SOS;
+export default RoadSideAssistanceAutoCompleteComponent;

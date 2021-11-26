@@ -3,7 +3,7 @@ import logo from '../img/Dr.jpg';
 
 function AboutUs() {
     return (
-        <div style={{ padding: '2%' }} className="anim altApp aboutDiv">
+        <div id="aboutus" style={{ padding: '2%' }} className="anim altApp aboutDiv">
             <h2>WHAT MAKES US DIFFERENT?</h2>
             <div className="flex-container">
                 <div style={{ flex: '10%', padding: '5px' }}>

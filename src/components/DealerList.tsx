@@ -1,6 +1,6 @@
-import axios, { AxiosResponse } from 'axios';
+import  { AxiosResponse } from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Dealer } from '../Interfaces/DealerInterface';
+import { Dealer } from '../Interfaces/IDealerInterface';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
@@ -14,9 +14,10 @@ import { Nav, Navbar, Modal, Carousel } from 'react-bootstrap';
 import Checkbox from '@mui/material/Checkbox';
 import Slider from '@mui/material/Slider';
 import Booking from './Booking';
-import '../cssFiles/dealerlist.css';
 import LinearProgress from '@mui/material/LinearProgress';
 import Stack from '@mui/material/Stack';
+import '../css/dealerlist.css';
+import axios from '../BaseURL';
 
 function valuetext(value: number) {
     return `${value}RS`;
@@ -34,6 +35,8 @@ const DealerList: React.FunctionComponent<BioProps> = (props): JSX.Element => {
     const [showReview, setShowReview] = useState<boolean>(false);
     const [showBook, setShowBook] = useState<boolean>(false);
     // const { id } = useParams<{ id: string }>();
+    const [activeFilter,setactiveFilter] = useState<number[]>([]);
+
     const [value, setValue] = React.useState<number[]>([0, 5]);
 
     const [loading, setLoading] = useState<boolean>(false);
@@ -46,14 +49,30 @@ const DealerList: React.FunctionComponent<BioProps> = (props): JSX.Element => {
         });
         setFilteredData(result);
     };
+    const onFilterChange =(e: React.ChangeEvent<HTMLInputElement>) =>{
+        let data= activeFilter;
+        activeFilter.push(Number(e.target.value));
+        setactiveFilter(data);
+        let result =[];
+        result = dealersData.filter((data)=>{
+                 
+        })
+        console.log(activeFilter);
+    }
 
-    console.log(filteredData);
+    const onPriceMinChange =() =>{
+
+    }
+
+    const onPriceMaxChange=()=>{
+
+    }
 
     useEffect(() => {
-        axios.get<[]>(`http://localhost:3001/dealer/serviceType/${props.id}`)
+        axios.get<[]>(`/dealer/serviceType/${id}`)
             .then((response: AxiosResponse) => {
                 setDealersData(response.data);
-                setLoading(true);
+                //setFilteredData(response.data);
             })
     }, []);
 

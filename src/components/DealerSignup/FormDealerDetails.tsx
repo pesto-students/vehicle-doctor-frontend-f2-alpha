@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { PREVIOUS, NEXT, DEALER_SIGNUP_FORM_HEADER } from '../../Constants/common.constant';
-import { IDealerDetails, IDealerDetailForm } from '../../Interfaces/DealerDetailsInterface';
+import { IDealerDetails, IDealerDetailForm } from '../../Interfaces/IDealerDetails';
 
 const FormDealerDetails: React.FC<IDealerDetails> = ({
 	nextStep,
@@ -48,7 +48,6 @@ const FormDealerDetails: React.FC<IDealerDetails> = ({
 	//Resolve useForm hook with the validation schema declared above
 	const {
 		register,
-		control,
 		handleSubmit,
 		formState: { errors, isValid }
 	} = useForm<IDealerDetailForm>({
