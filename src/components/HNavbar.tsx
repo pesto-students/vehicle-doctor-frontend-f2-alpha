@@ -9,10 +9,7 @@ import {
 	PARTNERS,
 	DEALER_SIGNUP_MODAL_HEADER
 } from '../Constants/common.constant';
-import { Link } from 'react-router-dom';
-import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
-import CallIcon from '@mui/icons-material/Call';
 import TextField from '@mui/material/TextField';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EmailIcon from '@mui/icons-material/Email';
@@ -99,42 +96,7 @@ const HNavbar: React.FunctionComponent = () => {
 				</Modal.Footer>
 			</Modal>
             <LoginModal open={showLogin} handleClose={LoginHandleClose}/>
-			{/* <Modal
-				size='sm'
-				aria-labelledby='contained-modal-title-vcenter'
-				centered
-				show={showLogin}
-				onHide={() => setShowLogin(!showLogin)}
-				backdrop='static'
-				keyboard={false}>
-				<Modal.Header className='modalHeader' closeButton>
-					Login
-				</Modal.Header>
-				<Modal.Body>
-					<div className='divModal'>
-						<TextField
-							id='input-with-icon-textfield'
-							label='Mobile'
-							InputProps={{
-								startAdornment: (
-									<InputAdornment position='start'>
-										<CallIcon />
-									</InputAdornment>
-								)
-							}}
-							variant='standard'
-						/>
-					</div>
-				</Modal.Body>
-				<Modal.Footer>
-					<Button size='sm' variant='primary' onClick={handleShow}>
-						SEND OTP
-					</Button>
-					<Button size='sm' variant='primary' onClick={handleShow}>
-						Submit OTP
-					</Button>
-				</Modal.Footer>
-			</Modal> */}
+			
 			<Modal
 				size='sm'
 				aria-labelledby='contained-modal-title-vcenter'
