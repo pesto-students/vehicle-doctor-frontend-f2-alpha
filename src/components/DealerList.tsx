@@ -14,20 +14,20 @@ import { Nav, Navbar, Modal, Carousel } from 'react-bootstrap';
 import Checkbox from '@mui/material/Checkbox';
 import Slider from '@mui/material/Slider';
 import Booking from './Booking';
-import '../css/dealerlist.css';
 import LinearProgress from '@mui/material/LinearProgress';
 import Stack from '@mui/material/Stack';
+import '../css/dealerlist.css';
 import axios from '../BaseURL';
 
 function valuetext(value: number) {
     return `${value}RS`;
 }
 
-interface BioProps {
+interface dealerProps {
     id: number,
 }
 
-const DealerList: React.FunctionComponent<BioProps> = (props): JSX.Element => {
+const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element => {
 
     const [dealersData, setDealersData] = useState<Dealer[]>([]);
     const [filteredData, setFilteredData] = useState<Dealer[]>(dealersData);
@@ -35,6 +35,8 @@ const DealerList: React.FunctionComponent<BioProps> = (props): JSX.Element => {
     const [showReview, setShowReview] = useState<boolean>(false);
     const [showBook, setShowBook] = useState<boolean>(false);
     // const { id } = useParams<{ id: string }>();
+    const [activeFilter, setactiveFilter] = useState<number[]>([]);
+
     const [value, setValue] = React.useState<number[]>([0, 5]);
 
     const [loading, setLoading] = useState<boolean>(false);
@@ -47,19 +49,37 @@ const DealerList: React.FunctionComponent<BioProps> = (props): JSX.Element => {
         });
         setFilteredData(result);
     };
+    const onFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        let data = activeFilter;
+        activeFilter.push(Number(e.target.value));
+        setactiveFilter(data);
+        let result = [];
+        result = dealersData.filter((data) => {
 
-    console.log(filteredData);
+        })
+        console.log(activeFilter);
+    }
+
+    const onPriceMinChange = () => {
+
+    }
+
+    const onPriceMaxChange = () => {
+
+    }
 
     useEffect(() => {
         axios.get<[]>(`/dealer/serviceType/${props.id}`)
             .then((response: AxiosResponse) => {
                 setDealersData(response.data);
                 setLoading(true);
+                //setFilteredData(response.data);
             })
     }, []);
 
-    // For Carousel
+    // remove if not in use
     const [index, setIndex] = useState(0);
+
     const handleSelect = (selectedIndex: any, e: any) => {
         setIndex(selectedIndex);
     };
@@ -83,11 +103,11 @@ const DealerList: React.FunctionComponent<BioProps> = (props): JSX.Element => {
                                 <tr style={{ border: '1px solid #ddd' }}>
                                     <td>
                                         RATING:
-                                        <div><Checkbox color="primary" value="5" /><Rating name="size-small" size="small" value={5} readOnly /></div>
-                                        <div><Checkbox color="primary" value="4" /><Rating name="size-small" size="small" value={4} readOnly /></div>
-                                        <div><Checkbox color="primary" value="3" /><Rating name="size-small" size="small" value={3} readOnly /></div>
-                                        <div><Checkbox color="primary" value="2" /><Rating name="size-small" size="small" value={2} readOnly /></div>
-                                        <div><Checkbox color="primary" value="1" /><Rating name="size-small" size="small" value={1} readOnly /></div>
+                                        <div><Checkbox color="primary" value="5" onChange={(e) => onFilterChange(e)} /><Rating name="size-small" size="small" value={5} readOnly /></div>
+                                        <div><Checkbox color="primary" value="4" onChange={(e) => onFilterChange(e)} /><Rating name="size-small" size="small" value={4} readOnly /></div>
+                                        <div><Checkbox color="primary" value="3" onChange={(e) => onFilterChange(e)} /><Rating name="size-small" size="small" value={3} readOnly /></div>
+                                        <div><Checkbox color="primary" value="2" onChange={(e) => onFilterChange(e)} /><Rating name="size-small" size="small" value={2} readOnly /></div>
+                                        <div><Checkbox color="primary" value="1" onChange={(e) => onFilterChange(e)} /><Rating name="size-small" size="small" value={1} readOnly /></div>
                                     </td>
                                 </tr>
                             </table>
@@ -130,14 +150,12 @@ const DealerList: React.FunctionComponent<BioProps> = (props): JSX.Element => {
                                             <Navbar.Brand>Filter</Navbar.Brand>
                                             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                                             <Navbar.Collapse id="responsive-navbar-nav">
-                                                <Nav className="justify-content-end flex-grow-1 pe-3">
-                                                    <div className="navDiv">
-                                                        <span>Price: </span><input type="number"></input> - <input type="number"></input>
-                                                    </div>
-                                                    <div className="navDiv">
-                                                        <span>Rating: </span><input type="number"></input> - <input type="number"></input>
-                                                    </div>
-                                                </Nav>
+                                                <div className="navDiv">
+                                                    <span>Price: </span><input type="number" placeholder="min" onChange={onPriceMinChange}></input> - <input type="number" placeholder="max" onChange={onPriceMaxChange}></input>
+                                                </div>
+                                                <div className="navDiv">
+                                                    <span>Rating: </span><input type="number" defaultValue="1"></input> - <input type="number" defaultValue="5"></input>
+                                                </div>
                                             </Navbar.Collapse>
                                         </Container>
                                     </Navbar>
