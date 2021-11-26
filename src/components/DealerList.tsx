@@ -77,7 +77,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
             })
     }, []);
 
-    // remove if not in use
+     //For Carousel
     const [index, setIndex] = useState(0);
 
     const handleSelect = (selectedIndex: any, e: any) => {
