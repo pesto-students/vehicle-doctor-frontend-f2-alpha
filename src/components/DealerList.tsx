@@ -23,11 +23,11 @@ function valuetext(value: number) {
     return `${value}RS`;
 }
 
-interface BioProps {
+interface dealerProps {
     id: number,
 }
 
-const DealerList: React.FunctionComponent<BioProps> = (props): JSX.Element => {
+const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element => {
 
     const [dealersData, setDealersData] = useState<Dealer[]>([]);
     const [filteredData, setFilteredData] = useState<Dealer[]>(dealersData);
@@ -69,7 +69,7 @@ const DealerList: React.FunctionComponent<BioProps> = (props): JSX.Element => {
     }
 
     useEffect(() => {
-        axios.get<[]>(`/dealer/serviceType/${id}`)
+        axios.get<[]>(`/dealer/serviceType/${props.id}`)
             .then((response: AxiosResponse) => {
                 setDealersData(response.data);
                 //setFilteredData(response.data);
