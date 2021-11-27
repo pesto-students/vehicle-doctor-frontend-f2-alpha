@@ -4,8 +4,16 @@ import TextField from '@mui/material/TextField';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';
+import { Dealer } from '../Interfaces/IDealerInterface';
 
-const Booking: React.FunctionComponent = () => {
+
+type Props = {
+    SelectedDealer:Dealer;
+}
+
+
+const Booking:  React.FC<Props> = ({ SelectedDealer }) => {
+    
     const [value, setValue] = React.useState<Date | null>(new Date());
     return (
         <>

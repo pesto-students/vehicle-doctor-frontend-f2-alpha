@@ -30,7 +30,9 @@ interface dealerProps {
 const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element => {
 
     const [dealersData, setDealersData] = useState<Dealer[]>([]);
-    const [filteredData, setFilteredData] = useState<Dealer[]>(dealersData);
+    const [filteredData, setFilteredData] = useState<Dealer[]>([]);
+    const [selectedDealer,setSelectedDealer] = useState<Dealer>();
+
 
     const [showReview, setShowReview] = useState<boolean>(false);
     const [showBook, setShowBook] = useState<boolean>(false);
@@ -66,6 +68,11 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
 
     const onPriceMaxChange = () => {
 
+    }
+
+    const BookDialog = (dealerItem:Dealer) =>{
+        setShowBook(true);
+        setSelectedDealer(dealerItem);
     }
 
     useEffect(() => {
@@ -137,7 +144,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                                                     </div>
                                                 </CardContent>
                                                 <CardActions>
-                                                    <Button size="small" onClick={() => setShowBook(!showBook)}>Book Now</Button>
+                                                    <Button size="small" onClick={() => BookDialog(item)}>Book Now</Button>
                                                     <Button size="small" onClick={() => setShowReview(!showReview)}>Veiw Reviews</Button>
                                                 </CardActions>
                                             </Card>
@@ -229,7 +236,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                 <Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0275d8' }}>Booking Details</Modal.Header>
                 <Modal.Body>
                     <div className="divModal">
-                        <Booking />
+                       {selectedDealer ?  <Booking SelectedDealer={selectedDealer} /> : null }
                     </div>
                 </Modal.Body>
             </Modal>
