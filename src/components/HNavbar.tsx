@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
-import { Nav, Container, Navbar, Button, Modal } from 'react-bootstrap';
+import { Nav, Container, Navbar, Button, Modal, NavDropdown } from 'react-bootstrap';
 import RoadSideAssitanceModal from '../components/elements/RoadSideAssitanceModal';
 import LoginModal from '../components/elements/LoginModal';
 import DealerReg from './DealerReg';
+import DealerLogin from './DealerLogin';
 import logo from '../img/logo.jpg';
 import {
 	ROADSIDE_ASSISTANCE,
 	PARTNERS,
-	DEALER_SIGNUP_MODAL_HEADER
+	DEALER_SIGNUP_MODAL_HEADER,
+	SIGNUP,
+	LOGIN,
+	DEALER_LOGIN_MODAL_HEADER
 } from '../Constants/common.constant';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
@@ -16,14 +20,16 @@ import EmailIcon from '@mui/icons-material/Email';
 import Room from '@mui/icons-material/Room';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
+import CallIcon from '@mui/icons-material/Call';
 
 const HNavbar: React.FunctionComponent = () => {
 	const [showSOS, setShowSOS] = useState<boolean>(false);
 	const [showLogin, setShowLogin] = useState<boolean>(false);
 	const [showInfo, setShowInfo] = useState<boolean>(false);
 	const [showDealer, setShowDealer] = useState<boolean>(false);
+	const [showDealerLogin, setShowDealerLogin] = useState<boolean>(false);
 	const [open, setOpen] = useState<boolean>(false);
-	
+
 	function handleShow(): void {
 		setShowInfo(true);
 		setShowLogin(false);
@@ -37,12 +43,12 @@ const HNavbar: React.FunctionComponent = () => {
 		setShowSOS(false);
 	};
 
-	const LoginHandleOpen =() =>{
-		setShowLogin(true)
-	}
-	const LoginHandleClose =() =>{
-		setShowLogin(false)
-	}
+	const LoginHandleOpen = () => {
+		setShowLogin(true);
+	};
+	const LoginHandleClose = () => {
+		setShowLogin(false);
+	};
 
 	return (
 		<div className='anim'>
@@ -62,15 +68,20 @@ const HNavbar: React.FunctionComponent = () => {
 							<Nav.Link href='#services'>SERVICES</Nav.Link>
 							<Nav.Link href='#rewards'>TESTIMONIALS</Nav.Link>
 							<Nav.Link href='#contactUs'>CONTACT US</Nav.Link>
-							<Button
-								variant='outline-primary'
-								style={{ margin: '1px' }}
-								onClick={LoginHandleOpen}>
+							<Button variant='outline-primary' style={{ margin: '1px' }} onClick={LoginHandleOpen}>
 								LOGIN
 							</Button>
-							<Button variant='outline-primary' onClick={() => setShowDealer(!showDealer)}>
-								{PARTNERS}
-							</Button>
+							<NavDropdown title={PARTNERS} id='nav-dropdown-partners'>
+								<NavDropdown.Item
+									eventKey='7.1'
+									onClick={() => setShowDealerLogin(!showDealerLogin)}>
+									{LOGIN}
+								</NavDropdown.Item>
+								<NavDropdown.Divider />
+								<NavDropdown.Item eventKey='7.2' onClick={() => setShowDealer(!showDealer)}>
+									{SIGNUP}
+								</NavDropdown.Item>
+							</NavDropdown>
 						</Nav>
 					</Navbar.Collapse>
 				</Container>
@@ -95,8 +106,61 @@ const HNavbar: React.FunctionComponent = () => {
 					{/* <Button size="sm" variant="primary" onClick={() => setShow(!showHome)}>Register</Button> */}
 				</Modal.Footer>
 			</Modal>
-            <LoginModal open={showLogin} handleClose={LoginHandleClose}/>
-			
+			<LoginModal open={showLogin} handleClose={LoginHandleClose} />
+
+			<Modal
+				size='sm'
+				aria-labelledby='contained-modal-title-vcenter'
+				centered
+				backdrop='static'
+				keyboard={false}
+				show={showDealerLogin}
+				onHide={() => setShowDealerLogin(!showDealerLogin)}>
+				<Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0d6efd' }}>
+					{DEALER_LOGIN_MODAL_HEADER}
+				</Modal.Header>
+				<Modal.Body>
+					<div className='divModal'>
+						<DealerLogin email={''} password={''} />
+					</div>
+				</Modal.Body>
+				<Modal.Footer>
+					{/* <Button size="sm" variant="primary" onClick={() => setShow(!showHome)}>Register</Button> */}
+				</Modal.Footer>
+			</Modal>
+			<Modal
+				size='sm'
+				aria-labelledby='contained-modal-title-vcenter'
+				centered
+				show={showLogin}
+				onHide={() => setShowLogin(!showLogin)}
+				backdrop='static'
+				keyboard={false}>
+				<Modal.Header className='modalHeader' closeButton>
+					Login
+				</Modal.Header>
+				<Modal.Body>
+					<div className='divModal'>
+						<TextField
+							id='input-with-icon-textfield'
+							label='Mobile'
+							InputProps={{
+								startAdornment: (
+									<InputAdornment position='start'>
+										<CallIcon />
+									</InputAdornment>
+								)
+							}}
+							variant='standard'
+						/>
+					</div>
+				</Modal.Body>
+				<Modal.Footer>
+					<Button size='sm' variant='primary' onClick={handleShow}>
+						SEND OTP
+					</Button>
+				</Modal.Footer>
+			</Modal>
 			<Modal
 				size='sm'
 				aria-labelledby='contained-modal-title-vcenter'
