@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
-import { Nav, Container, Navbar, Button, Modal } from 'react-bootstrap';
+import { Nav, Container, Navbar, Button, Modal, NavDropdown } from 'react-bootstrap';
 import RoadSideAssitanceModal from '../components/elements/RoadSideAssitanceModal';
 import LoginModal from '../components/elements/LoginModal';
 import DealerReg from './DealerReg';
+import DealerLoginModal from './Dealer/DealerLoginModal';
 import logo from '../img/logo.jpg';
 import {
 	ROADSIDE_ASSISTANCE,
 	PARTNERS,
-	DEALER_SIGNUP_MODAL_HEADER
+	DEALER_SIGNUP_MODAL_HEADER,
+	SIGNUP,
+	LOGIN
 } from '../Constants/common.constant';
 
 const HNavbar: React.FunctionComponent = () => {
 	const [showSOS, setShowSOS] = useState<boolean>(false);
 	const [showLogin, setShowLogin] = useState<boolean>(false);
 	const [showDealer, setShowDealer] = useState<boolean>(false);
+	const [showDealerLogin, setShowDealerLogin] = useState<boolean>(false);
 	const [open, setOpen] = useState<boolean>(false);
 	
 
@@ -25,12 +29,12 @@ const HNavbar: React.FunctionComponent = () => {
 		setShowSOS(false);
 	};
 
-	const LoginHandleOpen =() =>{
-		setShowLogin(true)
-	}
-	const LoginHandleClose =() =>{
-		setShowLogin(false)
-	}
+	const LoginHandleOpen = () => {
+		setShowLogin(true);
+	};
+	const LoginHandleClose = () => {
+		setShowLogin(false);
+	};
 
 	return (
 		<div className='anim'>
@@ -50,15 +54,20 @@ const HNavbar: React.FunctionComponent = () => {
 							<Nav.Link href='#services'>SERVICES</Nav.Link>
 							<Nav.Link href='#rewards'>TESTIMONIALS</Nav.Link>
 							<Nav.Link href='#contactUs'>CONTACT US</Nav.Link>
-							<Button
-								variant='outline-primary'
-								style={{ margin: '1px' }}
-								onClick={LoginHandleOpen}>
+							<Button variant='outline-primary' style={{ margin: '1px' }} onClick={LoginHandleOpen}>
 								LOGIN
 							</Button>
-							<Button variant='outline-primary' onClick={() => setShowDealer(!showDealer)}>
-								{PARTNERS}
-							</Button>
+							<NavDropdown title={PARTNERS} id='nav-dropdown-partners'>
+								<NavDropdown.Item
+									eventKey='7.1'
+									onClick={() => setShowDealerLogin(!showDealerLogin)}>
+									{LOGIN}
+								</NavDropdown.Item>
+								<NavDropdown.Divider />
+								<NavDropdown.Item eventKey='7.2' onClick={() => setShowDealer(!showDealer)}>
+									{SIGNUP}
+								</NavDropdown.Item>
+							</NavDropdown>
 						</Nav>
 					</Navbar.Collapse>
 				</Container>
