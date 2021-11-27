@@ -3,15 +3,14 @@ import { Nav, Container, Navbar, Button, Modal, NavDropdown } from 'react-bootst
 import RoadSideAssitanceModal from '../components/elements/RoadSideAssitanceModal';
 import LoginModal from '../components/elements/LoginModal';
 import DealerReg from './DealerReg';
-import DealerLogin from './DealerLogin';
+import DealerLoginModal from './Dealer/DealerLoginModal';
 import logo from '../img/logo.jpg';
 import {
 	ROADSIDE_ASSISTANCE,
 	PARTNERS,
 	DEALER_SIGNUP_MODAL_HEADER,
 	SIGNUP,
-	LOGIN,
-	DEALER_LOGIN_MODAL_HEADER
+	LOGIN
 } from '../Constants/common.constant';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
@@ -108,26 +107,11 @@ const HNavbar: React.FunctionComponent = () => {
 			</Modal>
 			<LoginModal open={showLogin} handleClose={LoginHandleClose} />
 
-			<Modal
-				size='sm'
-				aria-labelledby='contained-modal-title-vcenter'
-				centered
-				backdrop='static'
-				keyboard={false}
-				show={showDealerLogin}
-				onHide={() => setShowDealerLogin(!showDealerLogin)}>
-				<Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0d6efd' }}>
-					{DEALER_LOGIN_MODAL_HEADER}
-				</Modal.Header>
-				<Modal.Body>
-					<div className='divModal'>
-						<DealerLogin email={''} password={''} />
-					</div>
-				</Modal.Body>
-				<Modal.Footer>
-					{/* <Button size="sm" variant="primary" onClick={() => setShow(!showHome)}>Register</Button> */}
-				</Modal.Footer>
-			</Modal>
+			<DealerLoginModal
+				open={showDealerLogin}
+				handleClose={() => setShowDealerLogin(!showDealerLogin)}
+			/>
+
 			<Modal
 				size='sm'
 				aria-labelledby='contained-modal-title-vcenter'
