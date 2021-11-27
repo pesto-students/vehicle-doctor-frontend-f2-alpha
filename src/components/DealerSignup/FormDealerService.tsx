@@ -12,7 +12,8 @@ import {
 	InputAdornment
 } from '@mui/material';
 import { PREVIOUS, NEXT, DEALER_SIGNUP_FORM_HEADER } from '../../Constants/common.constant';
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
+import axios from '../../BaseURL';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -34,11 +35,11 @@ const FormDealerService: React.FC<IDealerVehService> = ({
 
 	useEffect(() => {
 		//Get vehicle data
-		axios.get<[]>(`http://localhost:3001/vehicle/types`).then((response: AxiosResponse) => {
+		axios.get<[]>('/vehicle/types').then((response: AxiosResponse) => {
 			setVehicleData(response.data);
 		});
 		//Get Service Type Data
-		axios.get<[]>(`http://localhost:3001/service/types`).then((response: AxiosResponse) => {
+		axios.get<[]>('/service/types').then((response: AxiosResponse) => {
 			setServiceData(response.data);
 		});
 	}, []);
