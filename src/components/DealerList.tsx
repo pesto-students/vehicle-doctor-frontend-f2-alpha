@@ -31,6 +31,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
 
     const [dealersData, setDealersData] = useState<Dealer[]>([]);
     const [filteredData, setFilteredData] = useState<Dealer[]>(dealersData);
+    const [showInvoice, setShowInvoice] = useState<boolean>(false);
 
     const [showReview, setShowReview] = useState<boolean>(false);
     const [showBook, setShowBook] = useState<boolean>(false);
@@ -67,6 +68,11 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
     const onPriceMaxChange = () => {
 
     }
+    
+	function handleShow(): void {
+		setShowInvoice(true);
+        setShowBook(false)
+	}
 
     useEffect(() => {
         axios.get<[]>(`/dealer/serviceType/${props.id}`)
@@ -77,7 +83,8 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
             })
     }, []);
 
-     //For Carousel
+    
+    //For Carousel
     const [index, setIndex] = useState(0);
 
     const handleSelect = (selectedIndex: any, e: any) => {
@@ -89,7 +96,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
             {loading ?
                 <table>
                     <tr>
-                        <td className="filter" style={{ verticalAlign: 'top', width: '20%', border: '1px solid #ddd', backgroundColor: 'white' }}>
+                        <td className="filter" style={{ verticalAlign: 'top', width: '30%', border: '1px solid #ddd', backgroundColor: 'white' }}>
                             <table width="100%" style={{ captionSide: 'top', textAlign: 'center' }}>
                                 <caption style={{ textAlign: 'left', border: '1px solid #ddd', padding: '5px' }}><h5>Filters</h5></caption>
                                 <tr style={{ border: '1px solid #ddd' }}>
@@ -112,29 +119,45 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                                 </tr>
                             </table>
                         </td>
-                        <td className="content" width='80%'>
+                        <td className="content" style={{ width: '100%'}}>
                             <Container>
-                                <Grid container spacing={4}>
+                                {/* <Grid container spacing={5}> */}<div>
                                     {filteredData.map((item) => (
-                                        <Grid item sm={3} key={item.dealer_id}>
+                                        <Grid item key={item.dealer_id}>
                                             <Card className="card">
                                                 <CardContent >
-                                                    <div>
-                                                        <h5>{item.name}</h5>
-                                                        <Typography color="text.secondary">
-                                                            GST Num:{item.gst_no} <br />
-                                                            Service available for : {item.Vehicletype.vehicle_type}
-                                                        </Typography>
+                                                    <div className="flex-container">
+                                                        <div style={{flex: '30%' }}>
+                                                            <Carousel activeIndex={index} onSelect={handleSelect}>
+                                                                <Carousel.Item>
+                                                                    <img
+                                                                        className="d-block w-100"
+                                                                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDRLpY3p-0UeQAaToiItwtfYehmSa-TSw2Lg&usqp=CAU"
+                                                                        alt="Second slide"
+                                                                    />
+                                                                </Carousel.Item>
+                                                            </Carousel>
+                                                        </div>
+                                                        <div style={{flex: '60%', padding:'20px' }}>
+                                                            <div>
+                                                                <h5>{item.name}</h5>
+                                                                <Typography color="text.secondary">
+                                                                    GST Num:{item.gst_no} <br />
+                                                                    Service available for : {item.Vehicletype.vehicle_type}
+                                                                </Typography>
+                                                            </div>
+                                                            <div className="cardDiv">
+                                                                <b>Location:</b> {item.locality}-{item.city}-{item.state}-{item.pincode}
+                                                                {item.Services.map((dataItem) => (
+                                                                    <ul>
+                                                                        <li>Discription: {dataItem.discription}</li>
+                                                                        <li>Price: {dataItem.cost}</li>
+                                                                    </ul>
+                                                                ))}
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div className="cardDiv">
-                                                        <b>Location:</b> {item.locality}-{item.city}-{item.state}-{item.pincode}
-                                                        {item.Services.map((dataItem) => (
-                                                            <ul>
-                                                                <li>Discription: {dataItem.discription}</li>
-                                                                <li>Price: {dataItem.cost}</li>
-                                                            </ul>
-                                                        ))}
-                                                    </div>
+
                                                 </CardContent>
                                                 <CardActions>
                                                     <Button size="small" onClick={() => setShowBook(!showBook)}>Book Now</Button>
@@ -143,7 +166,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                                             </Card>
                                         </Grid>
                                     ))}
-                                </Grid>
+                                {/* </Grid> */}</div>
                                 <div className="navFilter">
                                     <Navbar collapseOnSelect expand="lg" fixed="bottom" bg="light" variant="light">
                                         <Container>
@@ -232,6 +255,20 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                         <Booking />
                     </div>
                 </Modal.Body>
+                <Modal.Footer>
+                    <Button size="medium" onClick={handleShow}>BOOK</Button>
+            </Modal.Footer>
+            </Modal>
+            <Modal size="lg" aria-labelledby="contained-modal-title-vcenter" centered show={showInvoice} onHide={() => setShowInvoice(!showInvoice)}>
+                <Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0275d8' }}>Booking Summary</Modal.Header>
+                <Modal.Body>
+                    <div className="divModal">
+                        <h2>Hi, your booking has been confirmed.</h2>
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button size="medium">Print</Button>
+            </Modal.Footer>
             </Modal>
         </div>
     );

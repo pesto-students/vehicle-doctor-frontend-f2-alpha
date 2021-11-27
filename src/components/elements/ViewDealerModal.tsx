@@ -26,7 +26,7 @@ const ViewDealer: React.FC<Props> = ({ open, handleClose, dealerData, serviceDat
         <Modal.Header style={{ color: 'white', backgroundColor: '#0275d8' }} closeButton>Dealer Information</Modal.Header>
         <Modal.Body>
           <div className="divModal flex-container" style={{backgroundColor:'lightgrey'}}>
-            <div style={{flex: '50%' }}>
+            <div style={{flex: '50%'}}>
               <Carousel activeIndex={index} onSelect={handleSelect}>
                 <Carousel.Item>
                   <img
@@ -52,8 +52,8 @@ const ViewDealer: React.FC<Props> = ({ open, handleClose, dealerData, serviceDat
               </Carousel>
             </div>
             <div style={{ flex: '50%',width:'100%' }}>
-              <ul style={{listStyleType: 'none', alignItems: 'center',justifyContent:'center',textAlign:'center'}}>
-                <li><h3>{dealerData.name}</h3></li>
+              <ul style={{listStyleType: 'none'}}>
+                <li><h4>{dealerData.name}</h4></li>
                 <li><b>GST No: </b>{dealerData.gst_no}</li>
                 <li><b>Location: </b>{dealerData.locality}-{dealerData.city}-{dealerData.state}</li>
                 {/* <b>Service Selected :</b>{serviceData.serviceTypes.service_type} */}

@@ -9,25 +9,13 @@ import {
 	PARTNERS,
 	DEALER_SIGNUP_MODAL_HEADER
 } from '../Constants/common.constant';
-import InputAdornment from '@mui/material/InputAdornment';
-import TextField from '@mui/material/TextField';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import EmailIcon from '@mui/icons-material/Email';
-import Room from '@mui/icons-material/Room';
-import LocationCityIcon from '@mui/icons-material/LocationCity';
-import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
 
 const HNavbar: React.FunctionComponent = () => {
 	const [showSOS, setShowSOS] = useState<boolean>(false);
 	const [showLogin, setShowLogin] = useState<boolean>(false);
-	const [showInfo, setShowInfo] = useState<boolean>(false);
 	const [showDealer, setShowDealer] = useState<boolean>(false);
 	const [open, setOpen] = useState<boolean>(false);
 	
-	function handleShow(): void {
-		setShowInfo(true);
-		setShowLogin(false);
-	}
 
 	const SOShandleOpen = () => {
 		setShowSOS(true);
@@ -96,98 +84,6 @@ const HNavbar: React.FunctionComponent = () => {
 				</Modal.Footer>
 			</Modal>
             <LoginModal open={showLogin} handleClose={LoginHandleClose}/>
-			
-			<Modal
-				size='sm'
-				aria-labelledby='contained-modal-title-vcenter'
-				centered
-				show={showInfo}
-				onHide={() => setShowInfo(!showInfo)}
-				backdrop='static'
-				keyboard={false}>
-				<Modal.Header className='modalHeader' closeButton>
-					Profile Information{' '}
-				</Modal.Header>
-				<Modal.Body>
-					<div className='divModal'>
-						<div className='modalBody'>
-							<TextField
-								id='input-with-icon-textfield'
-								label='Name'
-								InputProps={{
-									startAdornment: (
-										<InputAdornment position='start'>
-											<AccountCircleIcon />
-										</InputAdornment>
-									)
-								}}
-								variant='standard'
-							/>
-						</div>
-						<div className='modalBody'>
-							<TextField
-								id='input-with-icon-textfield'
-								label='E-Mail'
-								InputProps={{
-									startAdornment: (
-										<InputAdornment position='start'>
-											<EmailIcon />
-										</InputAdornment>
-									)
-								}}
-								variant='standard'
-							/>
-						</div>
-						<div className='modalBody'>
-							<TextField
-								id='input-with-icon-textfield'
-								label='Locality/Street'
-								InputProps={{
-									startAdornment: (
-										<InputAdornment position='start'>
-											<MapsHomeWorkIcon />
-										</InputAdornment>
-									)
-								}}
-								variant='standard'
-							/>
-						</div>
-						<div className='modalBody'>
-							<TextField
-								id='input-with-icon-textfield'
-								label='City'
-								InputProps={{
-									startAdornment: (
-										<InputAdornment position='start'>
-											<LocationCityIcon />
-										</InputAdornment>
-									)
-								}}
-								variant='standard'
-							/>
-						</div>
-						<div className='modalBody'>
-							<TextField
-								id='input-with-icon-textfield'
-								label='State'
-								InputProps={{
-									startAdornment: (
-										<InputAdornment position='start'>
-											<Room />
-										</InputAdornment>
-									)
-								}}
-								variant='standard'
-							/>
-						</div>
-					</div>
-				</Modal.Body>
-				<Modal.Footer>
-					<Button size='sm' variant='primary' onClick={() => setShowInfo(!showInfo)}>
-						REGISTER
-					</Button>
-				</Modal.Footer>
-			</Modal>
 		</div>
 	);
 };
