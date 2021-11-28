@@ -8,6 +8,7 @@ export interface Dealer{
     city:string,
     state:string,
     pincode:string,
+    vehicle_type_id:number,
     Vehicletype:{
         vehicle_type:string
     };
