@@ -19,7 +19,6 @@ const HNavbar: React.FunctionComponent = () => {
 	const [showDealer, setShowDealer] = useState<boolean>(false);
 	const [showDealerLogin, setShowDealerLogin] = useState<boolean>(false);
 	const [open, setOpen] = useState<boolean>(false);
-	
 
 	const SOShandleOpen = () => {
 		setShowSOS(true);
@@ -92,7 +91,11 @@ const HNavbar: React.FunctionComponent = () => {
 					{/* <Button size="sm" variant="primary" onClick={() => setShow(!showHome)}>Register</Button> */}
 				</Modal.Footer>
 			</Modal>
-            <LoginModal open={showLogin} handleClose={LoginHandleClose}/>
+			<LoginModal open={showLogin} handleClose={LoginHandleClose} />
+			<DealerLoginModal
+				open={showDealerLogin}
+				handleClose={() => setShowDealerLogin(!showDealerLogin)}
+			/>
 		</div>
 	);
 };

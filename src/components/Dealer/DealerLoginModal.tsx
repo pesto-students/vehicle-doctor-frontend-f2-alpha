@@ -2,6 +2,7 @@ import React from 'react';
 import DealerLogin from '../DealerLogin';
 import { Modal } from 'react-bootstrap';
 import { DEALER_LOGIN_MODAL_HEADER } from '../../Constants/common.constant';
+import '../../css/dealerlogin.css';
 
 type Props = {
 	open: boolean;
@@ -11,11 +12,11 @@ type Props = {
 const DealerLoginModal: React.FC<Props> = ({ open, handleClose }) => {
 	return (
 		<Modal
-			size='sm'
 			aria-labelledby='contained-modal-title-vcenter'
 			centered
 			backdrop='static'
 			keyboard={false}
+			contentClassName='modal-20w'
 			show={open}
 			onHide={handleClose}>
 			<Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0d6efd' }}>
