@@ -18,23 +18,17 @@ export interface IDealerVehService {
 
 // interface for Vehicle Type
 export interface IVehicleType {
-	vehicletype: {
-		id: number;
-		vehicle_type: string;
-	};
+	id: number;
+	vehicle_type: string;
 }
 
 //interface for Service type
 //prettier-ignore
 export interface IServices {
-	services: [
-		{
 			id: number,
 			service_type: string,
 			service_name: string,
-			cost: number
-		},
-	];
+			cost: number	
 }
 
 // Interface for Dealer Service Form

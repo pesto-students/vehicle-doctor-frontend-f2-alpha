@@ -56,30 +56,30 @@ const FormDealerService: React.FC<IDealerVehService> = ({
 		prevStep();
 	};
 
-	// Yup Validation schema for fields
-	const validationSchema: Yup.SchemaOf<IDealerServiceForm> = Yup.object().shape({
-		vehicletype: Yup.object().shape({
-			vehicle_type: Yup.string().required('Please select a Vehicle Type')
-		}),
-		services: Yup.array().of(
-			Yup.object().shape({
-				service_type: Yup.string().required('Please select a Service Type'),
-				service_name: Yup.string().required('Please select a Service Type'),
-				cost: Yup.number().required('Please enter Service Cost')
-			})
-		)
-	});
+	// // Yup Validation schema for fields
+	// const validationSchema: Yup.SchemaOf<IDealerServiceForm> = Yup.object().shape({
+	// 	vehicletype: Yup.object().shape({
+	// 		vehicle_type: Yup.string().required('Please select a Vehicle Type')
+	// 	}),
+	// 	services: Yup.array().of(
+	// 		Yup.object().shape({
+	// 			service_type: Yup.string().required('Please select a Service Type'),
+	// 			service_name: Yup.string().required('Please select a Service Type'),
+	// 			cost: Yup.number().required('Please enter Service Cost')
+	// 		})
+	// 	)
+	// });
 
 	//Resolve useForm hook with the validation schema declared above
-	const {
-		register,
-		control,
-		handleSubmit,
-		formState: { errors, isValid }
-	} = useForm<IDealerServiceForm>({
-		mode: 'all',
-		resolver: yupResolver(validationSchema)
-	});
+	// const {
+	// 	register,
+	// 	control,
+	// 	handleSubmit,
+	// 	formState: { errors, isValid }
+	// } = useForm<IDealerServiceForm>({
+	// 	mode: 'all',
+	// 	resolver: yupResolver(validationSchema)
+	// });
 
 	return (
 		<Container component='main' maxWidth='xs'>
@@ -94,57 +94,57 @@ const FormDealerService: React.FC<IDealerVehService> = ({
 
 						<Grid item xs={12}>
 							<InputLabel id='simple-select-standard-label'>Vehicle Type</InputLabel>
-							<Controller
+							{/* <Controller
 								name='vehicletype'
 								control={control}
-								render={({ field }) => (
-									<Select
-										id='vehicle_type'
-										label='Vehicle Type'
-										variant='standard'
-										{...field}
-										name='vehicle_type'
-										onChange={handleFormData('vehicletype.vehicle_type')}
-										fullWidth
-										required>
-										{vehicleData.map((item) => (
-											<MenuItem value={item.vehicletype.vehicle_type} key={item.vehicletype.id}>
-												{item.vehicletype.vehicle_type}
-											</MenuItem>
-										))}
-									</Select>
-								)}
-							/>
+								render={({ field }) => ( */}
+							<Select
+								id='vehicle_type'
+								label='Vehicle Type'
+								variant='standard'
+								// {...field}
+								name='vehicle_type'
+								onChange={handleFormData('vehicle_type')}
+								fullWidth
+								required>
+								{vehicleData.map((item) => (
+									<MenuItem value={item.vehicle_type} key={item.id}>
+										{item.vehicle_type}
+									</MenuItem>
+								))}
+							</Select>
+							{/* )}
+							/> */}
 						</Grid>
 						<Grid item xs={12} sm={8}>
 							<InputLabel id='simple-select-standard-label'>Service Type</InputLabel>
-							<Controller
+							{/* <Controller
 								name='services'
 								control={control}
-								render={({ field }) => (
-									<Select
-										id='service_type'
-										label='Service Type'
-										variant='standard'
-										{...field}
-										name='service_type'
-										onChange={handleFormData('services.service_type')}
-										fullWidth
-										required>
-										{serviceData.map((item) => (
-											<MenuItem value={item.services[0].service_name} key={item.services[0].id}>
-												{item.services[0].service_type} - {item.services[0].service_name}
-											</MenuItem>
-										))}
-									</Select>
-								)}
-							/>
+								render={({ field }) => ( */}
+							<Select
+								id='service_type'
+								label='Service Type'
+								variant='standard'
+								// {...field}
+								name='service_type'
+								onChange={handleFormData('services.service_type')}
+								fullWidth
+								required>
+								{serviceData.map((item, i) => (
+									<MenuItem value={item.service_name} key={item.id}>
+										{item.service_type} - {item.service_name}
+									</MenuItem>
+								))}
+							</Select>
+							{/* )}
+							/> */}
 						</Grid>
 						<Grid item xs={12} sm={4}>
 							<TextField
 								id='cost'
 								label='Cost'
-								{...register('services.0.cost')}
+								// {...register('services.0.cost')}
 								name='cost'
 								placeholder='Cost'
 								variant='outlined'
