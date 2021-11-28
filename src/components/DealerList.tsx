@@ -259,7 +259,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                 <Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0275d8' }}>Booking Details</Modal.Header>
                 <Modal.Body>
                     <div className="divModal">
-                       {selectedDealer ?  <Booking SelectedDealer={selectedDealer} /> : null }
+                       {selectedDealer ?  <Booking SelectedDealer={selectedDealer} ServiceType={props.id} /> : null }
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
