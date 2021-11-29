@@ -24,7 +24,7 @@ function valuetext(value: number) {
 }
 
 interface dealerProps {
-    id: number,
+    serviceData: any,
 }
 
 const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element => {
@@ -80,9 +80,12 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
         setShowBook(true);
         setSelectedDealer(dealerItem);
     }
+    const handleBooking = () =>{
+        setShowBook(false);
+    }
 
     useEffect(() => {
-        axios.get<[]>(`/dealer/serviceType/${props.id}`)
+        axios.get<[]>(`/dealer/serviceType/${props.serviceData.id}`)
             .then((response: AxiosResponse) => {
                 setDealersData(response.data);
                 setLoading(true);
@@ -255,16 +258,13 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                     </div>
                 </Modal.Body>
             </Modal>
-            <Modal size="lg" aria-labelledby="contained-modal-title-vcenter" centered show={showBook} onHide={() => setShowBook(!showBook)}>
+            <Modal size="lg" aria-labelledby="contained-modal-title-vcenter" centered show={showBook} onHide={handleBooking}>
                 <Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0275d8' }}>Booking Details</Modal.Header>
                 <Modal.Body>
                     <div className="divModal">
-                       {selectedDealer ?  <Booking SelectedDealer={selectedDealer} ServiceType={props.id} /> : null }
+                       {selectedDealer ?  <Booking SelectedDealer={selectedDealer} serviceData={props.serviceData} handleClose={handleBooking} /> : null }
                     </div>
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button size="medium" onClick={handleShow}>BOOK</Button>
-            </Modal.Footer>
             </Modal>
             <Modal size="lg" aria-labelledby="contained-modal-title-vcenter" centered show={showInvoice} onHide={() => setShowInvoice(!showInvoice)}>
                 <Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0275d8' }}>Booking Summary</Modal.Header>

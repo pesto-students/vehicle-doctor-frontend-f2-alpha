@@ -5,8 +5,8 @@ export interface IBookingService {
 	vehicle_reg_no: string;
 	vehicle_model: string;
 	pick_up:number;
-	pick_up_date:string;
-	drop_date:string
+	pick_up_date:Date | null;
+	drop_date:Date | null;
 	customer_id:number;
 	dealer_id:number;
 	service_id:number;

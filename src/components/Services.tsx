@@ -14,10 +14,11 @@ import axios from '../BaseURL';
 function Services() {
     const [serviceData, setServiceData] = useState<Service[]>([]);
     const [showBook, setShowBook] = useState<boolean>(false);
-    const [serviceId, setServiceId] = useState<any>();
+    const [SelectedServiceData, setSelectedServiceData] = useState<any>({});
 
-    const handleShow = (id:any) => {
-		setServiceId(id);
+    const handleShow = (id:any,serviceName:any) => {
+       const data={id,serviceName}
+       setSelectedServiceData(data);
         setShowBook(!showBook)
         console.log(id);
 	};
@@ -47,7 +48,7 @@ function Services() {
                                             alt="icon"
                                         />
                                         <CardContent>
-                                            <button onClick={() => handleShow(`${item.id}`)}>{item.service_name}</button>
+                                            <button onClick={() => handleShow(`${item.id}`,`${item.service_name}`)}>{item.service_name}</button>
                                         </CardContent>
                                     </CardActionArea>
                                 </Card>
@@ -62,7 +63,7 @@ function Services() {
                     <b>VehicleDr.com</b>
                 </Modal.Header>
                 <Modal.Body style={{ backgroundColor: 'lightgray' }}>
-                    <DealerList id={serviceId} />
+                    <DealerList serviceData={SelectedServiceData} />
                 </Modal.Body>
             </Modal>
         </>
