@@ -83,7 +83,7 @@ const Home: React.FC = () =>{
 									getOptionLabel={(option) => option.vehicle_type}
 									autoHighlight
 									sx={{ width: 300 }}
-									renderInput={(params) => <TextField {...params} label='Vehicle Type' />}
+									renderInput={(params) => <TextField variant="filled" {...params} label='Vehicle Type' />}
 								/>
 							</div>
 							<div>
@@ -95,7 +95,7 @@ const Home: React.FC = () =>{
 									getOptionLabel={(option) => option.name}
 									autoHighlight
 									sx={{ width: 300 }}
-									renderInput={(params) => <TextField {...params} label='Dealer Name' />}
+									renderInput={(params) => <TextField variant="filled" {...params} label='Dealer Name' />}
 								/>
 							</div>
 							<div>
@@ -107,7 +107,7 @@ const Home: React.FC = () =>{
 									getOptionLabel={(option) => option.serviceTypes.service_name}
 									autoHighlight
 									sx={{ width: 300 }}
-									renderInput={(params) => <TextField {...params} label='Services' />}
+									renderInput={(params) => <TextField variant="filled"{...params} label='Services' />}
 								/>
 							</div>
 							<div>
@@ -120,7 +120,7 @@ const Home: React.FC = () =>{
 				</tr>
 				<tr>
 					<td>
-						<span style={{ backgroundColor: "white" }}>{location?.loaded ? location?.data[0]?.address_components[3].long_name : "Location data not avaialble"}</span>
+						<span style={{ backgroundColor: "white"}}>{location?.loaded ? location?.data[0]?.address_components[3].long_name : "Location data not avaialble"}</span>
 					</td>
 				</tr>
 			</table>

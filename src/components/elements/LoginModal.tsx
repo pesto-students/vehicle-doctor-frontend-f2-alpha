@@ -10,11 +10,7 @@ import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { ILoginInterface } from '../../Interfaces/ILoginInterface';
 import { SUBMIT, VALIDATE } from '../../Constants/common.constant';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import EmailIcon from '@mui/icons-material/Email';
-import Room from '@mui/icons-material/Room';
-import LocationCityIcon from '@mui/icons-material/LocationCity';
-import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
+import CustomerDeatailsModal from './CustomerDeatailsModal';
 
 type Props = {
     open: boolean;
@@ -32,7 +28,11 @@ const LoginModal: React.FC<Props> = ({ open, handleClose }) => {
     const [result, setConfirmationResult] = useState<any>();
     const [showInfo, setShowInfo] = useState<boolean>(false);
     window.recaptchaVerifier = window.recaptchaVerifier || {};
-    const phoneRegExp = /^[1-9][0-9]{9}$/;
+    const phoneRegExp = /^[1-9][0-9]{9}$/;    
+    
+    const CustomerDetailsClose = () => {
+		setShowInfo(false);
+	};
 
     const validationSchema: Yup.SchemaOf<ILoginInterface> = Yup.object().shape({
         mobile: Yup.string()
@@ -86,6 +86,7 @@ const LoginModal: React.FC<Props> = ({ open, handleClose }) => {
                 console.log(error);
                 console.log("SMS not sent")
             });
+        
     }
 
     const onSubmitOTP = (e: any) => {
@@ -170,90 +171,7 @@ const LoginModal: React.FC<Props> = ({ open, handleClose }) => {
                         </Button>}
                 </Modal.Footer>
             </Modal>
-            <Modal size='sm' aria-labelledby='contained-modal-title-vcenter' centered show={showInfo} onHide={() => setShowInfo(!showInfo)} backdrop='static' keyboard={false}>
-                <Modal.Header className='modalHeader' closeButton>
-                    Profile Information{' '}
-                </Modal.Header>
-                <Modal.Body>
-                    <div className='divModal'>
-                        <div className='modalBody'>
-                            <TextField
-                                id='input-with-icon-textfield'
-                                label='Name'
-                                InputProps={{
-                                    startAdornment: (
-                                        <InputAdornment position='start'>
-                                            <AccountCircleIcon />
-                                        </InputAdornment>
-                                    )
-                                }}
-                                variant='standard'
-                            />
-                        </div>
-                        <div className='modalBody'>
-                            <TextField
-                                id='input-with-icon-textfield'
-                                label='E-Mail'
-                                InputProps={{
-                                    startAdornment: (
-                                        <InputAdornment position='start'>
-                                            <EmailIcon />
-                                        </InputAdornment>
-                                    )
-                                }}
-                                variant='standard'
-                            />
-                        </div>
-                        <div className='modalBody'>
-                            <TextField
-                                id='input-with-icon-textfield'
-                                label='Locality/Street'
-                                InputProps={{
-                                    startAdornment: (
-                                        <InputAdornment position='start'>
-                                            <MapsHomeWorkIcon />
-                                        </InputAdornment>
-                                    )
-                                }}
-                                variant='standard'
-                            />
-                        </div>
-                        <div className='modalBody'>
-                            <TextField
-                                id='input-with-icon-textfield'
-                                label='City'
-                                InputProps={{
-                                    startAdornment: (
-                                        <InputAdornment position='start'>
-                                            <LocationCityIcon />
-                                        </InputAdornment>
-                                    )
-                                }}
-                                variant='standard'
-                            />
-                        </div>
-                        <div className='modalBody'>
-                            <TextField
-                                id='input-with-icon-textfield'
-                                label='State'
-                                InputProps={{
-                                    startAdornment: (
-                                        <InputAdornment position='start'>
-                                            <Room />
-                                        </InputAdornment>
-                                    )
-                                }}
-                                variant='standard'
-                            />
-                        </div>
-                    </div>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button size='sm' variant='primary' onClick={() => setShowInfo(!showInfo)}>
-                        REGISTER
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+            <CustomerDeatailsModal mobile={state.mobile} open={showInfo} handleClose={CustomerDetailsClose} />
         </>
     )
 }
