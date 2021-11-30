@@ -84,6 +84,12 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
         setShowBook(false);
     }
 
+    const ReviewDialog = (dealerItem:Dealer) =>{
+        setShowReview(!showReview);
+        console.log(dealerItem)
+        setSelectedDealer(dealerItem);
+    }
+
     useEffect(() => {
         axios.get<[]>(`/dealer/serviceType/${props.serviceData.id}`)
             .then((response: AxiosResponse) => {
@@ -171,7 +177,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                                                 </CardContent>
                                                 <CardActions>
                                                     <Button size="small" onClick={() => BookDialog(item)}>Book Now</Button>
-                                                    <Button size="small" onClick={() => setShowReview(!showReview)}>Veiw Reviews</Button>
+                                                    <Button size="small" onClick={() => ReviewDialog(item)}>Veiw Reviews</Button>
                                                 </CardActions>
                                             </Card>
                                         </Grid>
@@ -215,10 +221,6 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJciEIMWzRvBHsRtof3UgG1hOUGX5GsZFo3Q&usqp=CAU"
                                     alt="First slide"
                                 />
-                                {/* <Carousel.Caption>
-                                    <h3>First slide label</h3>
-                                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                                </Carousel.Caption> */}
                             </Carousel.Item>
                             <Carousel.Item>
                                 <img
@@ -226,10 +228,6 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDRLpY3p-0UeQAaToiItwtfYehmSa-TSw2Lg&usqp=CAU"
                                     alt="Second slide"
                                 />
-                                {/* <Carousel.Caption>
-                                    <h3>Second slide label</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                </Carousel.Caption> */}
                             </Carousel.Item>
                             <Carousel.Item>
                                 <img
@@ -237,28 +235,22 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCCvsYNrm6G-b3bhsrnnkgk8CQJxgNVz9HsA&usqp=CAU"
                                     alt="Third slide"
                                 />
-                                {/* <Carousel.Caption>
-                                    <h3>Third slide label</h3>
-                                    <p>
-                                        Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-                                    </p>
-                                </Carousel.Caption> */}
                             </Carousel.Item>
                         </Carousel>
                         <b>Comments and Reviews:</b>
-                        {dealersData.map((item) => (
-                            item.dealer_history.map((x) => (
+                        {selectedDealer ? 
+                            selectedDealer.dealer_history.map((x) => (
                                 <ul style={{ listStyleType: 'none' }}>
                                     <li>
                                         <Rating name="size-small" size="small" value={x.rating} readOnly /> - {x.comments}
                                     </li>
                                 </ul>
                             ))
-                        ))}
+                        : null}
                     </div>
                 </Modal.Body>
             </Modal>
-            <Modal size="lg" aria-labelledby="contained-modal-title-vcenter" centered show={showBook} onHide={handleBooking}>
+            <Modal fullscreen aria-labelledby="contained-modal-title-vcenter" centered show={showBook} onHide={handleBooking}>
                 <Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0275d8' }}>Booking Details</Modal.Header>
                 <Modal.Body>
                     <div className="divModal">
