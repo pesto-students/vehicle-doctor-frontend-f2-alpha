@@ -5,6 +5,8 @@ import LoginModal from '../components/elements/LoginModal';
 import DealerReg from './DealerReg';
 import DealerLoginModal from './Dealer/DealerLoginModal';
 import logo from '../img/logo.jpg';
+import useGeoLocation from '../Hooks/GeolocationHook';
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import {
 	ROADSIDE_ASSISTANCE,
 	PARTNERS,
@@ -19,6 +21,7 @@ const HNavbar: React.FunctionComponent = () => {
 	const [showDealer, setShowDealer] = useState<boolean>(false);
 	const [showDealerLogin, setShowDealerLogin] = useState<boolean>(false);
 	const [open, setOpen] = useState<boolean>(false);
+	const location = useGeoLocation();
 
 	const SOShandleOpen = () => {
 		setShowSOS(true);
@@ -70,6 +73,9 @@ const HNavbar: React.FunctionComponent = () => {
 						</Nav>
 					</Navbar.Collapse>
 				</Container>
+				<div style={{marginRight:'2%'}}>
+					<LocationOnOutlinedIcon /><span>{location?.loaded ? location?.data[0]?.address_components[3].long_name : "New Delhi"}</span>
+				</div>
 			</Navbar>
 
 			<RoadSideAssitanceModal open={showSOS} handleClose={SOShandleClose} />

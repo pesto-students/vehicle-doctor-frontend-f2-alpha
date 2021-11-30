@@ -118,11 +118,6 @@ const Home: React.FC = () =>{
 						</div>
 					</td>
 				</tr>
-				<tr>
-					<td>
-						<span style={{ backgroundColor: "white"}}>{location?.loaded ? location?.data[0]?.address_components[3].long_name : "Location data not avaialble"}</span>
-					</td>
-				</tr>
 			</table>
 
 			{dealerData && serviceData ? (
