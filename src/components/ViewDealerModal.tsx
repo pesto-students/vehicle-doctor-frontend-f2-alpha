@@ -1,7 +1,7 @@
 import { Button, Modal, Carousel } from 'react-bootstrap';
-import { Dealer } from '../../Interfaces/IDealerInterface';
-import { DealerService } from '../../Interfaces/IDealerServiceInterface';
-import { BOOKNOW } from '../../Constants/common.constant';
+import { Dealer } from '../Interfaces/IDealerInterface';
+import { DealerService } from '../Interfaces/IDealerServiceInterface';
+import { BOOKNOW } from '../Constants/common.constant';
 import React, { useState } from 'react';
 
 type Props = {

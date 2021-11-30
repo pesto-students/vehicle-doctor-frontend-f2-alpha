@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Nav, Container, Navbar, Button, Modal, NavDropdown } from 'react-bootstrap';
-import RoadSideAssitanceModal from '../components/elements/RoadSideAssitanceModal';
-import LoginModal from '../components/elements/LoginModal';
+import RoadSideAssitanceModal from './RoadSideAssitanceModal';
+import LoginModal from './Customer/LoginModal';
 import DealerReg from './DealerReg';
 import DealerLoginModal from './Dealer/DealerLoginModal';
 import logo from '../img/logo.jpg';

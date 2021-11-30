@@ -5,7 +5,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { DealerService } from '../Interfaces/IDealerServiceInterface';
 import { Dealer } from '../Interfaces/IDealerInterface';
 import { AxiosResponse } from 'axios';
-import ViewDealer from '../components/elements/ViewDealerModal';
+import ViewDealer from './ViewDealerModal';
 import useGeoLocation from '../Hooks/GeolocationHook';
 import useVehicleData from '../Hooks/VehicleDataHook';
 import axios from '../BaseURL';

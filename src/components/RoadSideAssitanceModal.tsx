@@ -1,7 +1,7 @@
 
 import { Button, Modal } from 'react-bootstrap';
-import RoadSideAssistanceAutoCompleteComponent from '../RoadSideAssistanceAutoCompleteComponent';
-import { ROADSIDE_ASSISTANCE,SUBMIT } from '../../Constants/common.constant';
+import RoadSideAssistanceAutoCompleteComponent from './RoadSideAssistanceAutoCompleteComponent';
+import { ROADSIDE_ASSISTANCE,SUBMIT } from '../Constants/common.constant';
 
 
 type Props = {
