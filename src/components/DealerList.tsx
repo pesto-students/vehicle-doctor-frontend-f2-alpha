@@ -25,6 +25,7 @@ function valuetext(value: number) {
 
 interface dealerProps {
     serviceData: any,
+    Id:any
 }
 
 const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element => {
@@ -91,12 +92,23 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
     }
 
     useEffect(() => {
-        axios.get<[]>(`/dealer/serviceType/${props.serviceData.id}`)
+        if(props.Id != null){
+            axios.get<[]>(`/dealer/serviceType/${props.serviceData.id}/${props.Id}`)
+            .then((response: AxiosResponse) => {
+                setDealersData(response.data);
+                console.log(dealersData);
+                setLoading(true);
+                //setFilteredData(response.data);
+            })
+        }else{
+            axios.get<[]>(`/dealer/serviceType/${props.serviceData.id}`)
             .then((response: AxiosResponse) => {
                 setDealersData(response.data);
                 setLoading(true);
                 //setFilteredData(response.data);
             })
+        }
+     
     }, []);
 
     

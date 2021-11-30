@@ -6,10 +6,9 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { CardActionArea } from '@mui/material';
 import serviceImg from '../img/s1.jpg';
-import DealerList from './DealerList';
-import logo from '../img/logo.jpg';
-import { Modal, Button } from 'react-bootstrap';
 import axios from '../BaseURL';
+import DealerListBaseModal from './DealerListBaseModal';
+import { Button } from 'react-bootstrap';
 
 function Services() {
     const [serviceData, setServiceData] = useState<Service[]>([]);
@@ -21,8 +20,13 @@ function Services() {
        setSelectedServiceData(data);
         setShowBook(!showBook)
         console.log(id);
+        console.log('SelectedServiceData',SelectedServiceData);
 	};
 
+    const DealerListBaseModalhandleClose = () => {
+		setShowBook(false);
+	}; 
+   
     useEffect(() => {
         axios.get<Service[]>('/service/types/GeneralService')
             .then((response: AxiosResponse) => {
@@ -57,15 +61,8 @@ function Services() {
                     }
                 </div>
             </div>
-            <Modal fullscreen aria-labelledby="contained-modal-title-vcenter" centered show={showBook} onHide={() => setShowBook(!showBook)}>
-                <Modal.Header closeButton style={{ backgroundColor: '#f8f9fa' }}>
-                    <img src={logo} width='30px' className='d-inline-block align-top' alt='logo' />
-                    <b>VehicleDr.com</b>
-                </Modal.Header>
-                <Modal.Body style={{ backgroundColor: 'lightgray' }}>
-                    <DealerList serviceData={SelectedServiceData} />
-                </Modal.Body>
-            </Modal>
+            <DealerListBaseModal open={showBook} handleClose={DealerListBaseModalhandleClose} serviceData={SelectedServiceData}  Id={null}/>
+            
         </>
     );
 
