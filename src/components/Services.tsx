@@ -8,7 +8,7 @@ import { CardActionArea } from '@mui/material';
 import serviceImg from '../img/s1.jpg';
 import DealerList from './DealerList';
 import logo from '../img/logo.jpg';
-import { Modal } from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 import axios from '../BaseURL';
 
 function Services() {
@@ -48,7 +48,7 @@ function Services() {
                                             alt="icon"
                                         />
                                         <CardContent>
-                                            <button onClick={() => handleShow(`${item.id}`,`${item.service_name}`)}>{item.service_name}</button>
+                                            <Button variant='warning'  onClick={() => handleShow(`${item.id}`,`${item.service_name}`)}>{item.service_name}</Button>
                                         </CardContent>
                                     </CardActionArea>
                                 </Card>
