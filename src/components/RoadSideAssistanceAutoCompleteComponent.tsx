@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { Service } from '../Interfaces/IServiceInterfaces';
 import useGeoLocation from '../Hooks/GeolocationHook';
 import axios from '../BaseURL';
+import LocationOnTwoToneIcon from '@mui/icons-material/LocationOnTwoTone';
 
 const RoadSideAssistanceAutoCompleteComponent: React.FC = () => {
 	const [serviceData, setServiceData] = useState<Service[]>([]);
@@ -25,20 +26,23 @@ const RoadSideAssistanceAutoCompleteComponent: React.FC = () => {
 	}
 
 	return (
-		<div>
-			<div>
+		<div className="flex-container">
+			<div style={{textAlign:'center', marginBottom:'2%',border:'0.2px solid lightgray',padding:'10px', borderRadius:'2%'}}>
+				<LocationOnTwoToneIcon fontSize="medium" /><span><h6>{location?.loaded ? location?.data[0]?.formatted_address:'XXXXXX Area Road, XXXXXXX, XXXXXXX - 334001, Rajasthan, India'}</h6></span>
+			</div>
+			<div style={{ margin:'3%'}}>
 				<Autocomplete
 					disablePortal
 					onChange={updateServices}
 					style={{ backgroundColor: 'white' }}
 					options={vehicleData}
 					getOptionLabel={(option) => option.vehicle_type}
-					autoHighlight
+					autoHighlight 
 					sx={{ width: 300 }}
 					renderInput={(params) => <TextField {...params} label='Vehicle Type' />}
 				/>
 			</div>
-			<div>
+			<div style={{margin:'3%'}}>
 				<Autocomplete
 					disablePortal
 					style={{ backgroundColor: 'white' }}
@@ -48,14 +52,6 @@ const RoadSideAssistanceAutoCompleteComponent: React.FC = () => {
 					sx={{ width: 300 }}
 					renderInput={(params) => <TextField {...params} label='Services Name' />}
 				/>
-			</div>
-			<div>
-					<TextField
-						disabled
-						id="outlined-disabled"
-						label={location?.loaded ? location?.data[0]?.formatted_address:null}
-						margin="normal"
-					/>
 			</div>
 		</div>
 	);
