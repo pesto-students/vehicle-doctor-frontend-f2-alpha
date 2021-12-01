@@ -1,8 +1,9 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
+import env from "react-dotenv";
 
 var firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  apiKey: env.REACT_APP_FIREBASE_API_KEY,
   authDomain: "vechile-doctor.firebaseapp.com",
   projectId: "vechile-doctor",
   storageBucket: "vechile-doctor.appspot.com",
