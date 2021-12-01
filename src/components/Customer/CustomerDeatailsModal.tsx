@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import logo from '../../img/VehicleDr_logo.jpg';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EmailIcon from '@mui/icons-material/Email';
 import Room from '@mui/icons-material/Room';

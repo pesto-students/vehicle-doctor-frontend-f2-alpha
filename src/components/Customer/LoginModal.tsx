@@ -65,7 +65,7 @@ const LoginModal: React.FC<Props> = ({ open, handleClose, setToken }) => {
         setState({...initialState});
       };
 
-    const { register, control, handleSubmit, formState: { errors, isValid } } = useForm<ILoginInterface>({
+    const { register, formState: { errors, isValid } } = useForm<ILoginInterface>({
         mode: 'all',
         resolver: yupResolver(validationSchema)
     });

@@ -10,7 +10,7 @@ import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
 import Grid from "@mui/material/Grid";
 import Rating from '@mui/material/Rating';
-import { Nav, Navbar, Modal, Carousel } from 'react-bootstrap';
+import { Navbar, Modal, Carousel } from 'react-bootstrap';
 import Checkbox from '@mui/material/Checkbox';
 import Slider from '@mui/material/Slider';
 import Booking from './Booking';
@@ -38,7 +38,6 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
 
     const [showReview, setShowReview] = useState<boolean>(false);
     const [showBook, setShowBook] = useState<boolean>(false);
-    // const { id } = useParams<{ id: string }>();
     const [activeFilter, setactiveFilter] = useState<number[]>([]);
 
     const [value, setValue] = React.useState<number[]>([0, 5]);

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { ICustomerDetails } from './Interfaces/ICustomerDetails';
 
 export default function useToken(){
     const getToken = () => {

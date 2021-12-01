@@ -12,7 +12,9 @@ import {
 	PARTNERS,
 	DEALER_SIGNUP_MODAL_HEADER,
 	SIGNUP,
-	LOGIN
+	LOGIN,
+	PROFILE,
+	LOGOUT
 } from '../Constants/common.constant';
 import useToken from '../useToken';
 
@@ -64,17 +66,17 @@ const HNavbar: React.FunctionComponent = () => {
 							{
 								token == null ?
 									<Button variant='outline-primary' style={{ margin: '1px' }} onClick={LoginHandleOpen}>
-										LOGIN
+										{LOGIN}
 									</Button>
 									:
-									<><NavDropdown title="PROFILE" id='nav-dropdown-partners'>
+									<><NavDropdown title={PROFILE} id='nav-dropdown-partners'>
 										<NavDropdown.Item
 										>
 											{token.customer_name}
 										</NavDropdown.Item>
 										<NavDropdown.Divider />
 										<NavDropdown.Item eventKey='7.2' onClick={CustomerLogout}>
-											LOGOUT
+											{LOGOUT}
 										</NavDropdown.Item>
 									</NavDropdown></>
 

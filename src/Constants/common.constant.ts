@@ -10,3 +10,5 @@ export const VALIDATE = 'VALIDATE';
 export const LOGIN = 'LOGIN';
 export const SIGNUP = 'SIGN UP';
 export const DEALER_LOGIN_MODAL_HEADER = 'PARTNER LOGIN';
+export const PROFILE = 'PROFILE';
+export const LOGOUT='LOGOUT';

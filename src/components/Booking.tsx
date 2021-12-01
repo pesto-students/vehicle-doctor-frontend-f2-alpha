@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Modal } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import TextField from '@mui/material/TextField';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -12,7 +12,6 @@ import MenuItem from '@mui/material/MenuItem';
 import axios from '../BaseURL';
 import { AxiosResponse } from 'axios';
 import { Carousel } from 'react-bootstrap';
-import Rating from '@mui/material/Rating';
 
 
 type Props = {
