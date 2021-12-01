@@ -10,20 +10,31 @@ import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
 import axios from '../../BaseURL';
 import { AxiosResponse } from 'axios';
-import { ICustomerDetails } from '../../Interfaces/ICustomerDetails';
+import { ICustomerFormDetails } from '../../Interfaces/ICustomerFormDetails';
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
+
 
 type Props = {
     open: boolean;
     handleClose: (val: boolean) => void;
     mobile: string;
+    setToken: (val:any) => void;
 }
 
 interface IFormInput {
     custName: string;
     custEmail: string;
+    location:{
+		locality:string;
+		city:string;
+		state:string;
+		pincode:string;
+		lat:string
+		long:string
+		isHomeAddress:number;
+	}
 }
 
 const schema = yup.object({
@@ -31,7 +42,7 @@ const schema = yup.object({
     custEmail: yup.string().email('Must be a valid email').max(255).required('Email is required'),
 }).required();
 
-const CustomerDeatailsModal: React.FC<Props> = ({ open, handleClose, mobile }) => {
+const CustomerDeatailsModal: React.FC<Props> = ({ open, handleClose, mobile ,setToken}) => {
 
     const [summary, SetSummaryID] = useState<string>();
 
@@ -39,10 +50,19 @@ const CustomerDeatailsModal: React.FC<Props> = ({ open, handleClose, mobile }) =
         resolver: yupResolver(schema)
     });
 
-    const [formData, setFormData] = useState<ICustomerDetails>({
+    const [formData, setFormData] = useState<ICustomerFormDetails>({
         customer_name: '',
         mobile: '',
         email: '',
+        location:{
+            locality:'',
+            city:'',
+            state:'',
+            pincode:'',
+            lat:'',
+            long:'',
+            isHomeAddress:0,
+        }
     });
 
     const onSubmit = (data: IFormInput) => {
@@ -50,11 +70,16 @@ const CustomerDeatailsModal: React.FC<Props> = ({ open, handleClose, mobile }) =
         formData.customer_name = data.custName;
         formData.mobile = mobile;
         formData.email = data.custEmail;
+        formData.location.locality=data.location.locality;
+        formData.location.city=data.location.city;
+        formData.location.state=data.location.state;
+        formData.location.pincode=data.location.pincode;
 
         console.log('FormData', formData);
         axios.post('/customer/add', formData)
             .then((response: AxiosResponse) => {
                 SetSummaryID(response.data);
+                setToken(response.data);
             });
             handleClose(false);
     }
@@ -100,10 +125,11 @@ const CustomerDeatailsModal: React.FC<Props> = ({ open, handleClose, mobile }) =
                                 helperText={errors.custEmail?.message}
                             />
                         </div>
-                        {/* <div className='modalBody'>
+                        <div className='modalBody'>
                             <TextField
                                 id='input-with-icon-textfield'
                                 label='Locality/Street'
+                                {...register("location.locality")}
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position='start'>
@@ -118,6 +144,7 @@ const CustomerDeatailsModal: React.FC<Props> = ({ open, handleClose, mobile }) =
                             <TextField
                                 id='input-with-icon-textfield'
                                 label='City'
+                                {...register("location.city")}
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position='start'>
@@ -132,6 +159,7 @@ const CustomerDeatailsModal: React.FC<Props> = ({ open, handleClose, mobile }) =
                             <TextField
                                 id='input-with-icon-textfield'
                                 label='State'
+                                {...register("location.state")}
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position='start'>
@@ -141,7 +169,22 @@ const CustomerDeatailsModal: React.FC<Props> = ({ open, handleClose, mobile }) =
                                 }}
                                 variant='standard'
                             />
-                        </div> */}
+                        </div>
+                        <div className='modalBody'>
+                            <TextField
+                                id='input-with-icon-textfield'
+                                label='PinCode'
+                                {...register("location.pincode")}
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position='start'>
+                                            <Room />
+                                        </InputAdornment>
+                                    )
+                                }}
+                                variant='standard'
+                            />
+                        </div>
                     </div>
                     <div style={{textAlign:'center'}}>
                         <Button size='sm' variant='primary' type="submit">

@@ -11,10 +11,16 @@ import { useForm } from 'react-hook-form';
 import { ILoginInterface } from '../../Interfaces/ILoginInterface';
 import { SUBMIT, VALIDATE } from '../../Constants/common.constant';
 import CustomerDeatailsModal from './CustomerDeatailsModal';
+import { AxiosResponse } from 'axios';
+import axios from '../../BaseURL';
+import { ICustomerDetails } from '../../Interfaces/ICustomerDetails';
+import ReactLoading from "react-loading";
+
 
 type Props = {
     open: boolean;
     handleClose: (val: boolean) => void;
+    setToken: (val: any) => void;
 }
 declare global {
     interface Window {
@@ -23,16 +29,21 @@ declare global {
     }
 }
 
-const LoginModal: React.FC<Props> = ({ open, handleClose }) => {
-    const [state, setState] = useState<ILoginInterface>({ mobile: '', otp: '' });
+const LoginModal: React.FC<Props> = ({ open, handleClose, setToken }) => {
+    const initialState = {
+        mobile: "",
+        otp: ""
+    };
+    const [state, setState] = useState<ILoginInterface>(initialState);
     const [result, setConfirmationResult] = useState<any>();
     const [showInfo, setShowInfo] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
     window.recaptchaVerifier = window.recaptchaVerifier || {};
-    const phoneRegExp = /^[1-9][0-9]{9}$/;    
-    
+    const phoneRegExp = /^[1-9][0-9]{9}$/;
+
     const CustomerDetailsClose = () => {
-		setShowInfo(false);
-	};
+        setShowInfo(false);
+    };
 
     const validationSchema: Yup.SchemaOf<ILoginInterface> = Yup.object().shape({
         mobile: Yup.string()
@@ -50,6 +61,9 @@ const LoginModal: React.FC<Props> = ({ open, handleClose }) => {
             [input]: value,
         }))
     }
+    const clearState = () => {
+        setState({...initialState});
+      };
 
     const { register, control, handleSubmit, formState: { errors, isValid } } = useForm<ILoginInterface>({
         mode: 'all',
@@ -77,31 +91,40 @@ const LoginModal: React.FC<Props> = ({ open, handleClose }) => {
             .then((confirmationResult) => {
                 // SMS sent. Prompt user to type the code from the message, then sign the
                 // user in with confirmationResult.confirm(code).
+                appVerifier.clear();
                 window.confirmationResult = confirmationResult;
                 setConfirmationResult(window.confirmationResult)
                 console.log(result);
                 console.log("OTP has been sent")
-                // ...
             }).catch((error) => {
                 console.log(error);
                 console.log("SMS not sent")
             });
-        
+
     }
 
     const onSubmitOTP = (e: any) => {
         e.preventDefault()
         const code = state.otp
-        console.log(code)
         window.confirmationResult.confirm(code).then((result: any) => {
             // User signed in successfully.
-            const user = result.user;
-            console.log(JSON.stringify(user))
+            axios.get<ICustomerDetails>(`/customer/search/${state.mobile}`)
+                .then((response: AxiosResponse) => {
+                    console.log(response.data);
+                    setLoading(false);
+                    if (response.data.customer_name == null) {
+                        setShowInfo(true);
+                    } else {
+                        setToken(response.data);
+                        setShowInfo(false);
+                    }
+                });
+            window.confirmationResult = null;
             handleClose(true);
         }).catch((error: any) => {
             console.log(error);
         });
-        setShowInfo(true);
+
     }
 
     return (
@@ -171,7 +194,7 @@ const LoginModal: React.FC<Props> = ({ open, handleClose }) => {
                         </Button>}
                 </Modal.Footer>
             </Modal>
-            <CustomerDeatailsModal mobile={state.mobile} open={showInfo} handleClose={CustomerDetailsClose} />
+            <CustomerDeatailsModal mobile={state.mobile} open={showInfo} handleClose={CustomerDetailsClose} setToken={setToken} />
         </>
     )
 }
