@@ -42,7 +42,6 @@ const RoadSideAssisstanceModal: React.FC<Props> = ({ open, handleClose }) => {
 			axios.get<Service[]>('/service/types/SOS')
 				.then((response: AxiosResponse) => {
 					setServiceData(response.data);
-					console.log('servicedata',serviceData)
 				})
 		}
 	}
@@ -53,11 +52,12 @@ const RoadSideAssisstanceModal: React.FC<Props> = ({ open, handleClose }) => {
 	}; 
 
 	const serviceSelected = (event: any, newValue: any): void => {
+		if (newValue != null) {
 		const id=newValue.id;
 		const serviceName=newValue.service_name;
 		const data={id,serviceName}
 		setSelectedServiceData(data);
-		console.log('selectedserviceData',selectedserviceData)
+		}
 	}
 
 

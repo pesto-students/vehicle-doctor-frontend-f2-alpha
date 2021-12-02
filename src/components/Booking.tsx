@@ -12,6 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import axios from '../BaseURL';
 import { AxiosResponse } from 'axios';
 import { useForm } from "react-hook-form";
+import FormControl from '@mui/material/FormControl';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 
@@ -147,6 +148,9 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose }) 
                         <table style={{ width: '100%' }}>
                             <tr>
                                 <td>
+                                    <h3 style={{ textTransform: 'uppercase' }}>{SelectedDealer.Vehicletype.vehicle_type}</h3>
+                                </td>
+                                <td>
                                     <h3 style={{ textTransform: 'uppercase' }}>{serviceData.serviceName}</h3>
                                 </td>
                                 <td style={{ textAlign: 'right', color: 'orangered' }}>
@@ -162,7 +166,7 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose }) 
                         <div>
                             <ul style={{ listStyleType: 'none' }}>
                                 <li>
-                                    <h6>Contact Details:</h6><p>{SelectedDealer.mobile}, {SelectedDealer.email}, {SelectedDealer.locality}, {SelectedDealer.city}, {SelectedDealer.state}, IND. - {SelectedDealer.pincode}</p>
+                                    <h6>Location Details:</h6><p>{SelectedDealer.locality}, {SelectedDealer.city}, {SelectedDealer.state}, IND. - {SelectedDealer.pincode}</p>
                                 </li>
                             </ul>
                         </div>
@@ -196,16 +200,10 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose }) 
                             </div>
                             <div className="flex-container" style={{ textAlign: 'center' }}>
                                 <div className="modalBody">
-                                    <TextField id="input-with-icon-textfield" label="Vehicle Type" variant="standard" value={SelectedDealer.Vehicletype.vehicle_type} disabled />
+                                    <TextField id="input-with-icon-textfield" {...register("vName")} helperText={errors.vName?.message} label="Vehicle Model" variant='outlined' onChange={handleInput('vehicle_model')} />
                                 </div>
                                 <div className="modalBody">
-                                    <TextField id="input-with-icon-textfield" {...register("vName")} helperText={errors.vName?.message} label="Vehicle Model" variant="standard" onChange={handleInput('vehicle_model')} />
-                                </div>
-                                <div className="modalBody">
-                                    <TextField id="input-with-icon-textfield" label="Vehicle Reg No." variant="standard" onChange={handleInput('vehicle_reg_no')} />
-                                </div>
-                                <div className="modalBody">
-                                    <TextField id="input-with-icon-textfield" variant="standard" value={serviceData.serviceName} disabled />
+                                    <TextField id="input-with-icon-textfield" label="Vehicle Reg No." variant='outlined' onChange={handleInput('vehicle_reg_no')} />
                                 </div>
                             </div>
                             <div className="divModal">
@@ -213,22 +211,22 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose }) 
                             </div>
                             <div className="flex-container" style={{ textAlign: 'center' }}>
                                 <div className="modalBody">
-                                    <TextField id="input-with-icon-textfield" label="Name" variant="standard" disabled />
+                                    <TextField id="input-with-icon-textfield" label="Name" variant="outlined" disabled />
                                 </div>
                                 <div className="modalBody">
-                                    <TextField id="input-with-icon-textfield" label="Mobile No." variant="standard" disabled />
+                                    <TextField id="input-with-icon-textfield" label="Mobile No." variant="outlined" disabled />
                                 </div>
                                 <div className="modalBody">
-                                    <TextField id="input-with-icon-textfield" label="E-Mail" variant="standard" disabled />
+                                    <TextField id="input-with-icon-textfield" label="E-Mail" variant="outlined" disabled />
                                 </div>
                                 <div className="modalBody">
-                                    <TextField id="input-with-icon-textfield" label="Locality" variant="standard" disabled />
+                                    <TextField id="input-with-icon-textfield" label="Locality" variant="outlined" disabled />
                                 </div>
                                 <div className="modalBody">
-                                    <TextField id="input-with-icon-textfield" label="City" variant="standard" disabled />
+                                    <TextField id="input-with-icon-textfield" label="City" variant="outlined" disabled />
                                 </div>
                                 <div className="modalBody">
-                                    <TextField id="input-with-icon-textfield" label="State" variant="standard" disabled />
+                                    <TextField id="input-with-icon-textfield" label="State" variant="outlined" disabled />
                                 </div>
                             </div>
                             <div className="divModal">
@@ -249,22 +247,20 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose }) 
                                     </LocalizationProvider>
                                 </div>
                                 <div className="modalBody">
-                                    <InputLabel id="demo-simple-select-standard-label">Pick UP</InputLabel>
+                                <FormControl sx={{ m: 1, minWidth: 120 }}>
+                                <InputLabel id="demo-simple-select-standard-label">Pick UP</InputLabel>
                                     <Select
                                         labelId="demo-simple-select-standard-label"
                                         id="demo-simple-select-standard"
                                         onChange={handleInput('pick_up')}
+                                        autoWidth
                                         label="Age"
                                     >
                                         <MenuItem value={1}>YES</MenuItem>
                                         <MenuItem value={0}>NO</MenuItem>
                                     </Select>
+                                    </FormControl>
                                 </div>
-                                {SelectedDealer.Services.map((dataItem) => (
-                                    <ul>
-                                        <TextField id="input-with-icon-textfield" value={dataItem.cost} disabled variant="standard" />
-                                    </ul>
-                                ))}
                             </div>
                             <div style={{ textAlign: 'center' }}>
                                 <Button type="submit">Book Now</Button>
@@ -274,12 +270,12 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose }) 
                 </div>
             </div>
 
-            <Modal size="lg"  aria-labelledby="contained-modal-title-vcenter" centered show={showInvoice} onHide={() => setShowInvoice(!showInvoice)} backdrop="static" keyboard={false}>
+            <Modal size="lg" aria-labelledby="contained-modal-title-vcenter" centered show={showInvoice} onHide={() => setShowInvoice(!showInvoice)} backdrop="static" keyboard={false}>
                 <Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0275d8' }}>Booking Summary</Modal.Header>
                 <Modal.Body>
                     <div className="divModal">
                         <h6>Dear Customer, your booking has been confirmed.</h6>
-                        <div className="flex-container" style={{ border: '0.2px solid lightgrey', padding: '5%', marginTop:'2%',marginBottom:'2%', width:'100%' }}>
+                        <div className="flex-container" style={{ border: '0.2px solid lightgrey', padding: '5%', marginTop: '2%', marginBottom: '2%', width: '100%' }}>
                             <div style={{ flex: '60%' }}>
                                 <h6>Customer Details:</h6>
                                 <p>{getValues("cName")},<br /> {getValues("cLocality")},{getValues("cCity")},{getValues("cState")}</p>
@@ -346,7 +342,7 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose }) 
                                 </tr>
                             </table>
                         </div>
-                        <div style={{textAlign:'center', marginTop:'2%'}}><Button>Print</Button></div>                    
+                        <div style={{ textAlign: 'center', marginTop: '2%' }}><Button>Print</Button></div>
                     </div>
                 </Modal.Body>
                 {/* <Modal.Footer>
