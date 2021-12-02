@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button,Modal } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { DealerService } from '../Interfaces/IDealerServiceInterface';
@@ -11,7 +11,7 @@ import useVehicleData from '../Hooks/VehicleDataHook';
 import axios from '../BaseURL';
 import Booking from './Booking';
 
-const Home: React.FC = () =>{
+const Home: React.FC = () => {
 	const [open, setOpen] = useState<boolean>(false);
 	const [servicesData, setServicesData] = useState<DealerService[]>([]);
 	const [dealersData, setDealersData] = useState<Dealer[]>([]);
@@ -19,7 +19,7 @@ const Home: React.FC = () =>{
 	const [serviceData, setServiceData] = useState<DealerService>();
 	const location = useGeoLocation();
 	const vehicleData = useVehicleData();
-    const [selectedDealer, setSelectedDealer] = useState<Dealer>();
+	const [selectedDealer, setSelectedDealer] = useState<Dealer>();
 
 	const handleOpen = () => {
 		setOpen(true);
@@ -28,7 +28,7 @@ const Home: React.FC = () =>{
 	const handleClose = () => {
 		setOpen(false);
 	};
-	
+
 	function updateDealers(event: any, newValue: any) {
 		const city = location?.data[0]?.address_components[3].long_name || 'Moga';
 		setDealersData([]);
@@ -112,24 +112,24 @@ const Home: React.FC = () =>{
 									renderInput={(params) => <TextField variant="filled"{...params} label='Services' />}
 								/>
 							</div>
-							<div>
-								<Button size='lg' style={{ margin: '2%' }} variant='primary' onClick={handleOpen}>
-									Book Now
-								</Button>
-							</div>
+						</div>
+						<div>
+							<Button size-="lg" style={{ margin: '2%' }} variant='primary' onClick={handleOpen}>
+								BOOK NOW
+							</Button>
 						</div>
 					</td>
 				</tr>
 			</table>
 
 			<Modal fullscreen aria-labelledby="contained-modal-title-vcenter" centered show={open} onHide={handleClose}>
-                <Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0275d8' }}>Booking Details</Modal.Header>
-                <Modal.Body>
-                    <div className="divModal">
-                        {dealerData ? <Booking SelectedDealer={dealerData} serviceData={serviceData} handleClose={handleClose} /> : null}
-                    </div>
-                </Modal.Body>
-            </Modal>
+				<Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0275d8' }}>Booking Details</Modal.Header>
+				<Modal.Body>
+					<div className="divModal">
+						{dealerData ? <Booking SelectedDealer={dealerData} serviceData={serviceData} handleClose={handleClose} /> : null}
+					</div>
+				</Modal.Body>
+			</Modal>
 
 			{/* {dealerData && serviceData ? (
 				<ViewDealer
