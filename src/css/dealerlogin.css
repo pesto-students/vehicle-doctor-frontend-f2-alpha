@@ -1,4 +1,5 @@
 .modal20w {
+	position: relative;
 	width: 20%;
 	max-width: none;
 }
@@ -20,10 +21,6 @@
 	padding: 5;
 }
 
-/* .main .item .avatar {
-	background-color: #0d6efd;
-} */
-
 .main .button {
 	background-color: #0d6efd;
 	color: #ffffff;
@@ -32,11 +29,6 @@
 .main .button:hover {
 	background-color: #0b5ed7;
 }
-
-/* .button:disabled {
-	background-color: '#0b5ed7';
-	color: '#ffffff';
-} */
 
 .link {
 	color: #0d6efd;
