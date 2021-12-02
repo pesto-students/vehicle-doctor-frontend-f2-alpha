@@ -1,4 +1,4 @@
 import axios from 'axios';
 
-const instance = axios.create({baseURL: 'http://vehicledoctor.us-east-2.elasticbeanstalk.com'});
+const instance = axios.create({baseURL: 'http://localhost:3001'});
 export default instance

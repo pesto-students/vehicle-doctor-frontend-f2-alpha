@@ -18,6 +18,8 @@ import LinearProgress from '@mui/material/LinearProgress';
 import Stack from '@mui/material/Stack';
 import '../css/dealerlist.css';
 import axios from '../BaseURL';
+import LoginModal from './Customer/LoginModal';
+import useToken from '../useToken';
 
 function valuetext(value: number) {
     return `${value}RS`;
@@ -42,6 +44,10 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
     const [value, setValue] = React.useState<number[]>([0, 5]);
 
     const [loading, setLoading] = useState<boolean>(false);
+
+    const [showLogin, setShowLogin] = useState<boolean>(false);
+
+    const { token, setToken } = useToken();
 
     const handleChange = (event: Event, newValue: number | number[]) => {
         setValue(newValue as number[]);
@@ -70,8 +76,17 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
 
     }
 
+    const LoginHandleClose = () => {
+		setShowLogin(false);
+	};
+
     const BookDialog = (dealerItem: Dealer) => {
+        if(token==null)
+        {
+        setShowLogin(true);
+        }else{
         setShowBook(true);
+        }
         setSelectedDealer(dealerItem);
     }
     const handleBooking = () => {
@@ -253,10 +268,11 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                 <Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0275d8' }}>Booking Details</Modal.Header>
                 <Modal.Body>
                     <div className="divModal">
-                        {selectedDealer ? <Booking SelectedDealer={selectedDealer} serviceData={props.serviceData} handleClose={handleBooking} /> : null}
+                        {selectedDealer ? <Booking SelectedDealer={selectedDealer} serviceData={props.serviceData} handleClose={handleBooking} customerData={token} />  : null}
                     </div>
                 </Modal.Body>
             </Modal>
+            <LoginModal open={showLogin} handleClose={LoginHandleClose} setToken={setToken}  SelectedDealer={selectedDealer}  serviceData={props.serviceData}/>
         </div>
     );
 }

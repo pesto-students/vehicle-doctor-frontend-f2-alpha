@@ -126,7 +126,7 @@ const Home: React.FC = () => {
 				<Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0275d8' }}>Booking Details</Modal.Header>
 				<Modal.Body>
 					<div className="divModal">
-						{dealerData ? <Booking SelectedDealer={dealerData} serviceData={serviceData} handleClose={handleClose} /> : null}
+						{dealerData ? <Booking SelectedDealer={dealerData} serviceData={serviceData} handleClose={handleClose} customerData={undefined} /> : null}
 					</div>
 				</Modal.Body>
 			</Modal>

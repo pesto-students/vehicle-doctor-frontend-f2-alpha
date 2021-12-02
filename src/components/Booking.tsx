@@ -15,16 +15,18 @@ import { useForm } from "react-hook-form";
 import FormControl from '@mui/material/FormControl';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
+import { ICustomerDetails } from '../Interfaces/ICustomerDetails';
 
 
 type Props = {
     SelectedDealer: Dealer;
     serviceData: any;
     handleClose: (val: boolean) => void;
+    customerData: ICustomerDetails | undefined;
 }
 
 
-const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose }) => {
+const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, customerData }) => {
     const [pickupDateValue, setpickupdateValue] = React.useState<Date | null>(new Date());
     const [formData, setFormData] = useState<IBookingService>({
         refrence_id: '',
@@ -196,7 +198,7 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose }) 
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div>
                             <div className="divModal">
-                                <h5>Add more about your vehicle</h5>
+                                <h5>Book a Service</h5>
                             </div>
                             <div className="flex-container" style={{ textAlign: 'center' }}>
                                 <div className="modalBody">
@@ -206,31 +208,25 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose }) 
                                     <TextField id="input-with-icon-textfield" label="Vehicle Reg No." variant='outlined' onChange={handleInput('vehicle_reg_no')} />
                                 </div>
                             </div>
-                            <div className="divModal">
-                                <h5>Personal Details</h5>
-                            </div>
                             <div className="flex-container" style={{ textAlign: 'center' }}>
                                 <div className="modalBody">
-                                    <TextField id="input-with-icon-textfield" label="Name" variant="outlined" disabled />
+                                    <TextField id="input-with-icon-textfield" label="Name" variant="outlined" value={customerData?.customer_name} disabled />
                                 </div>
                                 <div className="modalBody">
-                                    <TextField id="input-with-icon-textfield" label="Mobile No." variant="outlined" disabled />
+                                    <TextField id="input-with-icon-textfield" label="Mobile No." variant="outlined" value={customerData?.mobile} disabled />
                                 </div>
                                 <div className="modalBody">
-                                    <TextField id="input-with-icon-textfield" label="E-Mail" variant="outlined" disabled />
+                                    <TextField id="input-with-icon-textfield" label="E-Mail" variant="outlined" value={customerData?.email} disabled />
                                 </div>
-                                <div className="modalBody">
-                                    <TextField id="input-with-icon-textfield" label="Locality" variant="outlined" disabled />
-                                </div>
-                                <div className="modalBody">
-                                    <TextField id="input-with-icon-textfield" label="City" variant="outlined" disabled />
-                                </div>
-                                <div className="modalBody">
-                                    <TextField id="input-with-icon-textfield" label="State" variant="outlined" disabled />
-                                </div>
-                            </div>
-                            <div className="divModal">
-                                <h5>Other Information</h5>
+                                {customerData?.customer_location.map((item) => (
+                               <div className="modalBody">
+                                    <TextField id="input-with-icon-textfield" label="Locality" variant="outlined" value={item.locality}  disabled />
+                                    <TextField id="input-with-icon-textfield" label="City" variant="outlined" value={item.city} disabled />
+                                    <TextField id="input-with-icon-textfield" label="State" variant="outlined" value={item.state} disabled />
+                                    <TextField id="input-with-icon-textfield" label="State" variant="outlined" value={item.pincode} disabled />
+                                   </div>
+                                  
+                                ))}
                             </div>
                             <div className="flex-container" style={{ textAlign: 'center' }}>
                                 <div className="modalBody">
@@ -247,18 +243,18 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose }) 
                                     </LocalizationProvider>
                                 </div>
                                 <div className="modalBody">
-                                <FormControl sx={{ m: 1, minWidth: 120 }}>
-                                <InputLabel id="demo-simple-select-standard-label">Pick UP</InputLabel>
-                                    <Select
-                                        labelId="demo-simple-select-standard-label"
-                                        id="demo-simple-select-standard"
-                                        onChange={handleInput('pick_up')}
-                                        autoWidth
-                                        label="Age"
-                                    >
-                                        <MenuItem value={1}>YES</MenuItem>
-                                        <MenuItem value={0}>NO</MenuItem>
-                                    </Select>
+                                    <FormControl sx={{ m: 1, minWidth: 120 }}>
+                                        <InputLabel id="demo-simple-select-standard-label">Pick UP</InputLabel>
+                                        <Select
+                                            labelId="demo-simple-select-standard-label"
+                                            id="demo-simple-select-standard"
+                                            onChange={handleInput('pick_up')}
+                                            autoWidth
+                                            label="Age"
+                                        >
+                                            <MenuItem value={1}>YES</MenuItem>
+                                            <MenuItem value={0}>NO</MenuItem>
+                                        </Select>
                                     </FormControl>
                                 </div>
                             </div>

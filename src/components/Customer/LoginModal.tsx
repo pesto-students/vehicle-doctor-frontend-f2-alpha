@@ -14,13 +14,17 @@ import CustomerDeatailsModal from './CustomerDeatailsModal';
 import { AxiosResponse } from 'axios';
 import axios from '../../BaseURL';
 import { ICustomerDetails } from '../../Interfaces/ICustomerDetails';
+import { Dealer } from '../../Interfaces/IDealerInterface';
 import ReactLoading from "react-loading";
+import Booking from '../Booking';
 
 
 type Props = {
     open: boolean;
     handleClose: (val: boolean) => void;
     setToken: (val: any) => void;
+    SelectedDealer: Dealer | undefined;
+    serviceData: any;
 }
 declare global {
     interface Window {
@@ -29,7 +33,7 @@ declare global {
     }
 }
 
-const LoginModal: React.FC<Props> = ({ open, handleClose, setToken }) => {
+const LoginModal: React.FC<Props> = ({ open, handleClose, setToken ,SelectedDealer,serviceData}) => {
     const initialState = {
         mobile: "",
         otp: ""
@@ -38,12 +42,18 @@ const LoginModal: React.FC<Props> = ({ open, handleClose, setToken }) => {
     const [result, setConfirmationResult] = useState<any>();
     const [showInfo, setShowInfo] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(true);
+    const [showBook, setShowBook] = useState<boolean>(false);
+    const [customerData,setCustomerData]=useState<ICustomerDetails>();
     window.recaptchaVerifier = window.recaptchaVerifier || {};
     const phoneRegExp = /^[1-9][0-9]{9}$/;
 
     const CustomerDetailsClose = () => {
         setShowInfo(false);
     };
+
+    const handleBooking = () => {
+        setShowBook(false);
+    }
 
     const validationSchema: Yup.SchemaOf<ILoginInterface> = Yup.object().shape({
         mobile: Yup.string()
@@ -116,7 +126,9 @@ const LoginModal: React.FC<Props> = ({ open, handleClose, setToken }) => {
                         setShowInfo(true);
                     } else {
                         setToken(response.data);
+                        setCustomerData(response.data);
                         setShowInfo(false);
+                        setShowBook(true);
                     }
                 });
             window.confirmationResult = null;
@@ -195,6 +207,14 @@ const LoginModal: React.FC<Props> = ({ open, handleClose, setToken }) => {
                 </Modal.Footer>
             </Modal>
             <CustomerDeatailsModal mobile={state.mobile} open={showInfo} handleClose={CustomerDetailsClose} setToken={setToken} />
+            <Modal fullscreen aria-labelledby="contained-modal-title-vcenter" centered show={showBook} onHide={handleBooking}>
+                <Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0275d8' }}>Booking Details</Modal.Header>
+                <Modal.Body>
+                    <div className="divModal">
+                        {SelectedDealer ? <Booking SelectedDealer={SelectedDealer} serviceData={serviceData} handleClose={handleBooking} customerData={customerData} /> : null}
+                    </div>
+                </Modal.Body>
+            </Modal>
         </>
     )
 }

@@ -121,7 +121,7 @@ const HNavbar: React.FunctionComponent = () => {
 					{/* <Button size="sm" variant="primary" onClick={() => setShow(!showHome)}>Register</Button> */}
 				</Modal.Footer>
 			</Modal>
-			<LoginModal open={showLogin} handleClose={LoginHandleClose} setToken={setToken} />
+			<LoginModal open={showLogin} handleClose={LoginHandleClose} setToken={setToken} SelectedDealer={undefined} serviceData={undefined} />
 			<DealerLoginModal
 				open={showDealerLogin}
 				handleClose={() => setShowDealerLogin(!showDealerLogin)}
