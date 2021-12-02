@@ -32,8 +32,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
 
     const [dealersData, setDealersData] = useState<Dealer[]>([]);
     const [filteredData, setFilteredData] = useState<Dealer[]>(dealersData);
-    const [showInvoice, setShowInvoice] = useState<boolean>(false);
-    const [selectedDealer,setSelectedDealer] = useState<Dealer>();
+    const [selectedDealer, setSelectedDealer] = useState<Dealer>();
 
 
     const [showReview, setShowReview] = useState<boolean>(false);
@@ -70,21 +69,16 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
     const onPriceMaxChange = () => {
 
     }
-    
-	function handleShow(): void {
-		setShowInvoice(true);
-        setShowBook(false)
-	}
 
-    const BookDialog = (dealerItem:Dealer) =>{
+    const BookDialog = (dealerItem: Dealer) => {
         setShowBook(true);
         setSelectedDealer(dealerItem);
     }
-    const handleBooking = () =>{
+    const handleBooking = () => {
         setShowBook(false);
     }
 
-    const ReviewDialog = (dealerItem:Dealer) =>{
+    const ReviewDialog = (dealerItem: Dealer) => {
         setShowReview(!showReview);
         console.log(dealerItem)
         setSelectedDealer(dealerItem);
@@ -110,7 +104,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
      
     }, []);
 
-    
+
     //For Carousel
     const [index, setIndex] = useState(0);
 
@@ -121,7 +115,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
     return (
         <div>
             {loading ?
-                <table>
+                <table style={{width:'100%'}}>
                     <tr>
                         <td className="filter" style={{ verticalAlign: 'top', width: '30%', border: '1px solid #ddd', backgroundColor: 'white' }}>
                             <table width="100%" style={{ captionSide: 'top', textAlign: 'center' }}>
@@ -146,15 +140,15 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                                 </tr>
                             </table>
                         </td>
-                        <td className="content" style={{ width: '100%'}}>
+                        <td className="content" style={{ width: '100%' }}>
                             <Container>
-                                {/* <Grid container spacing={5}> */}<div>
+                                <div>
                                     {filteredData.map((item) => (
                                         <Grid item key={item.dealer_id}>
                                             <Card className="card">
                                                 <CardContent >
                                                     <div className="flex-container">
-                                                        <div style={{flex: '30%' }}>
+                                                        <div style={{ flex: '30%' }}>
                                                             <Carousel activeIndex={index} onSelect={handleSelect}>
                                                                 <Carousel.Item>
                                                                     <img
@@ -165,35 +159,29 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                                                                 </Carousel.Item>
                                                             </Carousel>
                                                         </div>
-                                                        <div style={{flex: '60%', padding:'20px' }}>
+                                                        <div style={{ flex: '60%', padding: '20px' }}>
                                                             <div>
-                                                                <h5>{item.name}</h5>
+                                                                <h6 style={{ textTransform: 'uppercase' }}>{item.name}</h6>
                                                                 <Typography color="text.secondary">
                                                                     GST Num:{item.gst_no} <br />
-                                                                    Service available for : {item.Vehicletype.vehicle_type}
+                                                                    Service available for : {item.Vehicletype.vehicle_type}<br/>
+                                                                    Location:{item.locality}-{item.city}-{item.state}-{item.pincode}
+                                                                    {item.Services.map((dataItem) => (
+                                                                        <p><b>Price:</b> {dataItem.cost}</p>
+                                                                    ))}
                                                                 </Typography>
-                                                            </div>
-                                                            <div className="cardDiv">
-                                                                <b>Location:</b> {item.locality}-{item.city}-{item.state}-{item.pincode}
-                                                                {item.Services.map((dataItem) => (
-                                                                    <ul>
-                                                                        <li>Discription: {dataItem.discription}</li>
-                                                                        <li>Price: {dataItem.cost}</li>
-                                                                    </ul>
-                                                                ))}
+                                                                <div>
+                                                                    <Button size="small" onClick={() => BookDialog(item)}>Book Now</Button>
+                                                                    <Button size="small" onClick={() => ReviewDialog(item)}>Veiw Reviews</Button>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-
                                                 </CardContent>
-                                                <CardActions>
-                                                    <Button size="small" onClick={() => BookDialog(item)}>Book Now</Button>
-                                                    <Button size="small" onClick={() => ReviewDialog(item)}>Veiw Reviews</Button>
-                                                </CardActions>
                                             </Card>
                                         </Grid>
                                     ))}
-                                {/* </Grid> */}</div>
+                                    {/* </Grid> */}</div>
                                 <div className="navFilter">
                                     <Navbar collapseOnSelect expand="lg" fixed="bottom" bg="light" variant="light">
                                         <Container>
@@ -225,7 +213,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                 <Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0275d8' }}>Feedback and Comments</Modal.Header>
                 <Modal.Body>
                     <div className="divModal">
-                        <Carousel activeIndex={index} onSelect={handleSelect}>
+                        {/* <Carousel activeIndex={index} onSelect={handleSelect}>
                             <Carousel.Item>
                                 <img
                                     className="d-block w-100"
@@ -247,9 +235,9 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                                     alt="Third slide"
                                 />
                             </Carousel.Item>
-                        </Carousel>
+                        </Carousel> */}
                         <b>Comments and Reviews:</b>
-                        {selectedDealer ? 
+                        {selectedDealer ?
                             selectedDealer.dealer_history.map((x) => (
                                 <ul style={{ listStyleType: 'none' }}>
                                     <li>
@@ -257,7 +245,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                                     </li>
                                 </ul>
                             ))
-                        : null}
+                            : null}
                     </div>
                 </Modal.Body>
             </Modal>
@@ -265,20 +253,9 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                 <Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0275d8' }}>Booking Details</Modal.Header>
                 <Modal.Body>
                     <div className="divModal">
-                       {selectedDealer ?  <Booking SelectedDealer={selectedDealer} serviceData={props.serviceData} handleClose={handleBooking} /> : null }
+                        {selectedDealer ? <Booking SelectedDealer={selectedDealer} serviceData={props.serviceData} handleClose={handleBooking} /> : null}
                     </div>
                 </Modal.Body>
-            </Modal>
-            <Modal size="lg" aria-labelledby="contained-modal-title-vcenter" centered show={showInvoice} onHide={() => setShowInvoice(!showInvoice)}>
-                <Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0275d8' }}>Booking Summary</Modal.Header>
-                <Modal.Body>
-                    <div className="divModal">
-                        <h2>Hi, your booking has been confirmed.</h2>
-                    </div>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button size="medium">Print</Button>
-            </Modal.Footer>
             </Modal>
         </div>
     );
