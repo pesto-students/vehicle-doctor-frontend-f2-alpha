@@ -16,7 +16,7 @@ const DealerLoginModal: React.FC<Props> = ({ open, handleClose }) => {
 			centered
 			backdrop='static'
 			keyboard={false}
-			contentClassName='modal-20w'
+			contentClassName='modal20w'
 			show={open}
 			onHide={handleClose}>
 			<Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0d6efd' }}>

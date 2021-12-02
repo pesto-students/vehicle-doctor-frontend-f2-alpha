@@ -1,4 +1,35 @@
-.modal-20w {
+.modal20w {
+	position: relative;
 	width: 20%;
 	max-width: none;
+}
+
+.container {
+	border: 0;
+}
+
+.main {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.main .item {
+	justify-items: center;
+	align-self: center;
+	padding: 5;
+}
+
+.main .button {
+	background-color: #0d6efd;
+	color: #ffffff;
+}
+
+.main .button:hover {
+	background-color: #0b5ed7;
+}
+
+.link {
+	color: #0d6efd;
 }
