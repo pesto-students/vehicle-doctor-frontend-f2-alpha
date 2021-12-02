@@ -17,9 +17,10 @@ const useGeoLocation = () => {
             console.log(position);
             axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.coords.latitude},${position.coords.longitude}&key=${process.env.REACT_APP_API_KEY}`).then(
                 res => {
+                    console.log("Google API Testing ", res.data);
                     if (res.data.error_message == null) {
                         const locdata = res.data.results;
-                        console.log("logging array ", locdata);
+                        
                         setLocation({
                             loaded: true,
                             data: locdata
