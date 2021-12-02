@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Button, Container, Grid, Link, TextField } from '@mui/material';
-import { makeStyles } from '@material-ui/core/styles';
-import { Avatar, Typography } from '@mui/material';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Button, Container, Grid, TextField, Link } from '@mui/material';
+import { Typography } from '@mui/material';
+// import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -13,12 +12,11 @@ import axios from '../BaseURL';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
+import '../css/dealerlogin.css';
 
 const DealerLogin: React.FC<IDealerLogin> = () => {
 	// State variables
 	const [state, setState] = useState<IDealerLogin>({ email: '', password: '' });
-	// const [email, setEmail] = useState<string>('');
-	// const [password, setPassword] = useState<string>('');
 	const [loginStatus, setLoginStatus] = useState<string>('');
 	const [showPassword, setShowPassword] = useState<boolean>(false);
 	const [msgStatus, setMsgStatus] = useState<string>('');
@@ -50,47 +48,6 @@ const DealerLogin: React.FC<IDealerLogin> = () => {
 		setShowPassword(!showPassword);
 	};
 
-	// Styles applied to fields
-	const useStyles = makeStyles({
-		container: {
-			border: 0
-		},
-		main: {
-			display: 'flex',
-			flexDirection: 'column',
-			justifyContent: 'center',
-			alignItems: 'center'
-		},
-		avatar: {
-			backgroundColor: '#0d6efd'
-		},
-		item: {
-			// display: 'flex',
-			justifyItem: 'center',
-			alignSelf: 'center',
-			padding: 5
-		},
-		status: {
-			color: msgStatus
-		},
-		button: {
-			backgroundColor: '#0d6efd',
-			color: '#ffffff',
-			'&:hover': {
-				backgroundColor: '#0b5ed7'
-			},
-			action: {
-				disabledBackground: '#0b5ed7',
-				disabled: '#ffffff'
-			}
-		},
-		link: {
-			color: '#0d6efd'
-		}
-	});
-
-	const classes = useStyles();
-
 	const validationSchema: Yup.SchemaOf<IDealerLogin> = Yup.object().shape({
 		email: Yup.string().required('Please enter your login email'),
 		password: Yup.string().required('Please enter your password')
@@ -117,13 +74,13 @@ const DealerLogin: React.FC<IDealerLogin> = () => {
 	return (
 		<Container component='main' maxWidth='xs'>
 			<div>
-				<Grid container className={classes.main} spacing={2}>
-					<Grid item className={classes.item} xs={12}>
-						<Avatar className={classes.avatar}>
+				<Grid container className='main' spacing={2}>
+					{/* <Grid item className='item' xs={12}>
+						<Avatar className='avatar'>
 							<LockOutlinedIcon />
 						</Avatar>
-					</Grid>
-					<Grid item className={classes.item} xs={12}>
+					</Grid> */}
+					<Grid item className='item' xs={12}>
 						<TextField
 							id='email'
 							type='email'
@@ -138,7 +95,7 @@ const DealerLogin: React.FC<IDealerLogin> = () => {
 							helperText={errors.email ? errors.email.message : ' '}
 						/>
 					</Grid>
-					<Grid item className={classes.item} xs={12}>
+					<Grid item className='item' xs={12}>
 						<TextField
 							id='password'
 							type={showPassword ? 'text' : 'password'}
@@ -164,27 +121,27 @@ const DealerLogin: React.FC<IDealerLogin> = () => {
 							helperText={errors.password ? errors.password.message : ' '}
 						/>
 					</Grid>
-					<Grid item className={classes.item} xs={12}>
+					<Grid item className='item' xs={12}>
 						<Button
 							type='submit'
 							onClick={checkLogin}
 							variant='contained'
 							fullWidth
-							className={classes.button}>
+							className='button'>
 							Login
 						</Button>
 					</Grid>
-					<Grid item className={classes.item} xs={12}>
+					<Grid item className='item' xs={12}>
 						<Typography>
 							Not a Partner?{'  '}
-							<Link href='#' className={classes.link}>
-								Sign up
-							</Link>
+							<Link underline='hover'>Sign Up</Link>
 						</Typography>
 					</Grid>
 
-					<Grid item className={classes.item} xs={12}>
-						<Typography className={classes.status}>{loginStatus}</Typography>
+					<Grid item className='item' xs={12}>
+						<Typography style={{ color: msgStatus === 'red' ? 'red' : 'green' }}>
+							{loginStatus}
+						</Typography>
 					</Grid>
 				</Grid>
 			</div>
