@@ -10,7 +10,12 @@ import axios from '../BaseURL';
 import DealerListBaseModal from './DealerListBaseModal';
 import { Button } from 'react-bootstrap';
 
-function Services() {
+type Props ={
+    Token:any;
+	SetToken:(val:any) => void;
+}
+
+const Services : React.FC<Props> =({Token,SetToken}) => {
     const [serviceData, setServiceData] = useState<Service[]>([]);
     const [showBook, setShowBook] = useState<boolean>(false);
     const [SelectedServiceData, setSelectedServiceData] = useState<any>({});
@@ -61,7 +66,7 @@ function Services() {
                     }
                 </div>
             </div>
-            <DealerListBaseModal open={showBook} handleClose={DealerListBaseModalhandleClose} serviceData={SelectedServiceData}  Id={null}/>
+            <DealerListBaseModal open={showBook} handleClose={DealerListBaseModalhandleClose} serviceData={SelectedServiceData}  Id={null} setToken={SetToken}  token={Token}/>
             
         </>
     );

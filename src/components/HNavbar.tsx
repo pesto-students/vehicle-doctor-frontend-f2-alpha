@@ -16,16 +16,19 @@ import {
 	PROFILE,
 	LOGOUT
 } from '../Constants/common.constant';
-import useToken from '../useToken';
 
-const HNavbar: React.FunctionComponent = () => {
+type Props ={
+	Token:any;
+	SetToken:(val:any) => void;
+}
+
+const HNavbar: React.FC<Props> = ({Token,SetToken}) => {
 	const [showSOS, setShowSOS] = useState<boolean>(false);
 	const [showLogin, setShowLogin] = useState<boolean>(false);
 	const [showDealer, setShowDealer] = useState<boolean>(false);
 	const [showDealerLogin, setShowDealerLogin] = useState<boolean>(false);
 	const [open, setOpen] = useState<boolean>(false);
 	const location = useGeoLocation();
-	const { token, setToken } = useToken();
 
 	const SOShandleOpen = () => {
 		setShowSOS(true);
@@ -42,7 +45,7 @@ const HNavbar: React.FunctionComponent = () => {
 		setShowLogin(false);
 	};
 	const CustomerLogout = () => {
-		setToken(null)
+		SetToken(null)
 	}
 
 	return (
@@ -59,12 +62,12 @@ const HNavbar: React.FunctionComponent = () => {
 							<Button variant='danger' onClick={SOShandleOpen}>
 								{ROADSIDE_ASSISTANCE}
 							</Button>
-							<Nav.Link href='#home'>HOME</Nav.Link>
+							<Nav.Link href='#home'>SEARCH BY DEALER</Nav.Link>
 							<Nav.Link href='#services'>SERVICES</Nav.Link>
 							<Nav.Link href='#rewards'>TESTIMONIALS</Nav.Link>
 							<Nav.Link href='#contactUs'>CONTACT US</Nav.Link>
 							{
-								token == null ?
+								Token == null ?
 									<Button variant='outline-primary' style={{ margin: '1px' }} onClick={LoginHandleOpen}>
 										{LOGIN}
 									</Button>
@@ -72,7 +75,7 @@ const HNavbar: React.FunctionComponent = () => {
 									<><NavDropdown title={PROFILE} id='nav-dropdown-partners'>
 										<NavDropdown.Item
 										>
-											{token.customer_name}
+											{Token.customer_name}
 										</NavDropdown.Item>
 										<NavDropdown.Divider />
 										<NavDropdown.Item eventKey='7.2' onClick={CustomerLogout}>
@@ -81,7 +84,7 @@ const HNavbar: React.FunctionComponent = () => {
 									</NavDropdown></>
 
 							}
-							{token == null ?
+							{Token == null ?
 								<NavDropdown title={PARTNERS} id='nav-dropdown-partners'>
 									<NavDropdown.Item
 										eventKey='7.1'
@@ -102,7 +105,7 @@ const HNavbar: React.FunctionComponent = () => {
 				</div>
 			</Navbar>
 
-			<RoadSideAssitanceModal open={showSOS} handleClose={SOShandleClose} />
+			<RoadSideAssitanceModal open={showSOS} handleClose={SOShandleClose} Token={Token} SetToken={SetToken} />
 
 			<Modal
 				aria-labelledby='contained-modal-title-vcenter'
@@ -121,7 +124,7 @@ const HNavbar: React.FunctionComponent = () => {
 					{/* <Button size="sm" variant="primary" onClick={() => setShow(!showHome)}>Register</Button> */}
 				</Modal.Footer>
 			</Modal>
-			<LoginModal open={showLogin} handleClose={LoginHandleClose} setToken={setToken} SelectedDealer={undefined} serviceData={undefined} />
+			<LoginModal open={showLogin} handleClose={LoginHandleClose} setToken={SetToken} SelectedDealer={undefined} serviceData={undefined} IsLogin={true} />
 			<DealerLoginModal
 				open={showDealerLogin}
 				handleClose={() => setShowDealerLogin(!showDealerLogin)}

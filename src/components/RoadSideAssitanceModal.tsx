@@ -17,9 +17,11 @@ import DealerListBaseModal from './DealerListBaseModal';
 type Props = {
 	open: boolean;
 	handleClose: (val: boolean) => void;
+	Token:any;
+	SetToken:(val:any) => void;
 }
 
-const RoadSideAssisstanceModal: React.FC<Props> = ({ open, handleClose }) => {
+const RoadSideAssisstanceModal: React.FC<Props> = ({ open, handleClose,Token,SetToken }) => {
 
 	const [showDealer, setshowDealer] = useState<boolean>(false);
 	const [serviceData, setServiceData] = useState<Service[]>([]);
@@ -111,7 +113,7 @@ const RoadSideAssisstanceModal: React.FC<Props> = ({ open, handleClose }) => {
 					</Button>
 				</Modal.Footer>
 			</Modal>
-			{vehicleData && serviceData ? (<DealerListBaseModal open={showDealer} handleClose={DealerListBaseModalhandleClose} serviceData={selectedserviceData}  Id={selectedvehicleID} />) : null }
+			{vehicleData && serviceData ? (<DealerListBaseModal open={showDealer} handleClose={DealerListBaseModalhandleClose} serviceData={selectedserviceData}  Id={selectedvehicleID} setToken={SetToken} token={Token} />) : null }
 		</>
 	)
 }

@@ -10,8 +10,14 @@ import useGeoLocation from '../Hooks/GeolocationHook';
 import useVehicleData from '../Hooks/VehicleDataHook';
 import axios from '../BaseURL';
 import Booking from './Booking';
+import LoginModal from './Customer/LoginModal';
 
-const Home: React.FC = () => {
+type Props={
+	Token:any;
+	SetToken:(val:any) => void;
+}
+
+const Home: React.FC<Props> = ({Token,SetToken}) => {
 	const [open, setOpen] = useState<boolean>(false);
 	const [servicesData, setServicesData] = useState<DealerService[]>([]);
 	const [dealersData, setDealersData] = useState<Dealer[]>([]);
@@ -19,14 +25,22 @@ const Home: React.FC = () => {
 	const [serviceData, setServiceData] = useState<DealerService>();
 	const location = useGeoLocation();
 	const vehicleData = useVehicleData();
-	const [selectedDealer, setSelectedDealer] = useState<Dealer>();
+	const [showLogin, setShowLogin] = useState<boolean>(false);
 
 	const handleOpen = () => {
+      if(Token==null){
+		setShowLogin(true);
+	  }else{
 		setOpen(true);
+	  }
 	};
 
 	const handleClose = () => {
 		setOpen(false);
+	};
+
+	const LoginHandleClose = () => {
+		setShowLogin(false);
 	};
 
 	function updateDealers(event: any, newValue: any) {
@@ -114,7 +128,7 @@ const Home: React.FC = () => {
 							</div>
 						</div>
 						<div>
-							<Button size-="lg" style={{ margin: '2%' }} variant='primary' onClick={handleOpen}>
+							<Button size-="lg" style={{ margin: '2%' }} variant='primary' onClick={handleOpen} disabled={!vehicleData || !dealerData || !serviceData}>
 								BOOK NOW
 							</Button>
 						</div>
@@ -126,10 +140,12 @@ const Home: React.FC = () => {
 				<Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0275d8' }}>Booking Details</Modal.Header>
 				<Modal.Body>
 					<div className="divModal">
-						{dealerData ? <Booking SelectedDealer={dealerData} serviceData={serviceData} handleClose={handleClose} customerData={undefined} /> : null}
+						{dealerData && serviceData ? <Booking SelectedDealer={dealerData} serviceData={serviceData} handleClose={handleClose} customerData={Token} /> : null}
 					</div>
 				</Modal.Body>
 			</Modal>
+
+			<LoginModal open={showLogin} handleClose={LoginHandleClose} setToken={SetToken}  SelectedDealer={dealerData}  serviceData={serviceData}  IsLogin={false} />
 
 			{/* {dealerData && serviceData ? (
 				<ViewDealer

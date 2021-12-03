@@ -26,8 +26,11 @@ function valuetext(value: number) {
 }
 
 interface dealerProps {
-    serviceData: any,
-    Id:any
+    serviceData: any;
+    Id:any;
+    SetToken:(val:any) => void;
+    Token:any;
+
 }
 
 const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element => {
@@ -47,7 +50,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
 
     const [showLogin, setShowLogin] = useState<boolean>(false);
 
-    const { token, setToken } = useToken();
+    //const { token, setToken } = useToken();
 
     const handleChange = (event: Event, newValue: number | number[]) => {
         setValue(newValue as number[]);
@@ -81,7 +84,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
 	};
 
     const BookDialog = (dealerItem: Dealer) => {
-        if(token==null)
+        if(props.Token==null)
         {
         setShowLogin(true);
         }else{
@@ -268,11 +271,11 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                 <Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0275d8' }}>Booking Details</Modal.Header>
                 <Modal.Body>
                     <div className="divModal">
-                        {selectedDealer ? <Booking SelectedDealer={selectedDealer} serviceData={props.serviceData} handleClose={handleBooking} customerData={token} />  : null}
+                        {selectedDealer ? <Booking SelectedDealer={selectedDealer} serviceData={props.serviceData} handleClose={handleBooking} customerData={props.Token} />  : null}
                     </div>
                 </Modal.Body>
             </Modal>
-            <LoginModal open={showLogin} handleClose={LoginHandleClose} setToken={setToken}  SelectedDealer={selectedDealer}  serviceData={props.serviceData}/>
+            <LoginModal open={showLogin} handleClose={LoginHandleClose} setToken={props.SetToken}  SelectedDealer={selectedDealer}  serviceData={props.serviceData}  IsLogin={false} />
         </div>
     );
 }

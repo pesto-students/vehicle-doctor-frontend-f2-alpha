@@ -5,14 +5,16 @@ import Testimonials from "./components/Testimonials";
 import Services from "./components/Services";
 import AboutUs from "./components/AboutUs"
 import './App.css';
+import useToken from './useToken';
 function App() {
+  const { token, setToken } = useToken();
 
   return (
     <div className="App">
-      <HNavbar />
-      <Home />
+      <HNavbar Token={token} SetToken={setToken}  />
+      <Home Token={token} SetToken={setToken} />
       <AboutUs />
-      <Services />
+      <Services Token={token} SetToken={setToken} />
       <Testimonials />
       <ContactUs />
     </div >
