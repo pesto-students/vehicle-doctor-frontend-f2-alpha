@@ -44,7 +44,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
     const [showBook, setShowBook] = useState<boolean>(false);
     const [activeFilter, setactiveFilter] = useState<number[]>([]);
 
-    const [value, setValue] = React.useState<number[]>([0, 5]);
+    const [value, setValue] = React.useState<number[]>([250, 3000]);
 
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -56,7 +56,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
         setValue(newValue as number[]);
         let result = [];
         result = dealersData.filter((data) => {
-            return data.Services.filter(dataItem => (dataItem.cost >= value[0] && dataItem.cost <= value[1]));
+            return data.Services.every(dataItem => (dataItem.cost >= value[0] && dataItem.cost <= value[1]));
         });
         setFilteredData(result);
     };
@@ -142,7 +142,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                                     <td>
                                         PRICE:
                                         <div style={{ margin: '2%', padding: '10px' }}>
-                                            <Slider getAriaLabel={() => 'Price'} value={value} onChange={handleChange} valueLabelDisplay="auto" getAriaValueText={valuetext} min={0} max={1000} />
+                                            <Slider getAriaLabel={() => 'Price'} value={value} onChange={handleChange} valueLabelDisplay="auto" getAriaValueText={valuetext} min={250} max={3000} />
                                         </div>
                                     </td>
                                 </tr>
