@@ -3,3 +3,20 @@ export interface IDealerLogin {
 	email: string;
 	password: string;
 }
+
+// Interface for Signed in Dealer
+export interface ISignedInDealer {
+	dealer_id: number;
+	name: string;
+	mobile: string;
+	gst_no: string;
+	locality: string;
+	city: string;
+	state: string;
+	pincode: string;
+	email_ID: string;
+	password: string;
+	Vehicletype: {
+		vehicle_type: string;
+	};
+}
