@@ -55,7 +55,7 @@ const DealerLogin: React.FC<IDealerLogin> = () => {
 						setLoginStatus(response.data.message);
 					} else {
 						if (response.data.dealer_id) {
-							console.log(response);
+							// console.log(response);
 							setLoggedInDealer(response.data);
 							// console.log(loggedInDealer);
 							setShowDashboard(true);
