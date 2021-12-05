@@ -77,6 +77,7 @@ const Home: React.FC<Props> = ({Token,SetToken}) => {
 	return (
 		<div id='home' className='homeDiv altApp anim'>
 			<table>
+				<tbody>
 				<tr>
 					<td>
 						<h1 style={{ color: 'white' }}>BEST AUTO SERVICE IS ONE CLICK AWAY</h1>
@@ -134,6 +135,7 @@ const Home: React.FC<Props> = ({Token,SetToken}) => {
 						</div>
 					</td>
 				</tr>
+				</tbody>
 			</table>
 
 			<Modal fullscreen aria-labelledby="contained-modal-title-vcenter" centered show={open} onHide={handleClose}>

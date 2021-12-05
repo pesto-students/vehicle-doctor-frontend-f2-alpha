@@ -73,8 +73,7 @@ const HNavbar: React.FC<Props> = ({Token,SetToken}) => {
 									</Button>
 									:
 									<><NavDropdown title={PROFILE} id='nav-dropdown-partners'>
-										<NavDropdown.Item
-										>
+										<NavDropdown.Item style={{ textTransform: 'uppercase' }}>
 											{Token.customer_name}
 										</NavDropdown.Item>
 										<NavDropdown.Divider />

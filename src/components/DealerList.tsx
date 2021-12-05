@@ -61,14 +61,48 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
         setFilteredData(result);
     };
     const onFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        console.log(e.target.value);
+        if(e.target.checked){
         let data = activeFilter;
         activeFilter.push(Number(e.target.value));
         setactiveFilter(data);
-        let result = [];
-        result = dealersData.filter((data) => {
-
-        })
-        console.log(activeFilter);
+        }else{
+            let data=activeFilter.filter((value) =>(Number(e.target.value) != value));
+            console.log('inactivedata',data);
+            setactiveFilter(data);
+            console.log(activeFilter);
+        }
+        let ratingResult: React.SetStateAction<Dealer[]> = [];
+        activeFilter.forEach((item)=>{
+            switch(item){
+                case 1:
+                   ratingResult= dealersData.filter((dealerData) =>{
+                   return dealerData.dealer_history.some(dataItem =>(dataItem.rating >= 1 && dataItem.rating < 5));
+                 });
+                 break;
+                 case 2:
+                   ratingResult= dealersData.filter((dealerData) =>{
+                   return dealerData.dealer_history.some(dataItem =>(dataItem.rating >= 2 && dataItem.rating < 5));
+                 });
+                 break;
+                 case 3:
+                    ratingResult= dealersData.filter((dealerData) =>{
+                    return dealerData.dealer_history.some(dataItem =>(dataItem.rating == 3 && dataItem.rating < 5));
+                  });
+                  break;
+                  case 4:
+                    ratingResult= dealersData.filter((dealerData) =>{
+                    return dealerData.dealer_history.some(dataItem =>(dataItem.rating == 4 && dataItem.rating < 5));
+                  });
+                  break;
+                  case 5:
+                    ratingResult= dealersData.filter((dealerData) =>{
+                    return dealerData.dealer_history.some(dataItem =>(dataItem.rating == 5));
+                  });
+                  break;
+                };
+        });
+        setFilteredData(ratingResult);
     }
 
     const onPriceMinChange = () => {
@@ -134,10 +168,12 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
         <div>
             {loading ?
                 <table style={{width:'100%'}}>
+                    <tbody>
                     <tr>
                         <td className="filter" style={{ verticalAlign: 'top', width: '30%', border: '1px solid #ddd', backgroundColor: 'white' }}>
                             <table width="100%" style={{ captionSide: 'top', textAlign: 'center' }}>
-                                <caption style={{ textAlign: 'left', border: '1px solid #ddd', padding: '5px' }}><h5>Filters</h5></caption>
+                            <caption style={{ textAlign: 'left', border: '1px solid #ddd', padding: '5px' }}><h5>Filters</h5></caption>
+                                <tbody>
                                 <tr style={{ border: '1px solid #ddd' }}>
                                     <td>
                                         PRICE:
@@ -156,6 +192,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                                         <div><Checkbox color="primary" value="1" onChange={(e) => onFilterChange(e)} /><Rating name="size-small" size="small" value={1} readOnly /></div>
                                     </td>
                                 </tr>
+                                </tbody>
                             </table>
                         </td>
                         <td className="content" style={{ width: '100%' }}>
@@ -190,7 +227,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                                                                 </Typography>
                                                                 <div>
                                                                     <Button size="small" onClick={() => BookDialog(item)}>Book Now</Button>
-                                                                    <Button size="small" onClick={() => ReviewDialog(item)}>Veiw Reviews</Button>
+                                                                    <Button size="small" onClick={() => ReviewDialog(item)}>View Reviews</Button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -219,6 +256,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                             </Container>
                         </td>
                     </tr>
+                    </tbody>
                 </table> :
                 <Stack sx={{ width: '100%', color: 'grey.500', marginTop: '10%' }} spacing={2}>
                     <LinearProgress color="inherit" />
