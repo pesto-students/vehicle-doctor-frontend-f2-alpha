@@ -4,15 +4,10 @@ export interface IDealerVehService {
 	prevStep: Function;
 	handleFormData: any;
 	values: {
-		vehicletype: {
-			vehicle_type: string;
-		};
-		services: [
-			{
-				service_type: string;
-				cost: number;
-			}
-		];
+		vehicle_type: string;
+		service_type: number;
+		service_name: string;
+		cost: number;
 	};
 }
 
@@ -25,22 +20,16 @@ export interface IVehicleType {
 //interface for Service type
 //prettier-ignore
 export interface IServices {
-			id: number,
-			service_type: string,
-			service_name: string,
-			cost: number	
+	id: number,
+	service_type: number,
+	service_name: string,
+	cost: number	
 }
 
 // Interface for Dealer Service Form
 export interface IDealerServiceForm {
-	vehicletype: {
-		vehicle_type: string;
-	};
-	services: [
-		{
-			service_type: string;
-			service_name: string;
-			cost: number;
-		}
-	];
+	vehicle_type: string;
+	service_type: number;
+	service_name: string;
+	cost: number;
 }
