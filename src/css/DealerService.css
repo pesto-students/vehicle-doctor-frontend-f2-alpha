@@ -1,0 +1,46 @@
+.app-container {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding: 1rem;
+}
+
+.data-table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.head-row,
+.def-row {
+	border: 1px solid #ffffff;
+	text-align: left;
+	padding: 8px;
+	font-size: 18px;
+}
+
+.head-row {
+	background-color: rgb(117, 201, 250);
+}
+
+.def-row {
+	background-color: rgb(205, 235, 253);
+}
+
+.form-container {
+	display: flex;
+	gap: 5px;
+}
+
+.form-container td:last-child {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.form-container * {
+	font-size: 18px;
+}
+
+.form-container .button {
+	background-color: #0d6efd;
+	color: #ffffff;
+}
