@@ -17,6 +17,8 @@ import { ICustomerDetails } from '../../Interfaces/ICustomerDetails';
 import { Dealer } from '../../Interfaces/IDealerInterface';
 import ReactLoading from "react-loading";
 import Booking from '../Booking';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 
 type Props = {
@@ -94,9 +96,10 @@ const LoginModal: React.FC<Props> = ({ open, handleClose, setToken ,SelectedDeal
     const onSignInSubmit = (e: any) => {
         console.log(state.mobile);
         e.preventDefault();
+        setLoading(false);
         configureCaptcha()
-        const phoneNumber = "+91" + state.mobile
-        console.log(phoneNumber)
+        const phoneNumber = "+91" + state.mobile;
+        console.log(phoneNumber);
         const appVerifier = window.recaptchaVerifier;
         firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
             .then((confirmationResult) => {
@@ -106,23 +109,24 @@ const LoginModal: React.FC<Props> = ({ open, handleClose, setToken ,SelectedDeal
                 window.confirmationResult = confirmationResult;
                 setConfirmationResult(window.confirmationResult)
                 console.log(result);
-                console.log("OTP has been sent")
+                console.log("OTP has been sent");
+                setLoading(true);
             }).catch((error) => {
                 console.log(error);
-                console.log("SMS not sent")
+                console.log("SMS not sent");
             });
-
     }
 
     const onSubmitOTP = (e: any) => {
-        e.preventDefault()
-        const code = state.otp
+        e.preventDefault();
+        setLoading(false);
+        const code = state.otp;
         window.confirmationResult.confirm(code).then((result: any) => {
             // User signed in successfully.
             axios.get<ICustomerDetails>(`/customer/search/${state.mobile}`)
                 .then((response: AxiosResponse) => {
                     console.log(response.data);
-                    setLoading(false);
+                    setLoading(true);
                     if (response.data.customer_name == null) {
                         setShowInfo(true);
                     } else {
@@ -159,10 +163,14 @@ const LoginModal: React.FC<Props> = ({ open, handleClose, setToken ,SelectedDeal
                 </Modal.Header>
 
                 <Modal.Body>
+                    {loading ? null
+                        :<Box sx={{ display: 'flex', justifyContent:'center' }}>
+                            <CircularProgress />
+                        </Box>
+                    }
                     {window.confirmationResult == null ?
                         <div className='divModal'>
                             <div id="sign-in-button"></div>
-
                             <TextField
                                 id='input-with-icon-textfield'
                                 label='Mobile'
