@@ -11,7 +11,12 @@ import {
 	Button,
 	InputAdornment
 } from '@mui/material';
-import { PREVIOUS, NEXT, DEALER_SIGNUP_FORM_HEADER } from '../../Constants/common.constant';
+import {
+	PREVIOUS,
+	SUBMIT,
+	DEALER_SIGNUP_FORM_HEADER,
+	STEP_3
+} from '../../Constants/common.constant';
 import { AxiosResponse } from 'axios';
 import axios from '../../BaseURL';
 import { useForm, Controller } from 'react-hook-form';
@@ -23,6 +28,7 @@ import {
 	IVehicleType,
 	IDealerServiceForm
 } from '../../Interfaces/IDealerServiceType';
+import '../../css/dealersignup.css';
 
 const FormDealerService: React.FC<IDealerVehService> = ({
 	nextStep,
@@ -32,6 +38,7 @@ const FormDealerService: React.FC<IDealerVehService> = ({
 }) => {
 	const [vehicleData, setVehicleData] = useState<IVehicleType[]>([]);
 	const [serviceData, setServiceData] = useState<IServices[]>([]);
+	const [serviceType, setServiceType] = useState<number>(0);
 
 	useEffect(() => {
 		//Get vehicle data
@@ -56,21 +63,22 @@ const FormDealerService: React.FC<IDealerVehService> = ({
 		prevStep();
 	};
 
-	// // Yup Validation schema for fields
+	const handleSelect = (e: any) => {
+		console.log(e.target.value);
+		setServiceType(e.target.key);
+
+		handleFormData('service_name');
+	};
+
+	// Yup Validation schema for fields
 	// const validationSchema: Yup.SchemaOf<IDealerServiceForm> = Yup.object().shape({
-	// 	vehicletype: Yup.object().shape({
-	// 		vehicle_type: Yup.string().required('Please select a Vehicle Type')
-	// 	}),
-	// 	services: Yup.array().of(
-	// 		Yup.object().shape({
-	// 			service_type: Yup.string().required('Please select a Service Type'),
-	// 			service_name: Yup.string().required('Please select a Service Type'),
-	// 			cost: Yup.number().required('Please enter Service Cost')
-	// 		})
-	// 	)
+	// 	vehicle_type: Yup.string().required('Please select a Vehicle Type'),
+	// 	service_name: Yup.string().required('Please select a Service Type'),
+	// 	service_type: Yup.number(),
+	// 	cost: Yup.number().required('Please enter Service Cost')
 	// });
 
-	//Resolve useForm hook with the validation schema declared above
+	// // Resolve useForm hook with the validation schema declared above
 	// const {
 	// 	register,
 	// 	control,
@@ -81,80 +89,92 @@ const FormDealerService: React.FC<IDealerVehService> = ({
 	// 	resolver: yupResolver(validationSchema)
 	// });
 
+	const onSubmit = (data: any) => {
+		alert(JSON.stringify(data));
+	};
+
 	return (
 		<Container component='main' maxWidth='xs'>
 			<div>
 				<form noValidate autoComplete='off'>
 					<Grid container spacing={2}>
 						<Grid item xs={12}>
-							<Typography component='h1' variant='h5'>
-								{DEALER_SIGNUP_FORM_HEADER}
+							<Typography component='h1' variant='h6' className='header'>
+								{DEALER_SIGNUP_FORM_HEADER} - {STEP_3}
 							</Typography>
 						</Grid>
 
 						<Grid item xs={12}>
-							<InputLabel id='simple-select-standard-label'>Vehicle Type</InputLabel>
-							{/* <Controller
-								name='vehicletype'
-								control={control}
-								render={({ field }) => ( */}
-							<Select
-								id='vehicle_type'
-								label='Vehicle Type'
-								variant='standard'
-								// {...field}
+							<InputLabel id='vehicle_type_label'>Vehicle Type</InputLabel>
+							<Controller
+								render={({ field }) => (
+									<Select
+										id='vehicle_type'
+										label='Vehicle Type'
+										variant='standard'
+										// {...field}
+										onChange={handleFormData('vehicle_type')}
+										fullWidth
+										required>
+										{vehicleData.map((item) => (
+											<MenuItem value={item.id} key={item.id}>
+												{item.vehicle_type}
+											</MenuItem>
+										))}
+									</Select>
+								)}
 								name='vehicle_type'
-								onChange={handleFormData('vehicle_type')}
-								fullWidth
-								required>
-								{vehicleData.map((item) => (
-									<MenuItem value={item.vehicle_type} key={item.id}>
-										{item.vehicle_type}
-									</MenuItem>
-								))}
-							</Select>
-							{/* )}
-							/> */}
+								// control={control}
+							/>
 						</Grid>
 						<Grid item xs={12} sm={8}>
-							<InputLabel id='simple-select-standard-label'>Service Type</InputLabel>
-							{/* <Controller
-								name='services'
-								control={control}
-								render={({ field }) => ( */}
-							<Select
-								id='service_type'
-								label='Service Type'
-								variant='standard'
-								// {...field}
-								name='service_type'
-								onChange={handleFormData('services.service_type')}
-								fullWidth
-								required>
-								{serviceData.map((item, i) => (
-									<MenuItem value={item.service_name} key={item.id}>
-										{item.service_type} - {item.service_name}
-									</MenuItem>
-								))}
-							</Select>
-							{/* )}
-							/> */}
+							<InputLabel id='service_type_label'>Service Type</InputLabel>
+							<Controller
+								render={({ field }) => (
+									<Select
+										id='service_type'
+										label='Service Type'
+										variant='standard'
+										// {...field}
+										onChange={handleSelect}
+										fullWidth
+										required>
+										{serviceData.map((item) => (
+											<MenuItem value={item.service_name} key={item.id}>
+												{item.service_type} - {item.service_name}
+											</MenuItem>
+										))}
+									</Select>
+								)}
+								name='service_name'
+								// control={control}
+							/>
 						</Grid>
 						<Grid item xs={12} sm={4}>
 							<TextField
 								id='cost'
 								label='Cost'
-								// {...register('services.0.cost')}
+								// {...register('cost')}
 								name='cost'
 								placeholder='Cost'
 								variant='outlined'
-								defaultValue={values.services[0].cost}
-								onChange={handleFormData('services.cost')}
-								// InputProps={{
-								// 	startAdornment: <InputAdornment position='start'>₹</InputAdornment>,
-								// }}
+								defaultValue={values.cost}
+								onChange={handleFormData('cost')}
+								InputProps={{
+									startAdornment: <InputAdornment position='start'>₹</InputAdornment>
+								}}
 								fullWidth
 								required
+							/>
+						</Grid>
+						<Grid item xs={12} sm={6}>
+							<TextField
+								id='service_type'
+								// {...register('service_type')}
+								name='service_type'
+								aria-describedby='service-type-text'
+								value={serviceType}
+								hidden
 							/>
 						</Grid>
 						<Grid item xs={12} sm={6}>
@@ -173,8 +193,9 @@ const FormDealerService: React.FC<IDealerVehService> = ({
 								type='submit'
 								fullWidth
 								variant='contained'
+								// disabled={!isValid}
 								color='primary'>
-								{NEXT}
+								{SUBMIT}
 							</Button>
 						</Grid>
 					</Grid>
