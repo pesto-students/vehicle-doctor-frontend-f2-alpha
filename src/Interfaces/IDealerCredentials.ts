@@ -7,7 +7,7 @@ export interface IDealerCredentials {
 		mobile: string;
 		email_ID: string;
 		password: string;
-		confirmPassword?: string;
+		confirm_password?: string;
 	};
 }
 
@@ -17,5 +17,5 @@ export interface IDealerCredForm {
 	mobile: string;
 	email_ID: string;
 	password: string;
-	confirmPassword?: string;
+	confirm_password?: string;
 }

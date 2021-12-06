@@ -19,4 +19,11 @@ export interface IDealerDetailForm {
 	state: string;
 	pincode: string;
 	gst_no: string;
+	vehicle_type: string;
+}
+
+// interface for Vehicle Type
+export interface IVehicleType {
+	id: number;
+	vehicle_type: string;
 }
