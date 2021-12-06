@@ -8,9 +8,15 @@ import { CardActionArea } from '@mui/material';
 import serviceImg from '../img/s1.jpg';
 import axios from '../BaseURL';
 import DealerListBaseModal from './DealerListBaseModal';
+import Typography from '@mui/material/Typography';
 import { Button } from 'react-bootstrap';
 
-function Services() {
+type Props ={
+    Token:any;
+	SetToken:(val:any) => void;
+}
+
+const Services : React.FC<Props> =({Token,SetToken}) => {
     const [serviceData, setServiceData] = useState<Service[]>([]);
     const [showBook, setShowBook] = useState<boolean>(false);
     const [SelectedServiceData, setSelectedServiceData] = useState<any>({});
@@ -44,7 +50,7 @@ function Services() {
                         serviceData.map((item, idx) =>
                             <div style={{ margin: '10px' }} key={idx}>
                                 <Card>
-                                    <CardActionArea>
+                                    {/* <CardActionArea> */}
                                         <CardMedia
                                             component="img"
                                             height="140"
@@ -52,16 +58,16 @@ function Services() {
                                             alt="icon"
                                         />
                                         <CardContent>
-                                            <Button variant='warning'  onClick={() => handleShow(`${item.id}`,`${item.service_name}`)}>{item.service_name}</Button>
+                                         <Button variant='warning'  onClick={() => handleShow(`${item.id}`,`${item.service_name}`)}>{item.service_name}</Button>
                                         </CardContent>
-                                    </CardActionArea>
+                                    {/* </CardActionArea> */}
                                 </Card>
                             </div>
                         )
                     }
                 </div>
             </div>
-            <DealerListBaseModal open={showBook} handleClose={DealerListBaseModalhandleClose} serviceData={SelectedServiceData}  Id={null}/>
+            <DealerListBaseModal open={showBook} handleClose={DealerListBaseModalhandleClose} serviceData={SelectedServiceData}  Id={null} setToken={SetToken}  token={Token}/>
             
         </>
     );

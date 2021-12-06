@@ -7,10 +7,12 @@ type Props = {
     handleClose: (val: boolean) => void;
     serviceData:any;
     Id:any;
+	setToken:(val:any) => void;
+    token:any;
 }
 
 
-const DealerListBaseModal: React.FC<Props> = ({ open, handleClose,serviceData ,Id}) => {
+const DealerListBaseModal: React.FC<Props> = ({ open, handleClose,serviceData ,Id,setToken,token}) => {
 
     return (
         <>
@@ -20,7 +22,7 @@ const DealerListBaseModal: React.FC<Props> = ({ open, handleClose,serviceData ,I
                     <b>VehicleDr.com</b>
                 </Modal.Header>
                 <Modal.Body style={{ backgroundColor: 'lightgray' }}>
-                    <DealerList serviceData={serviceData}  Id={Id}/>
+                    <DealerList serviceData={serviceData}  Id={Id} SetToken={setToken} Token={token}/>
                 </Modal.Body>
             </Modal>
         </>

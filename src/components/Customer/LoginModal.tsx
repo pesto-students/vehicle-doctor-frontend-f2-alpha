@@ -27,6 +27,7 @@ type Props = {
     setToken: (val: any) => void;
     SelectedDealer: Dealer | undefined;
     serviceData: any;
+    IsLogin :boolean;
 }
 declare global {
     interface Window {
@@ -35,7 +36,7 @@ declare global {
     }
 }
 
-const LoginModal: React.FC<Props> = ({ open, handleClose, setToken ,SelectedDealer,serviceData}) => {
+const LoginModal: React.FC<Props> = ({ open, handleClose, setToken ,SelectedDealer,serviceData,IsLogin}) => {
     const initialState = {
         mobile: "",
         otp: ""
@@ -132,7 +133,11 @@ const LoginModal: React.FC<Props> = ({ open, handleClose, setToken ,SelectedDeal
                         setToken(response.data);
                         setCustomerData(response.data);
                         setShowInfo(false);
-                        setShowBook(true);
+                        if(IsLogin){
+                        setShowBook(false);
+                        }else{
+                            setShowBook(true); 
+                        }
                     }
                 });
             window.confirmationResult = null;

@@ -14,6 +14,7 @@ export interface Dealer{
     };
     Services:[
         {
+            service_id:number,
             discription:string,
             cost:number
         }

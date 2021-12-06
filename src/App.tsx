@@ -7,15 +7,17 @@ import AboutUs from "./components/AboutUs";
 import { Provider } from "react-redux";
 import store from "./store";
 import './App.css';
+import useToken from './useToken';
 function App() {
+  const { token, setToken } = useToken();
 
   return (
     <Provider store={store}>
       <div className="App">
-        <HNavbar />
-        <Home />
+        <HNavbar Token={token} SetToken={setToken} />
+        <Home Token={token} SetToken={setToken} />
         <AboutUs />
-        <Services />
+        <Services Token={token} SetToken={setToken} />
         <Testimonials />
         <ContactUs />
       </div >
