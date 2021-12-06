@@ -1,17 +1,47 @@
-import React from 'react';
-import { Container, Grid, TextField, Typography, Button } from '@mui/material';
-import { useForm } from 'react-hook-form';
+import React, { useState, useEffect } from 'react';
+import {
+	Container,
+	Grid,
+	TextField,
+	Typography,
+	Button,
+	InputLabel,
+	Select,
+	MenuItem
+} from '@mui/material';
+import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-import { PREVIOUS, NEXT, DEALER_SIGNUP_FORM_HEADER } from '../../Constants/common.constant';
-import { IDealerDetails, IDealerDetailForm } from '../../Interfaces/IDealerDetails';
+import { AxiosResponse } from 'axios';
+import axios from '../../BaseURL';
+import {
+	PREVIOUS,
+	SUBMIT,
+	DEALER_SIGNUP_FORM_HEADER,
+	STEP_2
+} from '../../Constants/common.constant';
+import { IDealerDetails, IDealerDetailForm, IVehicleType } from '../../Interfaces/IDealerDetails';
+import '../../css/dealersignup.css';
+import { IDealerSignup } from '../../Interfaces/IDealerRegistration';
 
-const FormDealerDetails: React.FC<IDealerDetails> = ({
-	nextStep,
-	prevStep,
-	handleFormData,
-	values
-}) => {
+type Props = {
+	nextStep: () => void;
+	prevStep: () => void;
+	handleFormData: (input: string) => (e: any) => void;
+	values: IDealerSignup;
+};
+
+const FormDealerDetails: React.FC<Props> = ({ nextStep, prevStep, handleFormData, values }) => {
+	const [vehicleData, setVehicleData] = useState<IVehicleType[]>([]);
+	// const {name, mobile, email_ID, password, confirmPassword} = values;
+
+	useEffect(() => {
+		//Get vehicle data
+		axios.get<[]>('/vehicle/types').then((response: AxiosResponse) => {
+			setVehicleData(response.data);
+		});
+	}, []);
+
 	// Function to continue to next step of the form
 	const Continue = (e: any) => {
 		e.preventDefault();
@@ -42,26 +72,34 @@ const FormDealerDetails: React.FC<IDealerDetails> = ({
 		gst_no: Yup.string()
 			.required('Please enter the GST Number')
 			.min(0, 'GST Number should have 15 digits')
-			.max(15, 'GST Number should have 15 digits')
+			.max(15, 'GST Number should have 15 digits'),
+		vehicle_type: Yup.string().required('Please select a Vehicle Type')
 	});
 
 	//Resolve useForm hook with the validation schema declared above
 	const {
 		register,
+		control,
 		handleSubmit,
 		formState: { errors, isValid }
-	} = useForm<IDealerDetailForm>({
+	} = useForm<IDealerSignup>({
 		mode: 'all',
 		resolver: yupResolver(validationSchema)
 	});
 
+	const submitForm = (values: IDealerSignup): void => {
+		alert(values);
+	};
+
 	return (
 		<Container component='main' maxWidth='xs'>
 			<div>
-				<form noValidate autoComplete='off'>
+				<form noValidate autoComplete='off' onSubmit={handleSubmit(submitForm)}>
 					<Grid container spacing={2} rowSpacing={1}>
 						<Grid item xs={12}>
-							<Typography variant='h5'>{DEALER_SIGNUP_FORM_HEADER}</Typography>
+							<Typography variant='h6' className='header'>
+								{DEALER_SIGNUP_FORM_HEADER} - {STEP_2}
+							</Typography>
 						</Grid>
 
 						<Grid item xs={12}>
@@ -148,6 +186,30 @@ const FormDealerDetails: React.FC<IDealerDetails> = ({
 								helperText={errors.gst_no ? errors.gst_no.message : ' '}
 							/>
 						</Grid>
+						<Grid item xs={12}>
+							<InputLabel id='vehicle_type_label'>Vehicle Type</InputLabel>
+							<Controller
+								name='vehicle_type'
+								control={control}
+								defaultValue={'Bike'}
+								render={({ field }) => (
+									<Select
+										id='vehicle_type'
+										label='Vehicle Type'
+										variant='standard'
+										{...field}
+										onChange={handleFormData('vehicle_type')}
+										fullWidth
+										required>
+										{vehicleData.map((item) => (
+											<MenuItem value={item.vehicle_type} key={item.id}>
+												{item.vehicle_type}
+											</MenuItem>
+										))}
+									</Select>
+								)}
+							/>
+						</Grid>
 						<Grid item xs={12} sm={6}>
 							<Button onClick={Previous} variant='contained' fullWidth color='secondary'>
 								{PREVIOUS}
@@ -155,12 +217,12 @@ const FormDealerDetails: React.FC<IDealerDetails> = ({
 						</Grid>
 						<Grid item xs={12} sm={6}>
 							<Button
-								onClick={Continue}
+								type='submit'
 								variant='contained'
 								fullWidth
 								color='primary'
 								disabled={!isValid}>
-								{NEXT}
+								{SUBMIT}
 							</Button>
 						</Grid>
 					</Grid>
