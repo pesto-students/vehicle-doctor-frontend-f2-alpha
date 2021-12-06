@@ -5,14 +5,14 @@ import { IServices } from '../Interfaces/IDealerServiceType';
 
 import { AxiosResponse } from 'axios';
 import axios from '../BaseURL';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import '../css/DealerService.css';
 // import AddServiceReadOnlyRow from '../components/Dealer/AddServiceReadOnlyRow';
 
-interface Props {
+type Props = {
 	loggedInDealer: ISignedInDealer;
 	//Token: any;
-}
+};
 
 interface IFormInput {
 	dealerTblDealerId: number;
@@ -62,9 +62,7 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 	};
 
 	// Add the data to the table
-	const handleAddSubmit = (e: any) => {
-		e.preventDefault();
-
+	const handleAddSubmit: SubmitHandler<IFormInput> = (data) => {
 		let body = JSON.stringify(formData);
 
 		console.log(`formData Stringified: ${body}`);
@@ -124,7 +122,7 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 				noValidate
 				autoComplete='off'
 				className='form-container'
-				onSubmit={handleSubmit(handleAddSubmit)}>
+				onSubmit={handleSubmit((e) => handleAddSubmit(e))}>
 				<Grid container spacing={2} style={{ height: '100px' }}>
 					<Grid item xs={3}>
 						<Select
