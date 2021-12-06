@@ -1,25 +1,17 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { TextField, Select, MenuItem, Button, Grid } from '@mui/material';
-import { ISignedInDealer } from '../Interfaces/IDealerLogin';
+import { ISignedInDealer, IDealerService } from '../Interfaces/IDealerLogin';
 import { IServices } from '../Interfaces/IDealerServiceType';
+
 import { AxiosResponse } from 'axios';
 import axios from '../BaseURL';
 import { useForm } from 'react-hook-form';
 import '../css/DealerService.css';
+// import AddServiceReadOnlyRow from '../components/Dealer/AddServiceReadOnlyRow';
 
 interface Props {
 	loggedInDealer: ISignedInDealer;
 	//Token: any;
-}
-
-interface IDealerService {
-	service_id: number;
-	discription: string;
-	cost: number;
-	serviceTypes: {
-		service_type: string;
-		service_name: string;
-	};
 }
 
 interface IFormInput {
@@ -96,6 +88,14 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 		});
 	};
 
+	const {
+		register,
+		handleSubmit,
+		formState: { errors }
+	} = useForm<IFormInput>({
+		// resolver: yupResolver(schema)
+	});
+
 	return (
 		<div className='app-container'>
 			<table className='data-table'>
@@ -109,6 +109,7 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 				</thead>
 				<tbody>
 					{serviceData.map((item) => (
+						// <AddServiceReadOnlyRow item={item} />
 						<tr key={item.service_id}>
 							<td className='def-row'>{item.serviceTypes.service_name}</td>
 							<td className='def-row'>{item.discription}</td>
@@ -119,12 +120,17 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 				</tbody>
 			</table>
 			<h5>Add a Service</h5>
-			<form noValidate autoComplete='off' className='form-container' onSubmit={handleAddSubmit}>
+			<form
+				noValidate
+				autoComplete='off'
+				className='form-container'
+				onSubmit={handleSubmit(handleAddSubmit)}>
 				<Grid container spacing={2} style={{ height: '100px' }}>
 					<Grid item xs={3}>
 						<Select
 							id='service_type_id'
 							label='Service Type'
+							displayEmpty
 							defaultValue=''
 							onChange={handleInput('service_type_id')}
 							fullWidth
@@ -138,11 +144,12 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 					<Grid item xs={3}>
 						<TextField
 							id='discription'
-							name='discription'
 							label='Description'
 							placeholder='Description'
 							variant='outlined'
+							{...register('discription', { required: true })}
 							onChange={handleInput('discription')}
+							value={formData.discription}
 							fullWidth
 							required
 						/>
@@ -150,11 +157,13 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 					<Grid item xs={3}>
 						<TextField
 							id='cost'
-							name='cost'
+							type='number'
 							label='Cost'
 							placeholder='Cost'
 							variant='outlined'
+							{...register('cost', { required: true })}
 							onChange={handleInput('cost')}
+							value={formData.cost}
 							fullWidth
 							required
 						/>
