@@ -13,17 +13,18 @@
 .head-row,
 .def-row {
 	border: 1px solid #ffffff;
-	text-align: left;
 	padding: 8px;
-	font-size: 18px;
+	font-size: 16px;
 }
 
 .head-row {
 	background-color: rgb(117, 201, 250);
+	text-align: center;
 }
 
 .def-row {
 	background-color: rgb(205, 235, 253);
+	text-align: left;
 }
 
 .form-container {
@@ -37,7 +38,7 @@
 }
 
 .form-container * {
-	font-size: 18px;
+	font-size: 14px;
 }
 
 .form-container .button {
