@@ -148,6 +148,7 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
                     </div>
                     <div style={{ padding: '5%', backgroundColor: 'white' }}>
                         <table style={{ width: '100%' }}>
+                            <tbody>
                             <tr>
                                 <td>
                                     <h3 style={{ textTransform: 'uppercase' }}>{SelectedDealer.Vehicletype.vehicle_type}</h3>
@@ -157,10 +158,11 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
                                 </td>
                                 <td style={{ textAlign: 'right', color: 'orangered' }}>
                                     {SelectedDealer.Services.map((dataItem) => (
-                                        <h3>₹ {dataItem.cost}</h3>
+                                        <h3 key={dataItem.service_id}>₹ {dataItem.cost}</h3>
                                     ))}
                                 </td>
                             </tr>
+                        </tbody>
                         </table>
                     </div>
                     <div style={{ padding: '5%', backgroundColor: 'lightgrey' }}>
@@ -187,7 +189,7 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
                                 <li>
                                     <h6>Service Description:</h6>
                                     {SelectedDealer.Services.map((dataItem) => (
-                                        <p>{dataItem.discription}</p>
+                                        <p key={dataItem.service_id}>{dataItem.discription}</p>
                                     ))}
                                 </li>
                             </ul>
@@ -218,15 +220,18 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
                                 <div className="modalBody">
                                     <TextField id="input-with-icon-textfield" label="E-Mail" variant="outlined" value={customerData?.email} disabled />
                                 </div>
-                                {customerData?.customer_location.map((item) => (
-                               <div className="modalBody">
-                                    <TextField id="input-with-icon-textfield" label="Locality" variant="outlined" value={item.locality}  disabled />
-                                    <TextField id="input-with-icon-textfield" label="City" variant="outlined" value={item.city} disabled />
-                                    <TextField id="input-with-icon-textfield" label="State" variant="outlined" value={item.state} disabled />
-                                    <TextField id="input-with-icon-textfield" label="State" variant="outlined" value={item.pincode} disabled />
-                                   </div>
-                                  
-                                ))}
+                                <div className="modalBody">
+                                    <TextField id="input-with-icon-textfield" label="Locality" variant="outlined" value={customerData?.customer_location.locality} disabled />
+                                </div>
+                                <div className="modalBody">
+                                <TextField   id="input-with-icon-textfield" label="City" variant="outlined" value={customerData?.customer_location.city} disabled />
+                                </div>
+                                <div className="modalBody">
+                                <TextField   id="input-with-icon-textfield" label="State" variant="outlined" value={customerData?.customer_location.state} disabled />
+                                </div>
+                                <div className="modalBody">
+                                <TextField   id="input-with-icon-textfield" label="pincode" variant="outlined" value={customerData?.customer_location.pincode} disabled />
+                                </div>
                             </div>
                             <div className="flex-container" style={{ textAlign: 'center' }}>
                                 <div className="modalBody">
@@ -332,7 +337,7 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
                                     </td>
                                     <td style={{ color: 'orangered' }}>
                                         {SelectedDealer.Services.map((dataItem) => (
-                                            <h5>₹ {dataItem.cost}</h5>
+                                            <h5 key={dataItem.service_id}>₹ {dataItem.cost}</h5>
                                         ))}
                                     </td>
                                 </tr>
