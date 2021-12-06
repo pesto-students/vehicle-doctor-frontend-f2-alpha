@@ -122,7 +122,7 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 				noValidate
 				autoComplete='off'
 				className='form-container'
-				onSubmit={handleSubmit((e) => handleAddSubmit(e))}>
+				onSubmit={handleSubmit(handleAddSubmit)}>
 				<Grid container spacing={2} style={{ height: '100px' }}>
 					<Grid item xs={3}>
 						<Select
