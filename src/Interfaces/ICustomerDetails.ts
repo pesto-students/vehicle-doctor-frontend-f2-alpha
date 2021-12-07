@@ -1,5 +1,5 @@
 export interface ICustomerDetails {
-	customer_location: [
+	customer_location: 
 		{
 			city: string;
 			isHomeAddress: number;
@@ -9,7 +9,6 @@ export interface ICustomerDetails {
 			pincode: string;
 			state: string;
 		}
-	]
 	customer_name: string;
 	email: string;
 	mobile: string;

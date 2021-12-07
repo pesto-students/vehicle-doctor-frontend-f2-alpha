@@ -19,15 +19,10 @@ const DealerReg: React.FC = () => {
 		email_ID: '',
 		password: '',
 		confirm_password: '',
-		vehicletype: {
-			vehicle_type: ''
-		},
-		services: [
-			{
-				service_type: '',
-				cost: 0
-			}
-		]
+		vehicle_type: ''
+		// service_type: 0,
+		// service_name: '',
+		// cost: 0
 	});
 
 	/**
@@ -93,15 +88,6 @@ const DealerReg: React.FC = () => {
 				/>
 			);
 		case 3:
-			return (
-				<FormDealerService
-					nextStep={nextStep}
-					prevStep={prevStep}
-					handleFormData={handleInput}
-					values={formData}
-				/>
-			);
-		case 4:
 			return <Success />;
 		default:
 			// do nothing

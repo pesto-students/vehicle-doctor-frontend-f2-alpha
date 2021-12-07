@@ -10,7 +10,7 @@ import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { ILoginInterface } from '../../Interfaces/ILoginInterface';
 import { SUBMIT, VALIDATE } from '../../Constants/common.constant';
-import CustomerDeatailsModal from './CustomerDeatailsModal';
+import CustomerDeatailsModal from './CustomerDetailsModal';
 import { AxiosResponse } from 'axios';
 import axios from '../../BaseURL';
 import { ICustomerDetails } from '../../Interfaces/ICustomerDetails';

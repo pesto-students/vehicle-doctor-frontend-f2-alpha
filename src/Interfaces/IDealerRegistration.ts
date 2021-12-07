@@ -11,13 +11,8 @@ export interface IDealerSignup {
 	email_ID: string,
 	password: string,
 	confirm_password: string,
-	vehicletype: {
-		vehicle_type: string
-	},
-	services: [
-		{
-			service_type: string,
-			cost: number
-		}
-	]
+	vehicle_type: string,
+	// service_type: number,
+	// service_name: string,
+	// cost: number	
 }

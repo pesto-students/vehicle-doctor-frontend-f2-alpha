@@ -9,10 +9,10 @@ import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
 import axios from '../../BaseURL';
 import { AxiosResponse } from 'axios';
-import { ICustomerFormDetails } from '../../Interfaces/ICustomerFormDetails';
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
+import { ICustomerDetails } from '../../Interfaces/ICustomerDetails';
 
 
 type Props = {
@@ -25,7 +25,7 @@ type Props = {
 interface IFormInput {
     custName: string;
     custEmail: string;
-    location:{
+    customer_location:{
 		locality:string;
 		city:string;
 		state:string;
@@ -49,11 +49,8 @@ const CustomerDeatailsModal: React.FC<Props> = ({ open, handleClose, mobile ,set
         resolver: yupResolver(schema)
     });
 
-    const [formData, setFormData] = useState<ICustomerFormDetails>({
-        customer_name: '',
-        mobile: '',
-        email: '',
-        location:{
+    const [formData, setFormData] = useState<ICustomerDetails>({
+        customer_location:{
             locality:'',
             city:'',
             state:'',
@@ -61,7 +58,10 @@ const CustomerDeatailsModal: React.FC<Props> = ({ open, handleClose, mobile ,set
             lat:'',
             long:'',
             isHomeAddress:0,
-        }
+        },
+        customer_name: '',
+        mobile: '',
+        email: '',
     });
 
     const onSubmit = (data: IFormInput) => {
@@ -69,10 +69,10 @@ const CustomerDeatailsModal: React.FC<Props> = ({ open, handleClose, mobile ,set
         formData.customer_name = data.custName;
         formData.mobile = mobile;
         formData.email = data.custEmail;
-        formData.location.locality=data.location.locality;
-        formData.location.city=data.location.city;
-        formData.location.state=data.location.state;
-        formData.location.pincode=data.location.pincode;
+        formData.customer_location.locality=data.customer_location.locality;
+        formData.customer_location.city=data.customer_location.city;
+        formData.customer_location.state=data.customer_location.state;
+        formData.customer_location.pincode=data.customer_location.pincode;
 
         console.log('FormData', formData);
         axios.post('/customer/add', formData)
@@ -87,7 +87,7 @@ const CustomerDeatailsModal: React.FC<Props> = ({ open, handleClose, mobile ,set
 
         <Modal style={{width:'100%'}} aria-labelledby='contained-modal-title-vcenter' centered show={open} onHide={handleClose} backdrop='static' keyboard={false}>
             <Modal.Header className='modalHeader'>
-                Profile Information{' '}
+                Please Provide More Information{' '}
             </Modal.Header>
             <Modal.Body>
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -128,7 +128,7 @@ const CustomerDeatailsModal: React.FC<Props> = ({ open, handleClose, mobile ,set
                             <TextField
                                 id='input-with-icon-textfield'
                                 label='Locality/Street'
-                                {...register("location.locality")}
+                                {...register("customer_location.locality")}
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position='start'>
@@ -143,7 +143,7 @@ const CustomerDeatailsModal: React.FC<Props> = ({ open, handleClose, mobile ,set
                             <TextField
                                 id='input-with-icon-textfield'
                                 label='City'
-                                {...register("location.city")}
+                                {...register("customer_location.city")}
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position='start'>
@@ -158,7 +158,7 @@ const CustomerDeatailsModal: React.FC<Props> = ({ open, handleClose, mobile ,set
                             <TextField
                                 id='input-with-icon-textfield'
                                 label='State'
-                                {...register("location.state")}
+                                {...register("customer_location.state")}
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position='start'>
@@ -173,11 +173,10 @@ const CustomerDeatailsModal: React.FC<Props> = ({ open, handleClose, mobile ,set
                             <TextField
                                 id='input-with-icon-textfield'
                                 label='PinCode'
-                                {...register("location.pincode")}
+                                {...register("customer_location.pincode")}
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position='start'>
-                                            <Room />
                                         </InputAdornment>
                                     )
                                 }}
@@ -187,7 +186,7 @@ const CustomerDeatailsModal: React.FC<Props> = ({ open, handleClose, mobile ,set
                     </div>
                     <div style={{textAlign:'center'}}>
                         <Button size='sm' variant='primary' type="submit">
-                            SUBMIT
+                            SAVE
                         </Button>
                     </div>
                 </form>

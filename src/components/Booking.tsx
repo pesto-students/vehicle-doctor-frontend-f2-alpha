@@ -148,6 +148,7 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
                     </div>
                     <div style={{ padding: '5%', backgroundColor: 'white' }}>
                         <table style={{ width: '100%' }}>
+                            <tbody>
                             <tr>
                                 <td>
                                     <h3 style={{ textTransform: 'uppercase' }}>{SelectedDealer.Vehicletype.vehicle_type}</h3>
@@ -157,10 +158,11 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
                                 </td>
                                 <td style={{ textAlign: 'right', color: 'orangered' }}>
                                     {SelectedDealer.Services.map((dataItem) => (
-                                        <h3>₹ {dataItem.cost}</h3>
+                                        <h3 key={dataItem.service_id}>₹ {dataItem.cost}</h3>
                                     ))}
                                 </td>
                             </tr>
+                        </tbody>
                         </table>
                     </div>
                 </div>

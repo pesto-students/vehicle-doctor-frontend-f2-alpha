@@ -3,16 +3,21 @@ import { Container, Grid, TextField, Typography, Button } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-import { NEXT, DEALER_SIGNUP_FORM_HEADER } from '../../Constants/common.constant';
+import { NEXT, DEALER_SIGNUP_FORM_HEADER, STEP_1 } from '../../Constants/common.constant';
 import { IDealerCredentials, IDealerCredForm } from '../../Interfaces/IDealerCredentials';
+import '../../css/dealersignup.css';
+import { IDealerSignup } from '../../Interfaces/IDealerRegistration';
 
-const FormDealerCredentials: React.FC<IDealerCredentials> = ({
-	nextStep,
-	handleFormData,
-	values
-}) => {
+type Props = {
+	nextStep: () => void;
+	handleFormData: (input: string) => (e: any) => void;
+	values: IDealerSignup;
+};
+
+const FormDealerCredentials: React.FC<Props> = ({ nextStep, handleFormData, values }) => {
 	//Regex for Mobile No field
 	const phoneRegExp = /^[1-9][0-9]{9}$/;
+	const nameRegExp = /^[a-z]+\s?[a-z]+$/i;
 
 	// Function to continue to next step of the form
 	const Continue = (e: any) => {
@@ -22,7 +27,10 @@ const FormDealerCredentials: React.FC<IDealerCredentials> = ({
 
 	// Yup Validation schema for fields
 	const validationSchema: Yup.SchemaOf<IDealerCredForm> = Yup.object().shape({
-		name: Yup.string().required('Please enter the Name'),
+		name: Yup.string()
+			.matches(nameRegExp, 'Name is invalid')
+			.typeError('Name must have only alphabets')
+			.required('Please enter the Name'),
 		mobile: Yup.string()
 			.matches(phoneRegExp, 'Mobile Number is invalid')
 			.typeError('Mobile must be a 10-Digit number')
@@ -34,7 +42,7 @@ const FormDealerCredentials: React.FC<IDealerCredentials> = ({
 			.required('Password is required')
 			.min(6, 'Password must be at least 6 characters')
 			.max(20, 'Password must not exceed 20 characters'),
-		confirmPassword: Yup.string()
+		confirm_password: Yup.string()
 			.required('Confirm Password is required')
 			.oneOf([Yup.ref('password'), null], 'Confirm Password does not match')
 	});
@@ -45,7 +53,7 @@ const FormDealerCredentials: React.FC<IDealerCredentials> = ({
 		control,
 		handleSubmit,
 		formState: { errors, isValid }
-	} = useForm<IDealerCredForm>({
+	} = useForm<IDealerSignup>({
 		mode: 'all',
 		resolver: yupResolver(validationSchema)
 	});
@@ -56,8 +64,15 @@ const FormDealerCredentials: React.FC<IDealerCredentials> = ({
 				<form noValidate autoComplete='off'>
 					<Grid direction={'column'} container spacing={2} rowSpacing={1}>
 						<Grid item>
-							<Typography variant='h5'>{DEALER_SIGNUP_FORM_HEADER}</Typography>
+							<Typography variant='h6' className='header'>
+								{DEALER_SIGNUP_FORM_HEADER} - {STEP_1}
+							</Typography>
 						</Grid>
+						{/* <Grid item>
+							<Typography variant='h6' className='header'>
+								Step 1
+							</Typography>
+						</Grid> */}
 						<Grid item>
 							<TextField
 								id='name'
@@ -131,21 +146,26 @@ const FormDealerCredentials: React.FC<IDealerCredentials> = ({
 								id='confirmPassword'
 								type='password'
 								label='Confirm Password'
-								{...register('confirmPassword')}
-								name='confirmPassword'
+								{...register('confirm_password')}
+								name='confirm_password'
 								placeholder='Confirm Password'
 								variant='outlined'
-								defaultValue={values.confirmPassword}
-								onChange={handleFormData('confirmPassword')}
+								defaultValue={values.confirm_password}
+								onChange={handleFormData('confirm_password')}
 								fullWidth
 								required
-								error={errors.confirmPassword ? true : false}
-								helperText={errors.confirmPassword ? errors.confirmPassword.message : ' '}
+								error={errors.confirm_password ? true : false}
+								helperText={errors.confirm_password ? errors.confirm_password.message : ' '}
 							/>
 						</Grid>
 
 						<Grid item>
-							<Button variant='contained' fullWidth onClick={Continue} disabled={!isValid}>
+							<Button
+								variant='contained'
+								fullWidth
+								color='primary'
+								onClick={Continue}
+								disabled={!isValid}>
 								{NEXT}
 							</Button>
 						</Grid>
