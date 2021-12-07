@@ -50,7 +50,6 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
     const [showLogin, setShowLogin] = useState<boolean>(false);
     const dispatch = useDispatch();
 
-    //const { token, setToken } = useToken();
 
     const handleChange = (event: Event, newValue: number | number[]) => {
         setValue(newValue as number[]);
@@ -104,14 +103,12 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                     setDealersData(response.data);
                     console.log(dealersData);
                     setLoading(true);
-                    //setFilteredData(response.data);
                 })
         } else {
             axios.get<[]>(`/dealer/serviceType/${props.serviceData.id}`)
                 .then((response: AxiosResponse) => {
                     setDealersData(response.data);
                     setLoading(true);
-                    //setFilteredData(response.data);
                 })
             dispatch(getPosts(props.serviceData.id));
             console.log(getPosts(props.serviceData.id));
@@ -295,29 +292,6 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                 <Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0275d8' }}>Feedback and Comments</Modal.Header>
                 <Modal.Body>
                     <div className="divModal">
-                        {/* <Carousel activeIndex={index} onSelect={handleSelect}>
-                            <Carousel.Item>
-                                <img
-                                    className="d-block w-100"
-                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJciEIMWzRvBHsRtof3UgG1hOUGX5GsZFo3Q&usqp=CAU"
-                                    alt="First slide"
-                                />
-                            </Carousel.Item>
-                            <Carousel.Item>
-                                <img
-                                    className="d-block w-100"
-                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDRLpY3p-0UeQAaToiItwtfYehmSa-TSw2Lg&usqp=CAU"
-                                    alt="Second slide"
-                                />
-                            </Carousel.Item>
-                            <Carousel.Item>
-                                <img
-                                    className="d-block w-100"
-                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCCvsYNrm6G-b3bhsrnnkgk8CQJxgNVz9HsA&usqp=CAU"
-                                    alt="Third slide"
-                                />
-                            </Carousel.Item>
-                        </Carousel> */}
                         <b>Comments and Reviews:</b>
                         {selectedDealer ?
                             selectedDealer.dealer_history.map((x) => (
@@ -335,11 +309,11 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                 <Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0275d8' }}>Booking Details</Modal.Header>
                 <Modal.Body>
                     <div className="divModal">
-                        {selectedDealer ? <Booking SelectedDealer={selectedDealer} serviceData={props.serviceData} handleClose={handleBooking} customerData={props.Token} /> : null}
+                        {selectedDealer ? <Booking SelectedDealer={selectedDealer} serviceData={props.serviceData} handleClose={handleBooking} customerData={props.Token} isHome={false} /> : null}
                     </div>
                 </Modal.Body>
             </Modal>
-            <LoginModal open={showLogin} handleClose={LoginHandleClose} setToken={props.SetToken} SelectedDealer={selectedDealer} serviceData={props.serviceData} IsLogin={false} />
+            <LoginModal open={showLogin} handleClose={LoginHandleClose} setToken={props.SetToken} SelectedDealer={selectedDealer} serviceData={props.serviceData} IsLogin={false} isHome={false} />
         </div>
     );
 }

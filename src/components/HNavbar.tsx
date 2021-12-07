@@ -123,7 +123,7 @@ const HNavbar: React.FC<Props> = ({Token,SetToken}) => {
 					{/* <Button size="sm" variant="primary" onClick={() => setShow(!showHome)}>Register</Button> */}
 				</Modal.Footer>
 			</Modal>
-			<LoginModal open={showLogin} handleClose={LoginHandleClose} setToken={SetToken} SelectedDealer={undefined} serviceData={undefined} IsLogin={true} />
+			<LoginModal open={showLogin} handleClose={LoginHandleClose} setToken={SetToken} SelectedDealer={undefined} serviceData={undefined} IsLogin={true} isHome={false}/>
 			<DealerLoginModal
 				open={showDealerLogin}
 				handleClose={() => setShowDealerLogin(!showDealerLogin)}

@@ -142,21 +142,12 @@ const Home: React.FC<Props> = ({Token,SetToken}) => {
 				<Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0275d8' }}>Booking Details</Modal.Header>
 				<Modal.Body>
 					<div className="divModal">
-						{dealerData && serviceData ? <Booking SelectedDealer={dealerData} serviceData={serviceData} handleClose={handleClose} customerData={Token} /> : null}
+						{dealerData && serviceData ? <Booking SelectedDealer={dealerData} serviceData={serviceData} handleClose={handleClose} customerData={Token} isHome={true} /> : null}
 					</div>
 				</Modal.Body>
 			</Modal>
 
-			<LoginModal open={showLogin} handleClose={LoginHandleClose} setToken={SetToken}  SelectedDealer={dealerData}  serviceData={serviceData}  IsLogin={false} />
-
-			{/* {dealerData && serviceData ? (
-				<ViewDealer
-					open={open}
-					dealerData={dealerData}
-					serviceData={serviceData}
-					handleClose={handleClose}
-				/>
-			) : null} */}
+			<LoginModal open={showLogin} handleClose={LoginHandleClose} setToken={SetToken}  SelectedDealer={dealerData}  serviceData={serviceData}  IsLogin={false} isHome={true} />
 
 
 		</div>

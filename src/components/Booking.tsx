@@ -24,9 +24,10 @@ type Props = {
 	serviceData: any;
 	handleClose: (val: boolean) => void;
 	customerData: ICustomerDetails | undefined;
+	isHome: boolean | undefined;
 };
 
-const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, customerData }) => {
+const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, customerData, isHome }) => {
 	const [pickupDateValue, setpickupdateValue] = React.useState<Date | null>(new Date());
 	const [formData, setFormData] = useState<IBookingService>({
 		refrence_id: '',
@@ -156,10 +157,12 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 							<tbody>
 								<tr>
 									<td>
-										<h3 style={{ textTransform: 'uppercase' }}>{serviceData.serviceName}</h3>
+										{isHome ? <h3 style={{ textTransform: 'uppercase' }}>{serviceData.serviceTypes.service_name}</h3> :
+											<h3 style={{ textTransform: 'uppercase' }}>{serviceData.serviceName}</h3>
+										}
 									</td>
 									<td style={{ textAlign: 'right', color: 'orangered' }}>
-										{SelectedDealer.Services.map((dataItem) => (
+										{isHome ? <h3>₹ {serviceData.cost}</h3> : SelectedDealer.Services.map((dataItem) => (
 											<h3 key={dataItem.service_id}>₹ {dataItem.cost}</h3>
 										))}
 									</td>
@@ -284,9 +287,10 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 					<ul style={{ listStyleType: 'none' }}>
 						<li>
 							<h4>Service Description</h4>
-							{SelectedDealer.Services.map((dataItem) => (
-								<p>{dataItem.discription}</p>
-							))}
+							{isHome ? <p>{serviceData.discription}</p> :
+								SelectedDealer.Services.map((dataItem) => (
+									<p>{dataItem.discription}</p>
+								))}
 						</li>
 					</ul>
 				</div>
@@ -351,7 +355,9 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 									<td>
 										<h6>Service</h6>
 									</td>
-									<td>{serviceData.serviceName}</td>
+									{isHome ? <td>{serviceData.serviceTypes.service_name}</td> :
+										<td>{serviceData.serviceName}</td>
+									}
 								</tr>
 							</table>
 						</div>
@@ -375,7 +381,7 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 									<h4>Total Cost paid (incl. GST)</h4>
 								</td>
 								<td>
-									{SelectedDealer.Services.map((dataItem) => (
+									{isHome ? <h4>₹ {serviceData.cost}</h4> : SelectedDealer.Services.map((dataItem) => (
 										<h4>₹ {dataItem.cost}</h4>
 									))}
 								</td>
