@@ -163,76 +163,23 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
                             </tr>
                         </table>
                     </div>
-                    <div style={{ padding: '5%', backgroundColor: 'lightgrey' }}>
-                        <h5>{SelectedDealer.name}</h5>
-                        <div>
-                            <ul style={{ listStyleType: 'none' }}>
-                                <li>
-                                    <h6>Location Details:</h6><p>{SelectedDealer.locality}, {SelectedDealer.city}, {SelectedDealer.state}, IND. - {SelectedDealer.pincode}</p>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <ul style={{ listStyleType: 'none' }}>
-                                <li>
-                                    <h6>Reviews and Comments:</h6>
-                                    {SelectedDealer.dealer_history.map((dataItem) => (
-                                        <p><span style={{ backgroundColor: 'yellow', borderRadius: '100%' }}>&#9734;</span> {dataItem.rating} - {dataItem.comments}</p>
-                                    ))}
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <ul style={{ listStyleType: 'none' }}>
-                                <li>
-                                    <h6>Service Description:</h6>
-                                    {SelectedDealer.Services.map((dataItem) => (
-                                        <p>{dataItem.discription}</p>
-                                    ))}
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
-                <div style={{ flex: '40%', backgroundColor: 'white' }}>
+                <div style={{ flex: '40%', width: '100%', backgroundColor: 'white' }}>
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        <div>
-                            <div className="divModal">
+                        <div style={{ width: '100%' }}>
+                            <div style={{ backgroundColor: 'orangered', color: 'white', padding: '2%' }}>
                                 <h5>Book a Service</h5>
                             </div>
-                            <div className="flex-container" style={{ textAlign: 'center' }}>
+                            <div className="flex-container" style={{ border: '0.2px solid lightgrey' }}>
                                 <div className="modalBody">
                                     <TextField id="input-with-icon-textfield" {...register("vName")} helperText={errors.vName?.message} label="Vehicle Model" variant='outlined' onChange={handleInput('vehicle_model')} />
                                 </div>
                                 <div className="modalBody">
                                     <TextField id="input-with-icon-textfield" label="Vehicle Reg No." variant='outlined' onChange={handleInput('vehicle_reg_no')} />
                                 </div>
-                            </div>
-                            <div className="flex-container" style={{ textAlign: 'center' }}>
-                                <div className="modalBody">
-                                    <TextField id="input-with-icon-textfield" label="Name" variant="outlined" value={customerData?.customer_name} disabled />
-                                </div>
-                                <div className="modalBody">
-                                    <TextField id="input-with-icon-textfield" label="Mobile No." variant="outlined" value={customerData?.mobile} disabled />
-                                </div>
-                                <div className="modalBody">
-                                    <TextField id="input-with-icon-textfield" label="E-Mail" variant="outlined" value={customerData?.email} disabled />
-                                </div>
-                                {customerData?.customer_location.map((item) => (
-                               <div className="modalBody">
-                                    <TextField id="input-with-icon-textfield" label="Locality" variant="outlined" value={item.locality}  disabled />
-                                    <TextField id="input-with-icon-textfield" label="City" variant="outlined" value={item.city} disabled />
-                                    <TextField id="input-with-icon-textfield" label="State" variant="outlined" value={item.state} disabled />
-                                    <TextField id="input-with-icon-textfield" label="State" variant="outlined" value={item.pincode} disabled />
-                                   </div>
-                                  
-                                ))}
-                            </div>
-                            <div className="flex-container" style={{ textAlign: 'center' }}>
                                 <div className="modalBody">
                                     <LocalizationProvider dateAdapter={AdapterDateFns}>
-                                        <DateTimePicker
-                                            renderInput={(params) => <TextField {...params} />}
+                                        <DateTimePicker renderInput={(params) => <TextField {...params} />}
                                             label="Pick Up Date/Time"
                                             value={pickupDateValue}
                                             onChange={(newValue) => {
@@ -250,48 +197,113 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
                                             id="demo-simple-select-standard"
                                             onChange={handleInput('pick_up')}
                                             autoWidth
-                                            label="Age"
-                                        >
+                                            label="Age">
                                             <MenuItem value={1}>YES</MenuItem>
                                             <MenuItem value={0}>NO</MenuItem>
                                         </Select>
                                     </FormControl>
                                 </div>
+                                <div style={{ textAlign: 'center' }}>
+                                    <Button size="lg" variant="warning" type="submit">Book Now</Button>
+                                </div>
                             </div>
-                            <div style={{ textAlign: 'center' }}>
-                                <Button type="submit">Book Now</Button>
+                            <div className="flex-container" style={{ textAlign: 'center', width: '100%' }}>
+                                <div style={{ backgroundColor: 'orangered', color: 'white', padding: '2%', width: '100%' }}>
+                                    <h5>Customer Details</h5>
+                                </div>
+                                <div style={{ border: '0.2px solid lightgrey', width: '100%', padding: '5%', textAlign: 'left' }}>
+                                    <h6>{customerData?.customer_name},</h6>
+                                    <p>{customerData?.mobile}, {customerData?.email}</p>
+                                    {/* {customerData?.customer_location.map((item) => (
+                                    <p>{item.locality}, {item.city}, {item.state}, {item.pincode}.</p>
+                                    ))} */}
+                                </div>
                             </div>
+                            {/* <div className="flex-container" style={{ textAlign: 'center' }}>
+                                <div className="modalBody">
+                                    <TextField id="input-with-icon-textfield" label="Name" variant="outlined" value={customerData?.customer_name} disabled />
+                                </div>
+                                <div className="modalBody">
+                                    <TextField id="input-with-icon-textfield" label="Mobile No." variant="outlined" value={customerData?.mobile} disabled />
+                                </div>
+                                <div className="modalBody">
+                                    <TextField id="input-with-icon-textfield" label="E-Mail" variant="outlined" value={customerData?.email} disabled />
+                                </div>
+                                {customerData?.customer_location.map((item) => (
+                                <div className="modalBody">
+                                    <TextField id="input-with-icon-textfield" label="Locality" variant="outlined" value="{item.locality}" disabled />
+                                    <TextField id="input-with-icon-textfield" label="City" variant="outlined" value="{item.city}" disabled />
+                                    <TextField id="input-with-icon-textfield" label="State" variant="outlined" value="{item.state}" disabled />
+                                    <TextField id="input-with-icon-textfield" label="State" variant="outlined" value="{item.pincode}" disabled />
+                                </div>
+
+                                ))}
+                            </div> */}
                         </div>
                     </form>
                 </div>
             </div>
+            <div className="flex-container" style={{ padding: '2%',alignItems:'flex-start', backgroundColor: 'lightgrey' }}>
+                <div>
+                    <ul style={{ listStyleType: 'none' }}>
+                        <li>
+                            <h4>Dealer Name:</h4><h5>{SelectedDealer.name}</h5>
+                        </li>
+                    </ul>                    
+                </div>
+                <div>
+                    <ul style={{ listStyleType: 'none' }}>
+                        <li>
+                            <h4>Reviews and Comments:</h4>
+                            {SelectedDealer.dealer_history.map((dataItem) => (
+                                <p><span style={{ backgroundColor: 'yellow', borderRadius: '100%' }}>&#9734;</span> {dataItem.rating} - {dataItem.comments}</p>
+                            ))}
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <ul style={{ listStyleType: 'none' }}>
+                        <li>
+                            <h4>Service Description:</h4>
+                            {SelectedDealer.Services.map((dataItem) => (
+                                <p>{dataItem.discription}</p>
+                            ))}
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <ul style={{ listStyleType: 'none' }}>
+                        <li>
+                            <h4>Location Details:</h4><p>{SelectedDealer.locality}, {SelectedDealer.city}, {SelectedDealer.state}, IND. - {SelectedDealer.pincode}</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
-            <Modal size="lg" aria-labelledby="contained-modal-title-vcenter" centered show={showInvoice} onHide={() => setShowInvoice(!showInvoice)} backdrop="static" keyboard={false}>
+            <Modal style={{ width: '100%' }} animation={true} show={showInvoice} onHide={() => setShowInvoice(!showInvoice)} backdrop="static" keyboard={false}>
                 <Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0275d8' }}>Booking Summary</Modal.Header>
                 <Modal.Body>
                     <div className="divModal">
                         <h6>Dear Customer, your booking has been confirmed.</h6>
-                        <div className="flex-container" style={{ border: '0.2px solid lightgrey', padding: '5%', marginTop: '2%', marginBottom: '2%', width: '100%' }}>
-                            <div style={{ flex: '60%' }}>
-                                <h6>Customer Details:</h6>
-                                <p>{getValues("cName")},<br /> {getValues("cLocality")},{getValues("cCity")},{getValues("cState")}</p>
-                            </div>
-                            <div style={{ flex: '40%' }}>
-                                <h6>Dealer Details:</h6>
-                                <p>{SelectedDealer.name}, <br />{SelectedDealer.mobile},{SelectedDealer.email},<br />  {SelectedDealer.locality}, {SelectedDealer.city}, {SelectedDealer.state}, IND. - {SelectedDealer.pincode}</p>
-                            </div>
-                        </div>
-                        <div style={{ border: '0.2px solid lightgrey', padding: '5%' }}>
-                            <div>
+                        <div style={{ border: '0.2px solid lightgrey', padding: '2%' }}>
+                            <div style={{ backgroundColor: 'orangered', color: 'white', width: '100%' }}>
                                 <h5>Booking Details:</h5>
                             </div>
-                            <table width="100%">
+                            <table width="100%" style={{ marginLeft: '5%' }}>
                                 <tr>
                                     <td>
                                         <h6>Booking ID</h6>
                                     </td>
                                     <td>
-                                        {formData.refrence_id}
+                                        <b>{formData.refrence_id}</b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h6>Customer Name</h6>
+                                    </td>
+                                    <td>
+                                        {customerData?.customer_name}
                                     </td>
                                 </tr>
                                 <tr>
@@ -318,32 +330,29 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
                                         {serviceData.serviceName}
                                     </td>
                                 </tr>
-                                {/* <tr>
-                                <td>
-                                    <h6>Date of Service</h6>
-                                </td>
-                                <td>
-                                    {formData.pick_up_date}
-                                </td>
-                            </tr> */}
-                                <tr>
-                                    <td style={{ color: 'orangered' }}>
-                                        <h5>Total Cost paid (incl. GST)</h5>
-                                    </td>
-                                    <td style={{ color: 'orangered' }}>
-                                        {SelectedDealer.Services.map((dataItem) => (
-                                            <h5>₹ {dataItem.cost}</h5>
-                                        ))}
-                                    </td>
-                                </tr>
                             </table>
                         </div>
+                        <div className="flex-container" style={{ border: '0.2px solid lightgrey', padding: '2%', width: '100%' }}>
+                            <div style={{ flex: '100%' }}>
+                                <h6>Dealer Details:</h6>
+                                <p><h6>{SelectedDealer.name},</h6> {SelectedDealer.mobile},{SelectedDealer.email},<br />  {SelectedDealer.locality}, {SelectedDealer.city}, {SelectedDealer.state}, IND. - {SelectedDealer.pincode}</p>
+                            </div>
+                        </div>
+                        <table width="100%" style={{ border: '0.2px solid lightgrey', color: 'orangered' }}>
+                            <tr>
+                                <td>
+                                    <h4>Total Cost paid (incl. GST)</h4>
+                                </td>
+                                <td>
+                                    {SelectedDealer.Services.map((dataItem) => (
+                                        <h4>₹ {dataItem.cost}</h4>
+                                    ))}
+                                </td>
+                            </tr>
+                        </table>
                         <div style={{ textAlign: 'center', marginTop: '2%' }}><Button>Print</Button></div>
                     </div>
                 </Modal.Body>
-                {/* <Modal.Footer>
-                    <div style={{textAlign:'center'}}><Button>Print</Button></div>                    
-                </Modal.Footer> */}
             </Modal>
         </>
     );

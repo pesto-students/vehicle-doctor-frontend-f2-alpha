@@ -85,8 +85,8 @@ const CustomerDeatailsModal: React.FC<Props> = ({ open, handleClose, mobile ,set
 
     return (
 
-        <Modal size='sm' aria-labelledby='contained-modal-title-vcenter' centered show={open} onHide={handleClose} backdrop='static' keyboard={false}>
-            <Modal.Header className='modalHeader' closeButton>
+        <Modal style={{width:'100%'}} aria-labelledby='contained-modal-title-vcenter' centered show={open} onHide={handleClose} backdrop='static' keyboard={false}>
+            <Modal.Header className='modalHeader'>
                 Profile Information{' '}
             </Modal.Header>
             <Modal.Body>
@@ -187,7 +187,7 @@ const CustomerDeatailsModal: React.FC<Props> = ({ open, handleClose, mobile ,set
                     </div>
                     <div style={{textAlign:'center'}}>
                         <Button size='sm' variant='primary' type="submit">
-                            REGISTER
+                            SUBMIT
                         </Button>
                     </div>
                 </form>

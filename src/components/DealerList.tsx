@@ -20,6 +20,8 @@ import '../css/dealerlist.css';
 import axios from '../BaseURL';
 import LoginModal from './Customer/LoginModal';
 import useToken from '../useToken';
+import { useSelector, useDispatch } from "react-redux";
+import { getPosts } from "../actions/postAction";
 
 function valuetext(value: number) {
     return `${value}RS`;
@@ -43,12 +45,10 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
     const [showReview, setShowReview] = useState<boolean>(false);
     const [showBook, setShowBook] = useState<boolean>(false);
     const [activeFilter, setactiveFilter] = useState<number[]>([]);
-
     const [value, setValue] = React.useState<number[]>([250, 3000]);
-
     const [loading, setLoading] = useState<boolean>(false);
-
     const [showLogin, setShowLogin] = useState<boolean>(false);
+    const dispatch = useDispatch();
 
     //const { token, setToken } = useToken();
 
@@ -134,7 +134,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
         console.log(dealerItem)
         setSelectedDealer(dealerItem);
     }
-
+    // const name = useSelector((state) => state.delearList.dealer);
     useEffect(() => {
         if (props.Id != null) {
             axios.get<[]>(`/dealer/serviceType/${props.serviceData.id}/${props.Id}`)
@@ -151,6 +151,8 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                     setLoading(true);
                     //setFilteredData(response.data);
                 })
+            dispatch(getPosts(props.serviceData.id));
+            console.log(getPosts(props.serviceData.id));
         }
 
     }, []);
@@ -194,7 +196,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                                     </tbody>
                                 </table>
                             </td>
-                            <td className="content" style={{ width: '100%' }}>
+                            <td className="content" style={{ verticalAlign: 'top', width: '100%' }}>
                                 <Container>
                                     <div>
                                         {filteredData.map((item) => (
@@ -205,30 +207,37 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                                                             <div style={{ flex: '30%' }}>
                                                                 <Carousel activeIndex={index} onSelect={handleSelect}>
                                                                     <Carousel.Item>
-                                                                        <img
-                                                                            className="d-block w-100"
+                                                                        <img style={{width:'90%'}}                                                                          
                                                                             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDRLpY3p-0UeQAaToiItwtfYehmSa-TSw2Lg&usqp=CAU"
-                                                                            alt="Second slide"
+                                                                            alt="slide"
                                                                         />
                                                                     </Carousel.Item>
                                                                 </Carousel>
                                                             </div>
                                                             <div style={{ flex: '60%', padding: '20px' }}>
-                                                                <div>
-                                                                    <h6 style={{ textTransform: 'uppercase' }}>{item.name}</h6>
-                                                                    <Typography component={'span'}  color="text.secondary">
-                                                                        GST Num:{item.gst_no} <br />
-                                                                        Service available for : {item.Vehicletype.vehicle_type}<br />
-                                                                        Location:{item.locality}-{item.city}-{item.state}-{item.pincode}
-
-                                                                        {item.Services.map((dataItem) => (
-                                                                                <p key={dataItem.service_id}><b>Price:</b> {dataItem.cost}</p>
-                                                                        ))}
-
-                                                                    </Typography>
+                                                                <div className="flex-container">
                                                                     <div>
-                                                                        <Button size="small" onClick={() => BookDialog(item)}>Book Now</Button>
-                                                                        <Button size="small" onClick={() => ReviewDialog(item)}>View Reviews</Button>
+                                                                        <div style={{ textAlign: 'center' }}>
+                                                                            <h4 style={{ textTransform: 'uppercase' }}>{item.name}</h4>
+                                                                        </div>
+                                                                        <Typography component={'span'} color="text.secondary">
+                                                                            GST Num:{item.gst_no} <br />
+                                                                            Service available for : {item.Vehicletype.vehicle_type}<br />
+                                                                            Location:{item.locality}-{item.city}-{item.state}-{item.pincode}<br />
+                                                                            Reviews:<Button size="small" onClick={() => ReviewDialog(item)}>View Reviews</Button>
+                                                                        </Typography>
+                                                                    </div>
+                                                                    <div style={{ textAlign: 'center', padding:'5%' }}>
+                                                                        <div style={{ border: '0.2px solid orangered', height: '100%', padding: '10%', boxShadow: '0 0 5px 0.2px', borderRadius: '2%' }}>
+                                                                            <div style={{ color: 'orangered' }}>
+                                                                                {item.Services.map((dataItem) => (
+                                                                                    <h1 key={dataItem.service_id}>₹ {dataItem.cost}</h1>
+                                                                                ))}
+                                                                            </div>
+                                                                            <div>
+                                                                                <Button variant="contained" size="large" onClick={() => BookDialog(item)}>Book Now</Button>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -237,7 +246,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                                                 </Card>
                                             </Grid>
                                         ))}
-                                        {/* </Grid> */}</div>
+                                    </div>
                                     <div className="navFilter">
                                         <Navbar collapseOnSelect expand="lg" fixed="bottom" bg="light" variant="light">
                                             <Container>
