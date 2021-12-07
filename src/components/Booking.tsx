@@ -17,6 +17,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { ICustomerDetails } from '../Interfaces/ICustomerDetails';
 import ReactToPrint from 'react-to-print';
+import Rating from '@mui/material/Rating';
 
 type Props = {
 	SelectedDealer: Dealer;
@@ -155,11 +156,6 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 							<tbody>
 								<tr>
 									<td>
-										<h3 style={{ textTransform: 'uppercase' }}>
-											{SelectedDealer.Vehicletype.vehicle_type}
-										</h3>
-									</td>
-									<td>
 										<h3 style={{ textTransform: 'uppercase' }}>{serviceData.serviceName}</h3>
 									</td>
 									<td style={{ textAlign: 'right', color: 'orangered' }}>
@@ -175,7 +171,7 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 				<div style={{ flex: '40%', width: '100%', backgroundColor: 'white' }}>
 					<form onSubmit={handleSubmit(onSubmit)}>
 						<div style={{ width: '100%' }}>
-							<div style={{ backgroundColor: 'orangered', color: 'white', padding: '2%' }}>
+							<div style={{ backgroundColor: 'rgb(2, 117, 216)', color: 'white', padding: '2%' }}>
 								<h5>Book a Service</h5>
 							</div>
 							<div className='flex-container' style={{ border: '0.2px solid lightgrey' }}>
@@ -233,7 +229,7 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 							<div className='flex-container' style={{ textAlign: 'center', width: '100%' }}>
 								<div
 									style={{
-										backgroundColor: 'orangered',
+										backgroundColor: 'rgb(2, 117, 216)',
 										color: 'white',
 										padding: '2%',
 										width: '100%'
@@ -251,31 +247,10 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 									<p>
 										{customerData?.mobile}, {customerData?.email}
 									</p>
-									{/* {customerData?.customer_location.map((item) => (
-                                    <p>{item.locality}, {item.city}, {item.state}, {item.pincode}.</p>
-                                    ))} */}
+									<p>{customerData?.customer_location.locality}, {customerData?.customer_location.city}, {customerData?.customer_location.state}, {customerData?.customer_location.pincode}.</p>
 								</div>
 							</div>
-							{/* <div className="flex-container" style={{ textAlign: 'center' }}>
-                                <div className="modalBody">
-                                    <TextField id="input-with-icon-textfield" label="Name" variant="outlined" value={customerData?.customer_name} disabled />
-                                </div>
-                                <div className="modalBody">
-                                    <TextField id="input-with-icon-textfield" label="Mobile No." variant="outlined" value={customerData?.mobile} disabled />
-                                </div>
-                                <div className="modalBody">
-                                    <TextField id="input-with-icon-textfield" label="E-Mail" variant="outlined" value={customerData?.email} disabled />
-                                </div>
-                                {customerData?.customer_location.map((item) => (
-                                <div className="modalBody">
-                                    <TextField id="input-with-icon-textfield" label="Locality" variant="outlined" value="{item.locality}" disabled />
-                                    <TextField id="input-with-icon-textfield" label="City" variant="outlined" value="{item.city}" disabled />
-                                    <TextField id="input-with-icon-textfield" label="State" variant="outlined" value="{item.state}" disabled />
-                                    <TextField id="input-with-icon-textfield" label="State" variant="outlined" value="{item.pincode}" disabled />
-                                </div>
 
-                                ))}
-                            </div> */}
 						</div>
 					</form>
 				</div>
@@ -286,20 +261,21 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 				<div>
 					<ul style={{ listStyleType: 'none' }}>
 						<li>
-							<h4>Dealer Name:</h4>
-							<h5>{SelectedDealer.name}</h5>
+							<h4>Dealer Name</h4>
+							<p>{SelectedDealer.name}</p>
 						</li>
 					</ul>
 				</div>
 				<div>
 					<ul style={{ listStyleType: 'none' }}>
 						<li>
-							<h4>Reviews and Comments:</h4>
+							<h4>Reviews and Comments</h4>
 							{SelectedDealer.dealer_history.map((dataItem) => (
-								<p>
-									<span style={{ backgroundColor: 'yellow', borderRadius: '100%' }}>&#9734;</span>{' '}
-									{dataItem.rating} - {dataItem.comments}
-								</p>
+								<ul style={{ listStyleType: 'none' }}>
+									<li>
+										<Rating name="size-small" size="small" value={dataItem.rating} readOnly /> - {dataItem.comments}
+									</li>
+								</ul>
 							))}
 						</li>
 					</ul>
@@ -307,7 +283,7 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 				<div>
 					<ul style={{ listStyleType: 'none' }}>
 						<li>
-							<h4>Service Description:</h4>
+							<h4>Service Description</h4>
 							{SelectedDealer.Services.map((dataItem) => (
 								<p>{dataItem.discription}</p>
 							))}
@@ -317,7 +293,7 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 				<div>
 					<ul style={{ listStyleType: 'none' }}>
 						<li>
-							<h4>Location Details:</h4>
+							<h4>Location Details</h4>
 							<p>
 								{SelectedDealer.locality}, {SelectedDealer.city}, {SelectedDealer.state}, IND. -{' '}
 								{SelectedDealer.pincode}
@@ -341,8 +317,8 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 					<div className='divModal' ref={printRef}>
 						<h6>Dear Customer, your booking has been confirmed.</h6>
 						<div style={{ border: '0.2px solid lightgrey', padding: '2%' }}>
-							<div style={{ backgroundColor: 'orangered', color: 'white', width: '100%' }}>
-								<h5>Booking Details:</h5>
+							<div style={{ backgroundColor: 'rgb(2, 117, 216)', color: 'white', width: '100%' }}>
+								<h5>Booking Details</h5>
 							</div>
 							<table width='100%' style={{ marginLeft: '5%' }}>
 								<tr>
@@ -383,7 +359,9 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 							className='flex-container'
 							style={{ border: '0.2px solid lightgrey', padding: '2%', width: '100%' }}>
 							<div style={{ flex: '100%' }}>
-								<h6>Dealer Details:</h6>
+								<div style={{ backgroundColor: 'rgb(2, 117, 216)', color: 'white', width: '100%' }}>
+									<h5>Dealer Details</h5>
+								</div>
 								<p>
 									<h6>{SelectedDealer.name},</h6> {SelectedDealer.mobile},{SelectedDealer.email},
 									<br /> {SelectedDealer.locality}, {SelectedDealer.city}, {SelectedDealer.state},
@@ -418,9 +396,6 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 						</div>
 					</div>
 				</Modal.Body>
-				{/* <Modal.Footer>
-                    <div style={{textAlign:'center'}}><Button>Print</Button></div>                    
-                </Modal.Footer> */}
 			</Modal>
 		</>
 	);

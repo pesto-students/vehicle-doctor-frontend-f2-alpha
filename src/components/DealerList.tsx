@@ -252,12 +252,6 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                                                 <Navbar.Brand>Filter</Navbar.Brand>
                                                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                                                 <Navbar.Collapse id="responsive-navbar-nav">
-                                                    {/* <div className="navDiv">
-                                                        <span>Price: </span><input type="number" placeholder="min" onChange={onPriceMinChange}></input> - <input type="number" placeholder="max" onChange={onPriceMaxChange}></input>
-                                                    </div>
-                                                    <div className="navDiv">
-                                                        <span>Rating: </span><input type="number" defaultValue="1"></input> - <input type="number" defaultValue="5"></input>
-                                                    </div> */}
                                                     <table width="100%" style={{ captionSide: 'top', textAlign: 'center' }}>
                                                         <caption style={{ textAlign: 'left', border: '1px solid #ddd', padding: '5px' }}><h5>Filters</h5></caption>
                                                         <tbody>
