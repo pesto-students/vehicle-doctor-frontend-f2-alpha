@@ -62,55 +62,17 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
     };
     const onFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         console.log(e.target.value);
-        if (e.target.checked) {
-            let data = activeFilter;
-            activeFilter.push(Number(e.target.value));
-            setactiveFilter(data);
-        } else {
-            let data = activeFilter.filter((value) => (Number(e.target.value) != value));
-            console.log('inactivedata', data);
-            setactiveFilter(data);
-            console.log(activeFilter);
-        }
-        let ratingResult: React.SetStateAction<Dealer[]> = [];
-        activeFilter.forEach((item) => {
-            switch (item) {
-                case 1:
-                    ratingResult = dealersData.filter((dealerData) => {
-                        return dealerData.dealer_history.some(dataItem => (dataItem.rating >= 1 && dataItem.rating < 5));
-                    });
-                    break;
-                case 2:
-                    ratingResult = dealersData.filter((dealerData) => {
-                        return dealerData.dealer_history.some(dataItem => (dataItem.rating >= 2 && dataItem.rating < 5));
-                    });
-                    break;
-                case 3:
-                    ratingResult = dealersData.filter((dealerData) => {
-                        return dealerData.dealer_history.some(dataItem => (dataItem.rating == 3 && dataItem.rating < 5));
-                    });
-                    break;
-                case 4:
-                    ratingResult = dealersData.filter((dealerData) => {
-                        return dealerData.dealer_history.some(dataItem => (dataItem.rating == 4 && dataItem.rating < 5));
-                    });
-                    break;
-                case 5:
-                    ratingResult = dealersData.filter((dealerData) => {
-                        return dealerData.dealer_history.some(dataItem => (dataItem.rating == 5));
-                    });
-                    break;
-            };
+        const value = Number(e.target.value);
+        setactiveFilter(prevActiveFilter => {
+            let nextActiveFilter = [...prevActiveFilter];
+            if (e.target.checked) {
+                nextActiveFilter.push(value);
+            } else {
+                nextActiveFilter = nextActiveFilter.filter((valueItem) => (value != valueItem));
+            }
+            console.log(nextActiveFilter);
+            return nextActiveFilter;
         });
-        setFilteredData(ratingResult);
-    }
-
-    const onPriceMinChange = () => {
-
-    }
-
-    const onPriceMaxChange = () => {
-
     }
 
     const LoginHandleClose = () => {
@@ -156,6 +118,43 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
         }
 
     }, []);
+
+    useEffect(() => {
+        let ratingResult = dealersData;
+        activeFilter.forEach((item) => {
+            switch (item) {
+                case 1:
+                    ratingResult = dealersData.filter((dealerData) => {
+                        return dealerData.dealer_history.some(dataItem => (dataItem.rating >= 1 && dataItem.rating < 5));
+                    });
+                    break;
+                case 2:
+                    ratingResult = dealersData.filter((dealerData) => {
+                        return dealerData.dealer_history.some(dataItem => (dataItem.rating >= 2 && dataItem.rating < 5));
+                    });
+                    break;
+                case 3:
+                    ratingResult = dealersData.filter((dealerData) => {
+                        return dealerData.dealer_history.some(dataItem => (dataItem.rating == 3 && dataItem.rating < 5));
+                    });
+                    break;
+                case 4:
+                    ratingResult = dealersData.filter((dealerData) => {
+                        return dealerData.dealer_history.some(dataItem => (dataItem.rating == 4 && dataItem.rating < 5));
+                    });
+                    break;
+                case 5:
+                    ratingResult = dealersData.filter((dealerData) => {
+                        return dealerData.dealer_history.some(dataItem => (dataItem.rating == 5));
+                    });
+                    break;
+                default:
+                    ratingResult = dealersData;
+                    break;
+            };
+        });
+        setFilteredData(ratingResult);
+    }, [activeFilter, dealersData])
 
 
     //For Carousel

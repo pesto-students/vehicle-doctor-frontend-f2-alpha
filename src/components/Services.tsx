@@ -54,7 +54,7 @@ const Services : React.FC<Props> =({Token,SetToken}) => {
                                         <CardMedia
                                             component="img"
                                             height="140"
-                                            image={serviceImg}
+                                            image={item.service_image_url}
                                             alt="icon"
                                         />
                                         <CardContent>
