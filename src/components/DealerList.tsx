@@ -207,7 +207,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                                                             <div style={{ flex: '30%' }}>
                                                                 <Carousel activeIndex={index} onSelect={handleSelect}>
                                                                     <Carousel.Item>
-                                                                        <img style={{width:'90%'}}                                                                          
+                                                                        <img style={{ width: '90%' }}
                                                                             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDRLpY3p-0UeQAaToiItwtfYehmSa-TSw2Lg&usqp=CAU"
                                                                             alt="slide"
                                                                         />
@@ -227,7 +227,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                                                                             Reviews:<Button size="small" onClick={() => ReviewDialog(item)}>View Reviews</Button>
                                                                         </Typography>
                                                                     </div>
-                                                                    <div style={{ textAlign: 'center', padding:'5%' }}>
+                                                                    <div style={{ textAlign: 'center', padding: '5%' }}>
                                                                         <div style={{ border: '0.2px solid orangered', height: '100%', padding: '10%', boxShadow: '0 0 5px 0.2px', borderRadius: '2%' }}>
                                                                             <div style={{ color: 'orangered' }}>
                                                                                 {item.Services.map((dataItem) => (
@@ -253,12 +253,35 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                                                 <Navbar.Brand>Filter</Navbar.Brand>
                                                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                                                 <Navbar.Collapse id="responsive-navbar-nav">
-                                                    <div className="navDiv">
+                                                    {/* <div className="navDiv">
                                                         <span>Price: </span><input type="number" placeholder="min" onChange={onPriceMinChange}></input> - <input type="number" placeholder="max" onChange={onPriceMaxChange}></input>
                                                     </div>
                                                     <div className="navDiv">
                                                         <span>Rating: </span><input type="number" defaultValue="1"></input> - <input type="number" defaultValue="5"></input>
-                                                    </div>
+                                                    </div> */}
+                                                    <table width="100%" style={{ captionSide: 'top', textAlign: 'center' }}>
+                                                        <caption style={{ textAlign: 'left', border: '1px solid #ddd', padding: '5px' }}><h5>Filters</h5></caption>
+                                                        <tbody>
+                                                            <tr style={{ border: '1px solid #ddd' }}>
+                                                                <td>
+                                                                    PRICE:
+                                                                    <div style={{ margin: '2%', padding: '10px' }}>
+                                                                        <Slider getAriaLabel={() => 'Price'} value={value} onChange={handleChange} valueLabelDisplay="auto" getAriaValueText={valuetext} min={250} max={3000} />
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr style={{ border: '1px solid #ddd' }}>
+                                                                <td>
+                                                                    RATING:
+                                                                    <div><Checkbox color="primary" value="5" onChange={(e) => onFilterChange(e)} /><Rating name="size-small" size="small" value={5} readOnly /></div>
+                                                                    <div><Checkbox color="primary" value="4" onChange={(e) => onFilterChange(e)} /><Rating name="size-small" size="small" value={4} readOnly /></div>
+                                                                    <div><Checkbox color="primary" value="3" onChange={(e) => onFilterChange(e)} /><Rating name="size-small" size="small" value={3} readOnly /></div>
+                                                                    <div><Checkbox color="primary" value="2" onChange={(e) => onFilterChange(e)} /><Rating name="size-small" size="small" value={2} readOnly /></div>
+                                                                    <div><Checkbox color="primary" value="1" onChange={(e) => onFilterChange(e)} /><Rating name="size-small" size="small" value={1} readOnly /></div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
                                                 </Navbar.Collapse>
                                             </Container>
                                         </Navbar>
