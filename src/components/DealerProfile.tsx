@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { InputLabel, TextField } from '@mui/material';
+import React from 'react';
 import { ISignedInDealer } from '../Interfaces/IDealerLogin';
 
 interface Props {
@@ -13,78 +12,74 @@ const DealerProfile: React.FC<Props> = ({ loggedInDealer }) => {
 			<table style={{ width: '100%' }}>
 				<tr>
 					<td>
-						<InputLabel>Dealer Name: </InputLabel>
+						<h6>Dealer Name: </h6>
 					</td>
 					<td>
-						<TextField name='name' disabled value={loggedInDealer.name} />
+						<p>{loggedInDealer.name}</p>
 					</td>
 					<td>
-						<InputLabel>Mobile: </InputLabel>
+						<h6>Mobile: </h6>
 					</td>
 					<td>
-						<TextField name='mobile' disabled value={loggedInDealer.mobile} />
-					</td>
-				</tr>
-
-				<tr>
-					<td>
-						<InputLabel>Email: </InputLabel>
-					</td>
-					<td>
-						<TextField type='email' name='name' disabled value={loggedInDealer.email_ID} />
-					</td>
-					<td>
-						<InputLabel>Password: </InputLabel>
-					</td>
-					<td>
-						<TextField type='password' name='mobile' disabled value={loggedInDealer.password} />
+						<p>{loggedInDealer.mobile}</p>
 					</td>
 				</tr>
 
 				<tr>
 					<td>
-						<InputLabel>Locality: </InputLabel>
+						<h6>Email: </h6>
 					</td>
 					<td>
-						<TextField name='locality' disabled value={loggedInDealer.locality} />
+						<p>{loggedInDealer.email_ID}</p>
 					</td>
 					<td>
-						<InputLabel>City: </InputLabel>
+						<h6>Password: </h6>
 					</td>
 					<td>
-						<TextField name='city' disabled value={loggedInDealer.city} />
+						<p>{loggedInDealer.password}</p>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<h6>Locality: </h6>
+					</td>
+					<td>
+						<p>{loggedInDealer.locality}</p>
+					</td>
+					<td>
+						<h6>City: </h6>
+					</td>
+					<td>
+						<p>{loggedInDealer.city}</p>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<InputLabel>State: </InputLabel>
+						<h6>State: </h6>
 					</td>
 					<td>
-						<TextField name='state' disabled value={loggedInDealer.state} />
+						<p>{loggedInDealer.state}</p>
 					</td>
 					<td>
-						<InputLabel>Pin: </InputLabel>
+						<h6>Pin: </h6>
 					</td>
 					<td>
-						<TextField name='pincode' disabled value={loggedInDealer.pincode} />
+						<p>{loggedInDealer.pincode}</p>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<InputLabel>GST No: </InputLabel>
+						<h6>GST No: </h6>
 					</td>
 					<td>
-						<TextField name='gst_no' disabled value={loggedInDealer.gst_no} />
+						<p>{loggedInDealer.gst_no}</p>
 					</td>
 					<td>
-						<InputLabel>Vehicle Type: </InputLabel>
+						<h6>Vehicle Type: </h6>
 					</td>
 					<td>
-						<TextField
-							name='vehicle_type'
-							disabled
-							value={loggedInDealer.Vehicletype.vehicle_type}
-						/>
+						<p>{loggedInDealer.Vehicletype.vehicle_type}</p>
 					</td>
 				</tr>
 			</table>
