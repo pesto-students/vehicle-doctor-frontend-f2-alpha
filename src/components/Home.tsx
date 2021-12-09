@@ -140,8 +140,8 @@ const Home: React.FC<Props> = ({Token,SetToken}) => {
 
 			<Modal fullscreen aria-labelledby="contained-modal-title-vcenter" centered show={open} onHide={handleClose}>
 				<Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0275d8' }}>Booking Details</Modal.Header>
-				<Modal.Body>
-					<div className="divModal">
+				<Modal.Body style={{backgroundColor:'lightgrey'}}>
+					<div>
 						{dealerData && serviceData ? <Booking SelectedDealer={dealerData} serviceData={serviceData} handleClose={handleClose} customerData={Token} isHome={true} /> : null}
 					</div>
 				</Modal.Body>

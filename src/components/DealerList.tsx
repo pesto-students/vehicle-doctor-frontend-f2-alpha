@@ -176,7 +176,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                                             <td>
                                                 PRICE:
                                                 <div style={{ margin: '2%', padding: '10px' }}>
-                                                    <Slider getAriaLabel={() => 'Price'} value={value} onChange={handleChange} valueLabelDisplay="auto" getAriaValueText={valuetext} min={250} max={3000} />
+                                                    <Slider getAriaLabel={() => 'Price'} value={value} onChange={handleChange} valueLabelDisplay="on" step={50} aria-label="Always visible" getAriaValueText={valuetext} min={250} max={3000} />
                                                 </div>
                                             </td>
                                         </tr>
@@ -211,9 +211,9 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                                                                     </Carousel.Item>
                                                                 </Carousel>
                                                             </div>
-                                                            <div style={{ flex: '60%', padding: '20px' }}>
+                                                            <div style={{ flex: '60%'}}>
                                                                 <div className="flex-container">
-                                                                    <div>
+                                                                    <div style={{flex: '50%'}}>
                                                                         <div style={{ textAlign: 'center' }}>
                                                                             <h4 style={{ textTransform: 'uppercase' }}>{item.name}</h4>
                                                                         </div>
@@ -224,15 +224,15 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                                                                             Reviews:<Button size="small" onClick={() => ReviewDialog(item)}>View Reviews</Button>
                                                                         </Typography>
                                                                     </div>
-                                                                    <div style={{ textAlign: 'center', padding: '5%' }}>
-                                                                        <div style={{ border: '0.2px solid orangered', height: '100%', padding: '10%', boxShadow: '0 0 5px 0.2px', borderRadius: '2%' }}>
+                                                                    <div style={{flex: '30%', textAlign: 'center', padding: '5%' }}>
+                                                                        <div style={{height: '100%', padding: '10%' }}>
                                                                             <div style={{ color: 'orangered' }}>
                                                                                 {item.Services.map((dataItem) => (
                                                                                     <h1 key={dataItem.service_id}>₹ {dataItem.cost}</h1>
                                                                                 ))}
                                                                             </div>
                                                                             <div>
-                                                                                <Button variant="contained" size="large" onClick={() => BookDialog(item)}>Book Now</Button>
+                                                                                <Button variant="contained" size="medium" onClick={() => BookDialog(item)}>Book Now</Button>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -257,7 +257,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                                                                 <td>
                                                                     PRICE:
                                                                     <div style={{ margin: '2%', padding: '10px' }}>
-                                                                        <Slider getAriaLabel={() => 'Price'} value={value} onChange={handleChange} valueLabelDisplay="auto" getAriaValueText={valuetext} min={250} max={3000} />
+                                                                        <Slider getAriaLabel={() => 'Price'} value={value} onChange={handleChange} valueLabelDisplay="on" step={50} aria-label="Always visible" getAriaValueText={valuetext} min={250} max={3000} />
                                                                     </div>
                                                                 </td>
                                                             </tr>
@@ -308,8 +308,8 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
             </Modal>
             <Modal fullscreen aria-labelledby="contained-modal-title-vcenter" centered show={showBook} onHide={handleBooking}>
                 <Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0275d8' }}>Booking Details</Modal.Header>
-                <Modal.Body>
-                    <div className="divModal">
+                <Modal.Body style={{backgroundColor:'lightgrey'}}>
+                    <div>
                         {selectedDealer ? <Booking SelectedDealer={selectedDealer} serviceData={props.serviceData} handleClose={handleBooking} customerData={props.Token} isHome={false} /> : null}
                     </div>
                 </Modal.Body>
