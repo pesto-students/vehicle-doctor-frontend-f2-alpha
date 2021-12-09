@@ -223,8 +223,8 @@ const LoginModal: React.FC<Props> = ({ open, handleClose, setToken ,SelectedDeal
             <CustomerDeatailsModal mobile={state.mobile} open={showInfo} handleClose={CustomerDetailsClose} setToken={setToken} />
             <Modal fullscreen aria-labelledby="contained-modal-title-vcenter" centered show={showBook} onHide={handleBooking}>
                 <Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0275d8' }}>Booking Details</Modal.Header>
-                <Modal.Body>
-                    <div className="divModal">
+                <Modal.Body style={{backgroundColor:'lightgrey'}}>
+                    <div>
                         {SelectedDealer ? <Booking SelectedDealer={SelectedDealer} serviceData={serviceData} handleClose={handleBooking} customerData={customerData} isHome={isHome} /> : null}
                     </div>
                 </Modal.Body>

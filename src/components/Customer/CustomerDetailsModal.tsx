@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EmailIcon from '@mui/icons-material/Email';
 import Room from '@mui/icons-material/Room';
+import EventNoteIcon from '@mui/icons-material/EventNote';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
 import { Button, Modal } from 'react-bootstrap';
@@ -177,6 +178,7 @@ const CustomerDeatailsModal: React.FC<Props> = ({ open, handleClose, mobile ,set
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position='start'>
+                                            <EventNoteIcon/>
                                         </InputAdornment>
                                     )
                                 }}

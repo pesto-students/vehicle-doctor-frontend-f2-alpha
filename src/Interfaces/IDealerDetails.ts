@@ -27,3 +27,22 @@ export interface IVehicleType {
 	id: number;
 	vehicle_type: string;
 }
+
+export interface IDealerData {
+	dealer_id: number;
+	name: string;
+	mobile: number;
+	email: string;
+	password: string;
+	gst_no: number;
+	locality: string;
+	city: string;
+	state: string;
+	pincode: number;
+	lat: number;
+	lng: number;
+	vehicle_type_id: number;
+	Services: any[];
+	Vehicletype: object
+	dealer_history: any[];
+}

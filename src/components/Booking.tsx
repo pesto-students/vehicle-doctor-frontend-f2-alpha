@@ -18,6 +18,7 @@ import * as yup from 'yup';
 import { ICustomerDetails } from '../Interfaces/ICustomerDetails';
 import ReactToPrint from 'react-to-print';
 import Rating from '@mui/material/Rating';
+import Typography from '@mui/material/Typography';
 
 type Props = {
 	SelectedDealer: Dealer;
@@ -130,7 +131,7 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 	return (
 		<>
 			<div className='flex-container' style={{ alignItems: 'flex-start' }}>
-				<div style={{ flex: '40%' }}>
+				<div style={{ flex: '40%', padding: '2%' }}>
 					<div>
 						<Carousel activeIndex={index} onSelect={handleSelect}>
 							<Carousel.Item>
@@ -156,7 +157,7 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 							</Carousel.Item>
 						</Carousel>
 					</div>
-					<div style={{ padding: '5%', backgroundColor: 'white' }}>
+					<div style={{ padding: '6%', backgroundColor: 'white' }}>
 						<table style={{ width: '100%' }}>
 							<tbody>
 								<tr>
@@ -175,104 +176,109 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 						</table>
 					</div>
 				</div>
-				<div style={{ flex: '40%', width: '100%', backgroundColor: 'white' }}>
+				<div style={{ flex: '40%', width: '100%', padding: '2%' }}>
 					<form onSubmit={handleSubmit(onSubmit)}>
-						<div style={{ width: '100%' }}>
-							<div style={{ backgroundColor: 'rgb(2, 117, 216)', color: 'white', padding: '2%' }}>
+						<div style={{ width: '100%', backgroundColor: 'white', textAlign: 'center' }}>
+							<div style={{ padding: '2%' }}>
 								<h5>Book a Service</h5>
 							</div>
-							<div className='flex-container' style={{ border: '0.2px solid lightgrey' }}>
-								<div className='modalBody'>
-									<TextField
-										id='input-with-icon-textfield'
-										{...register('vName')}
-										helperText={errors.vName?.message}
-										label='Vehicle Model'
-										variant='outlined'
-										onChange={handleInput('vehicle_model')}
-									/>
-								</div>
-								<div className='modalBody'>
-									<TextField
-										id='input-with-icon-textfield'
-										label='Vehicle Reg No.'
-										variant='outlined'
-										onChange={handleInput('vehicle_reg_no')}
-									/>
-								</div>
-								<div className='modalBody'>
-									<LocalizationProvider dateAdapter={AdapterDateFns}>
-										<DateTimePicker
-											renderInput={(params) => <TextField {...params} />}
-											label='Pick Up Date/Time'
-											value={pickupDateValue}
-											onChange={(newValue) => {
-												setpickupdateValue(newValue);
-											}}
-											minDateTime={new Date()}
-										/>
-									</LocalizationProvider>
-								</div>
-								<div className='modalBody'>
-									<FormControl sx={{ m: 1, minWidth: 120 }}>
-										<InputLabel id='demo-simple-select-standard-label'>Pick UP</InputLabel>
-										<Select
-											labelId='demo-simple-select-standard-label'
-											id='demo-simple-select-standard'
-											onChange={handleInput('pick_up')}
-											autoWidth
-											label='Age'>
-											<MenuItem value={1}>YES</MenuItem>
-											<MenuItem value={0}>NO</MenuItem>
-										</Select>
-									</FormControl>
-								</div>
-								<div style={{ textAlign: 'center' }}>
-									<Button size='lg' variant='warning' type='submit'>
-										Book Now
-									</Button>
-								</div>
-							</div>
-							<div className='flex-container' style={{ textAlign: 'center', width: '100%' }}>
-								<div
-									style={{
-										backgroundColor: 'rgb(2, 117, 216)',
-										color: 'white',
-										padding: '2%',
-										width: '100%'
-									}}>
-									<h5>Customer Details</h5>
-								</div>
-								<div
-									style={{
-										border: '0.2px solid lightgrey',
-										width: '100%',
-										padding: '5%',
-										textAlign: 'left'
-									}}>
-									<h6>{customerData?.customer_name},</h6>
-									<p>
-										{customerData?.mobile}, {customerData?.email}
-									</p>
-									<p>{customerData?.customer_location.locality}, {customerData?.customer_location.city}, {customerData?.customer_location.state}, {customerData?.customer_location.pincode}.</p>
-								</div>
-							</div>
-
+							<table style={{ width: '100%' }} className='flex-container'>
+								<tbody>
+									<tr>
+										<td>
+											<div style={{ width: '100%' }}>
+												<TextField style={{ width: '100%' }}
+													id='input-with-icon-textfield'
+													{...register('vName')}
+													helperText={errors.vName?.message}
+													label='Vehicle Model'
+													variant='outlined'
+													onChange={handleInput('vehicle_model')}
+												/>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div style={{ width: '100%' }}>
+												<TextField style={{ width: '100%' }}
+													id='input-with-icon-textfield'
+													{...register('vReg')}
+													helperText={errors.vReg?.message}
+													label='Vehicle Reg No.'
+													variant='outlined'
+													onChange={handleInput('vehicle_reg_no')}
+												/>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td className='flex-container'>
+											<div>
+												<LocalizationProvider dateAdapter={AdapterDateFns}>
+													<DateTimePicker
+														renderInput={(params) => <TextField {...params} />}
+														label='Pick Up Date/Time'
+														value={pickupDateValue}
+														onChange={(newValue) => {
+															setpickupdateValue(newValue);
+														}}
+														minDateTime={new Date()}
+													/>
+												</LocalizationProvider>
+											</div>
+											<div>
+												<FormControl sx={{ m: 1, minWidth: 120 }}>
+													<InputLabel id='demo-simple-select-standard-label'>Pick UP</InputLabel>
+													<Select
+														labelId='demo-simple-select-standard-label'
+														id='demo-simple-select-standard'
+														onChange={handleInput('pick_up')}
+														autoWidth
+														label='Age'>
+														<MenuItem value={1}>YES</MenuItem>
+														<MenuItem value={0}>NO</MenuItem>
+													</Select>
+												</FormControl>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div style={{ textAlign: 'center', padding:'1%' }}>
+												<Button size='lg' variant='primary' type='submit'>
+													Book Now
+												</Button>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 					</form>
+					<div style={{marginTop:'5%'}}>
+						<div style={{ width: '100%', padding: '2%', backgroundColor: 'white' }}>
+							<div><h6>Customer Details:</h6></div>
+							<Typography component={'span'} color="text.secondary">
+								<h6>{customerData?.customer_name},
+									{customerData?.mobile}, {customerData?.email}, <br />
+									{customerData?.customer_location.locality}, {customerData?.customer_location.city}, {customerData?.customer_location.state}, {customerData?.customer_location.pincode}.
+								</h6>
+							</Typography>
+						</div>
+						<div style={{ width: '100%', padding: '2%', backgroundColor: 'white' }}>
+							<div><h6>Dealer Details:</h6></div>
+							<Typography component={'span'} color="text.secondary">
+								<h6>
+									{SelectedDealer.name},<br />
+									{SelectedDealer.locality}, {SelectedDealer.city}, {SelectedDealer.state}, IND. -{' '} {SelectedDealer.pincode}.
+								</h6>
+							</Typography>
+						</div>
+					</div>
 				</div>
 			</div>
-			<div
-				className='flex-container'
-				style={{ padding: '2%', alignItems: 'flex-start', backgroundColor: 'lightgrey' }}>
-				<div>
-					<ul style={{ listStyleType: 'none' }}>
-						<li>
-							<h4>Dealer Name</h4>
-							<p>{SelectedDealer.name}</p>
-						</li>
-					</ul>
-				</div>
+			<div style={{ padding: '2%', margin:'2%', alignItems: 'flex-start', backgroundColor: 'white' }}>				
 				<div>
 					<ul style={{ listStyleType: 'none' }}>
 						<li>
@@ -286,8 +292,6 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 							))}
 						</li>
 					</ul>
-				</div>
-				<div>
 					<ul style={{ listStyleType: 'none' }}>
 						<li>
 							<h4>Service Description</h4>
@@ -298,19 +302,7 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 						</li>
 					</ul>
 				</div>
-				<div>
-					<ul style={{ listStyleType: 'none' }}>
-						<li>
-							<h4>Location Details</h4>
-							<p>
-								{SelectedDealer.locality}, {SelectedDealer.city}, {SelectedDealer.state}, IND. -{' '}
-								{SelectedDealer.pincode}
-							</p>
-						</li>
-					</ul>
-				</div>
 			</div>
-
 			<Modal
 				style={{ width: '100%' }}
 				animation={true}

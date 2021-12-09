@@ -1,17 +1,38 @@
 import React, { useEffect, useState } from 'react';
-import { TextField, Select, MenuItem, Button, Grid } from '@mui/material';
+import {
+	TextField,
+	Select,
+	MenuItem,
+	Button,
+	Grid,
+	FormControl,
+	InputLabel,
+	OutlinedInput
+} from '@mui/material';
 import { ISignedInDealer, IDealerService } from '../Interfaces/IDealerLogin';
 import { IServices } from '../Interfaces/IDealerServiceType';
 
 import { AxiosResponse } from 'axios';
 import axios from '../BaseURL';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import '../css/DealerService.css';
 // import AddServiceReadOnlyRow from '../components/Dealer/AddServiceReadOnlyRow';
 
 type Props = {
 	loggedInDealer: ISignedInDealer;
 	//Token: any;
+};
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+	PaperProps: {
+		style: {
+			maxHeight: ITEM_HEIGHT * 2.5 + ITEM_PADDING_TOP,
+			width: 200,
+			padding: 8
+		}
+	}
 };
 
 interface IFormInput {
@@ -26,6 +47,8 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 	const [serviceData, setServiceData] = useState<IDealerService[]>([]);
 	const [renderTable, setRenderTable] = useState<boolean>(true);
 	const [summary, SetSummaryID] = useState<string>();
+	const [msgStatus, setMsgStatus] = useState<boolean>(false);
+
 	const [formData, setFormData] = useState<IFormInput>({
 		dealerTblDealerId: loggedInDealer.dealer_id,
 		service_type_id: 0,
@@ -58,6 +81,8 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 			...prevState,
 			[input]: value
 		}));
+
+		SetSummaryID('');
 		console.log(formData);
 	};
 
@@ -74,7 +99,11 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 
 		axios.post('/dealer/addService', body, config).then((response: AxiosResponse) => {
 			console.log(response.data);
+			if (response.data === 'Dealer service already exists') {
+				setMsgStatus(true);
+			}
 			SetSummaryID(response.data);
+
 			setRenderTable(true);
 		});
 
@@ -88,6 +117,7 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 
 	const {
 		register,
+		control,
 		handleSubmit,
 		formState: { errors }
 	} = useForm<IFormInput>({
@@ -102,7 +132,7 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 						<th className='head-row'>Service Name</th>
 						<th className='head-row'>Description</th>
 						<th className='head-row'>Cost</th>
-						<th className='head-row'>Action</th>
+						{/* <th className='head-row'>Action</th> */}
 					</tr>
 				</thead>
 				<tbody>
@@ -112,7 +142,7 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 							<td className='def-row'>{item.serviceTypes.service_name}</td>
 							<td className='def-row'>{item.discription}</td>
 							<td className='def-row'>{item.cost}</td>
-							<td className='def-row' />
+							{/* <td className='def-row' /> */}
 						</tr>
 					))}
 				</tbody>
@@ -123,23 +153,34 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 				autoComplete='off'
 				className='form-container'
 				onSubmit={handleSubmit(handleAddSubmit)}>
-				<Grid container spacing={2} style={{ height: '100px' }}>
-					<Grid item xs={3}>
-						<Select
-							id='service_type_id'
-							label='Service Type'
-							displayEmpty
-							defaultValue=''
-							onChange={handleInput('service_type_id')}
-							fullWidth
-							required>
-							{serviceType.map((item) => (
-								<MenuItem value={item.id}>{item.service_name}</MenuItem>
-							))}
-						</Select>
+				<Grid container spacing={2}>
+					<Grid item xs={2} style={{ height: 'auto', overflow: 'auto' }}>
+						<FormControl>
+							<InputLabel id='service_type_label'>Service Type</InputLabel>
+							<Controller
+								name='service_type_id'
+								control={control}
+								render={({ field }) => (
+									<Select
+										id='service_type_id'
+										labelId='service_type_label'
+										defaultValue={1}
+										{...field}
+										onChange={handleInput('service_type_id')}
+										fullWidth
+										required
+										input={<OutlinedInput label='Service Type' />}
+										MenuProps={MenuProps}>
+										{serviceType.map((item) => (
+											<MenuItem value={item.id}>{item.service_name}</MenuItem>
+										))}
+									</Select>
+								)}
+							/>
+						</FormControl>
 					</Grid>
 
-					<Grid item xs={3}>
+					<Grid item xs={4}>
 						<TextField
 							id='discription'
 							label='Description'
@@ -179,6 +220,9 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 							}}>
 							Add
 						</Button>
+					</Grid>
+					<Grid item className='item' xs={12}>
+						<h6 style={{ color: msgStatus ? 'red' : 'none', textAlign: 'center' }}>{summary}</h6>
 					</Grid>
 				</Grid>
 			</form>
