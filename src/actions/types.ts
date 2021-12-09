@@ -1,5 +1,5 @@
-export const GET_POSTS = "GET_POSTS";
-export const GET_POST = "GET_POST";
-export const CREATE_POST = "CREATE_POST";
-export const UPDATE_POST = "UPDATE_POST";
-export const DELETE_POST = "DELETE_POST";
+export const GET_DEALERS = "GET_DEALERS";
+export const GET_DEALER = "GET_DEALER";
+export const CREATE_DEALER = "CREATE_DEALER";
+export const UPDATE_DEALER = "UPDATE_DEALER";
+export const DELETE_DEALER = "DELETE_DEALER";

@@ -1,6 +1,8 @@
 import { combineReducers } from "redux";
-import postReducer from "./postReducer";
+import dealerReducer from "./dealerReducer";
 
-export default combineReducers({
-  dealerList: postReducer,
+export const rootReducer = combineReducers({
+  dealerList: dealerReducer,
 });
+
+export type RootState = ReturnType<typeof rootReducer>

@@ -21,7 +21,8 @@ import axios from '../BaseURL';
 import LoginModal from './Customer/LoginModal';
 import useToken from '../useToken';
 import { useSelector, useDispatch } from "react-redux";
-import { getPosts } from "../actions/postAction";
+import { getDealers } from "../actions/dealerAction";
+import {RootState} from "../reducers";
 
 function valuetext(value: number) {
     return `${value}RS`;
@@ -40,14 +41,14 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
     const [dealersData, setDealersData] = useState<Dealer[]>([]);
     const [filteredData, setFilteredData] = useState<Dealer[]>(dealersData);
     const [selectedDealer, setSelectedDealer] = useState<Dealer>();
-
-
     const [showReview, setShowReview] = useState<boolean>(false);
     const [showBook, setShowBook] = useState<boolean>(false);
     const [activeFilter, setactiveFilter] = useState<number[]>([]);
     const [value, setValue] = React.useState<number[]>([250, 3000]);
     const [loading, setLoading] = useState<boolean>(false);
     const [showLogin, setShowLogin] = useState<boolean>(false);
+    const state = useSelector((state:RootState) => state.dealerList.dealer);
+    console.log('state',state)
     const dispatch = useDispatch();
 
 
@@ -95,7 +96,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
         console.log(dealerItem)
         setSelectedDealer(dealerItem);
     }
-    // const name = useSelector((state) => state.delearList.dealer);
+
     useEffect(() => {
         if (props.Id != null) {
             axios.get<[]>(`/dealer/serviceType/${props.serviceData.id}/${props.Id}`)
@@ -108,10 +109,10 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
             axios.get<[]>(`/dealer/serviceType/${props.serviceData.id}`)
                 .then((response: AxiosResponse) => {
                     setDealersData(response.data);
+                    console.log(response.data)
+                    dispatch(getDealers(response.data));
                     setLoading(true);
                 })
-            dispatch(getPosts(props.serviceData.id));
-            console.log(getPosts(props.serviceData.id));
         }
 
     }, []);

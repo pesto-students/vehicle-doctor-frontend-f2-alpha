@@ -1,4 +1,4 @@
-import { GET_POSTS } from "../actions/types";
+import {GET_DEALERS} from "../actions/types";
 
 const initialState = {
   dealer: [],
@@ -6,9 +6,10 @@ const initialState = {
 
 export type Action = { type: string ; payload: string };
 
-export const postReducer = (state : any = initialState, action: Action ) => {
+export const dealerReducer = (state : any = initialState, action: Action ) => {
+
   switch (action.type) {
-    case GET_POSTS:
+    case GET_DEALERS:
       return {
         ...state,
         dealer: action.payload,
@@ -18,4 +19,4 @@ export const postReducer = (state : any = initialState, action: Action ) => {
   }
 };
 
-export default postReducer;
+export default dealerReducer;
