@@ -65,7 +65,7 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 		axios.post('/order/Service/Booking', formData).then((response: AxiosResponse) => {
 			SetSummaryID(response.data);
 		});
-		setShowInvoice(true);
+		setShowInvoice(true);	
 	};
 
 	function addDays(pick_up_date: Date) {
@@ -89,6 +89,10 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 	const handleSelect = (selectedIndex: any, e: any) => {
 		setIndex(selectedIndex);
 	};
+
+	const SummaryhandleClose = () =>{
+		handleClose(true)
+	}
 
 	interface IFormInput {
 		vName: string;
@@ -389,7 +393,7 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 						</table>
 
 						<div style={{ textAlign: 'center', marginTop: '2%' }}>
-							<ReactToPrint
+							<ReactToPrint 
 								content={() => printRef.current as HTMLDivElement}
 								trigger={() => (
 									<input
@@ -399,6 +403,9 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 									/>
 								)}
 							/>
+							<Button size='lg' variant='primary' onClick={SummaryhandleClose}>
+										Close
+									</Button>
 						</div>
 					</div>
 				</Modal.Body>
