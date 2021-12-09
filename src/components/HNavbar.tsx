@@ -62,7 +62,7 @@ const HNavbar: React.FC<Props> = ({Token,SetToken}) => {
 							<Button variant='danger' onClick={SOShandleOpen}>
 								{ROADSIDE_ASSISTANCE}
 							</Button>
-							<Nav.Link href='#home'>SEARCH BY DEALER</Nav.Link>
+							<Nav.Link href='#home'>SEARCH DEALER</Nav.Link>
 							<Nav.Link href='#services'>SERVICES</Nav.Link>
 							<Nav.Link href='#rewards'>TESTIMONIALS</Nav.Link>
 							<Nav.Link href='#contactUs'>CONTACT US</Nav.Link>
