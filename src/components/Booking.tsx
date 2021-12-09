@@ -280,25 +280,25 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 			</div>
 			<div style={{ padding: '2%', margin:'2%', alignItems: 'flex-start', backgroundColor: 'white' }}>				
 				<div>
-					<ul style={{ listStyleType: 'none' }}>
-						<li>
-							<h4>Reviews and Comments</h4>
-							{SelectedDealer.dealer_history.map((dataItem) => (
-								<ul style={{ listStyleType: 'none' }}>
-									<li>
-										<Rating name="size-small" size="small" value={dataItem.rating} readOnly /> - {dataItem.comments}
-									</li>
-								</ul>
-							))}
-						</li>
-					</ul>
-					<ul style={{ listStyleType: 'none' }}>
+				<ul style={{ listStyleType: 'none' }}>
 						<li>
 							<h4>Service Description</h4>
 							{isHome ? <p>{serviceData.discription}</p> :
 								SelectedDealer.Services.map((dataItem) => (
 									<p>{dataItem.discription}</p>
 								))}
+						</li>
+					</ul>
+					<ul style={{ listStyleType: 'none' }}>
+						<li>
+							<h4>Reviews and Comments</h4>
+							{SelectedDealer.dealer_history.map((dataItem) => (
+								<ul style={{ listStyleType: 'none' }}>
+									<li>
+										<Rating name="size-small" size="small" value={dataItem.rating} readOnly /> - {dataItem.comments} 
+									</li>
+								</ul>
+							))}
 						</li>
 					</ul>
 				</div>

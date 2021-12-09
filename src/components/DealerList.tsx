@@ -161,7 +161,6 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
     const handleSelect = (selectedIndex: any, e: any) => {
         setIndex(selectedIndex);
     };
-
     return (
         <div>
             {loading ?
@@ -221,7 +220,8 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                                                                             GST Num:{item.gst_no} <br />
                                                                             Service available for : {item.Vehicletype.vehicle_type}<br />
                                                                             Location:{item.locality}-{item.city}-{item.state}-{item.pincode}<br />
-                                                                            Reviews:<Button size="small" onClick={() => ReviewDialog(item)}>View Reviews</Button>
+                                                                            Reviews:<Button size="small" onClick={() => ReviewDialog(item)}>View Reviews</Button><p>Review Count:{item.dealer_history.length}</p> 
+                                                                            
                                                                         </Typography>
                                                                     </div>
                                                                     <div style={{flex: '30%', textAlign: 'center', padding: '5%' }}>
