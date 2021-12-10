@@ -22,7 +22,7 @@ const DealerListBaseModal: React.FC<Props> = ({ open, handleClose,serviceData ,I
                     <b>VehicleDr.com</b>
                 </Modal.Header>
                 <Modal.Body style={{ backgroundColor: 'lightgray' }}>
-                    <DealerList serviceData={serviceData}  Id={Id} SetToken={setToken} Token={token}/>
+                    <DealerList serviceData={serviceData}  Id={Id} SetToken={setToken} Token={token} handleClose={handleClose} />
                 </Modal.Body>
             </Modal>
         </>

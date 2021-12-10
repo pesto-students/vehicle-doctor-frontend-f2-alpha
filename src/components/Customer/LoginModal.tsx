@@ -29,6 +29,7 @@ type Props = {
     serviceData: any;
     IsLogin :boolean;
     isHome:boolean;
+    handleDealer:(val:boolean)=>void;
 }
 declare global {
     interface Window {
@@ -37,7 +38,7 @@ declare global {
     }
 }
 
-const LoginModal: React.FC<Props> = ({ open, handleClose, setToken ,SelectedDealer,serviceData,IsLogin,isHome}) => {
+const LoginModal: React.FC<Props> = ({ open, handleClose, setToken ,SelectedDealer,serviceData,IsLogin,isHome,handleDealer}) => {
     const initialState = {
         mobile: "",
         otp: ""
@@ -225,7 +226,7 @@ const LoginModal: React.FC<Props> = ({ open, handleClose, setToken ,SelectedDeal
                 <Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0275d8' }}>Booking Details</Modal.Header>
                 <Modal.Body style={{backgroundColor:'lightgrey'}}>
                     <div>
-                        {SelectedDealer ? <Booking SelectedDealer={SelectedDealer} serviceData={serviceData} handleClose={handleBooking} customerData={customerData} isHome={isHome} /> : null}
+                        {SelectedDealer ? <Booking SelectedDealer={SelectedDealer} serviceData={serviceData} handleClose={handleBooking} handleDealer={handleDealer} customerData={customerData} isHome={isHome} /> : null}
                     </div>
                 </Modal.Body>
             </Modal>

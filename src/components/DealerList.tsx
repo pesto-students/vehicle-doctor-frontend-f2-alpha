@@ -22,7 +22,10 @@ import LoginModal from './Customer/LoginModal';
 import useToken from '../useToken';
 import { useSelector, useDispatch } from "react-redux";
 import { getDealers } from "../actions/dealerAction";
-import {RootState} from "../reducers";
+import { RootState } from "../reducers";
+import { IconButton } from '@mui/material';
+import HomeIcon from '@mui/icons-material/Home';
+import { blue } from '@mui/material/colors';
 
 function valuetext(value: number) {
     return `${value}RS`;
@@ -33,7 +36,8 @@ interface dealerProps {
     Id: any;
     SetToken: (val: any) => void;
     Token: any;
-
+    handleClose: (val: boolean) => void;
+    // parentCallBack:()=>void;
 }
 
 const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element => {
@@ -47,9 +51,13 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
     const [value, setValue] = React.useState<number[]>([250, 3000]);
     const [loading, setLoading] = useState<boolean>(false);
     const [showLogin, setShowLogin] = useState<boolean>(false);
-    const state = useSelector((state:RootState) => state.dealerList.dealer);
-    console.log('state',state)
+    const state = useSelector((state: RootState) => state.dealerList.dealer);
+    console.log('state', state)
     const dispatch = useDispatch();
+
+    const NavigateToHome = () => {
+        props.handleClose(true);
+    }
 
 
     const handleChange = (event: Event, newValue: number | number[]) => {
@@ -75,6 +83,8 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
         });
     }
 
+
+
     const LoginHandleClose = () => {
         setShowLogin(false);
     };
@@ -83,6 +93,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
         if (props.Token == null) {
             setShowLogin(true);
         } else {
+
             setShowBook(true);
         }
         setSelectedDealer(dealerItem);
@@ -210,9 +221,9 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                                                                     </Carousel.Item>
                                                                 </Carousel>
                                                             </div>
-                                                            <div style={{ flex: '60%'}}>
+                                                            <div style={{ flex: '60%' }}>
                                                                 <div className="flex-container">
-                                                                    <div style={{flex: '50%'}}>
+                                                                    <div style={{ flex: '50%' }}>
                                                                         <div style={{ textAlign: 'center' }}>
                                                                             <h4 style={{ textTransform: 'uppercase' }}>{item.name}</h4>
                                                                         </div>
@@ -220,12 +231,12 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                                                                             GST Num:{item.gst_no} <br />
                                                                             Service available for : {item.Vehicletype.vehicle_type}<br />
                                                                             Location:{item.locality}-{item.city}-{item.state}-{item.pincode}<br />
-                                                                            Reviews:<Button size="small" onClick={() => ReviewDialog(item)}>View Reviews</Button><p>Review Count:{item.dealer_history.length}</p> 
-                                                                            
+                                                                            Reviews:<Button size="small" onClick={() => ReviewDialog(item)}>View Reviews</Button><p>Review Count:{item.dealer_history.length}</p>
+
                                                                         </Typography>
                                                                     </div>
-                                                                    <div style={{flex: '30%', textAlign: 'center', padding: '5%' }}>
-                                                                        <div style={{height: '100%', padding: '10%' }}>
+                                                                    <div style={{ flex: '30%', textAlign: 'center', padding: '5%' }}>
+                                                                        <div style={{ height: '100%', padding: '10%' }}>
                                                                             <div style={{ color: 'orangered' }}>
                                                                                 {item.Services.map((dataItem) => (
                                                                                     <h1 key={dataItem.service_id}>₹ {dataItem.cost}</h1>
@@ -307,14 +318,19 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                 </Modal.Body>
             </Modal>
             <Modal fullscreen aria-labelledby="contained-modal-title-vcenter" centered show={showBook} onHide={handleBooking}>
-                <Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0275d8' }}>Booking Details</Modal.Header>
-                <Modal.Body style={{backgroundColor:'lightgrey'}}>
+                <Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0275d8' }}>
+                    Booking Details
+                    <IconButton color="secondary" aria-label="add an home" onClick={NavigateToHome}>
+                        <HomeIcon sx={{ fontSize: 40 ,color:blue[50]}} />
+                    </IconButton>
+                </Modal.Header>
+                <Modal.Body style={{ backgroundColor: 'lightgrey' }}>
                     <div>
-                        {selectedDealer ? <Booking SelectedDealer={selectedDealer} serviceData={props.serviceData} handleClose={handleBooking} customerData={props.Token} isHome={false} /> : null}
+                        {selectedDealer ? <Booking SelectedDealer={selectedDealer} serviceData={props.serviceData} handleClose={handleBooking} handleDealer={props.handleClose} customerData={props.Token} isHome={false} /> : null}
                     </div>
                 </Modal.Body>
             </Modal>
-            <LoginModal open={showLogin} handleClose={LoginHandleClose} setToken={props.SetToken} SelectedDealer={selectedDealer} serviceData={props.serviceData} IsLogin={false} isHome={false} />
+            <LoginModal open={showLogin} handleClose={LoginHandleClose} handleDealer={props.handleClose} setToken={props.SetToken} SelectedDealer={selectedDealer} serviceData={props.serviceData} IsLogin={false} isHome={false} />
         </div>
     );
 }

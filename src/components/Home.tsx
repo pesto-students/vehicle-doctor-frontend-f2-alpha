@@ -5,7 +5,6 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { DealerService } from '../Interfaces/IDealerServiceInterface';
 import { Dealer } from '../Interfaces/IDealerInterface';
 import { AxiosResponse } from 'axios';
-// import ViewDealer from './ViewDealerModal';
 import useGeoLocation from '../Hooks/GeolocationHook';
 import useVehicleData from '../Hooks/VehicleDataHook';
 import axios from '../BaseURL';
@@ -71,6 +70,10 @@ const Home: React.FC<Props> = ({Token,SetToken}) => {
 
 	function serviceSelected(event: any, newValue: any) {
 		setServiceData(newValue);
+	}
+
+	const handleCloseEmpty = () =>{
+
 	}
 
 
@@ -142,12 +145,12 @@ const Home: React.FC<Props> = ({Token,SetToken}) => {
 				<Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0275d8' }}>Booking Details</Modal.Header>
 				<Modal.Body style={{backgroundColor:'lightgrey'}}>
 					<div>
-						{dealerData && serviceData ? <Booking SelectedDealer={dealerData} serviceData={serviceData} handleClose={handleClose} customerData={Token} isHome={true} /> : null}
+						{dealerData && serviceData ? <Booking SelectedDealer={dealerData} serviceData={serviceData} handleClose={handleClose} customerData={Token} isHome={true} handleDealer={handleCloseEmpty} /> : null}
 					</div>
 				</Modal.Body>
 			</Modal>
 
-			<LoginModal open={showLogin} handleClose={LoginHandleClose} setToken={SetToken}  SelectedDealer={dealerData}  serviceData={serviceData}  IsLogin={false} isHome={true} />
+			<LoginModal open={showLogin} handleClose={LoginHandleClose} setToken={SetToken}  SelectedDealer={dealerData}  serviceData={serviceData}  IsLogin={false} isHome={true} handleDealer={handleCloseEmpty} />
 
 
 		</div>

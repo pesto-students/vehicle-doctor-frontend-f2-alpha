@@ -26,9 +26,10 @@ type Props = {
 	handleClose: (val: boolean) => void;
 	customerData: ICustomerDetails | undefined;
 	isHome: boolean | undefined;
+	handleDealer:(val: boolean) => void;
 };
 
-const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, customerData, isHome }) => {
+const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, customerData, isHome ,handleDealer}) => {
 	const [pickupDateValue, setpickupdateValue] = React.useState<Date | null>(new Date());
 	const [formData, setFormData] = useState<IBookingService>({
 		refrence_id: '',
@@ -92,7 +93,8 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 	};
 
 	const SummaryhandleClose = () =>{
-		handleClose(true)
+		handleClose(true);
+		handleDealer(true);
 	}
 
 	interface IFormInput {

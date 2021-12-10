@@ -47,6 +47,9 @@ const HNavbar: React.FC<Props> = ({Token,SetToken}) => {
 	const CustomerLogout = () => {
 		SetToken(null)
 	}
+	const handleClose = () =>{
+
+	}
 
 	return (
 		<div className='anim'>
@@ -120,10 +123,9 @@ const HNavbar: React.FC<Props> = ({Token,SetToken}) => {
 					</div>
 				</Modal.Body>
 				<Modal.Footer>
-					{/* <Button size="sm" variant="primary" onClick={() => setShow(!showHome)}>Register</Button> */}
 				</Modal.Footer>
 			</Modal>
-			<LoginModal open={showLogin} handleClose={LoginHandleClose} setToken={SetToken} SelectedDealer={undefined} serviceData={undefined} IsLogin={true} isHome={false}/>
+			<LoginModal open={showLogin} handleClose={LoginHandleClose} setToken={SetToken} SelectedDealer={undefined} serviceData={undefined} IsLogin={true} isHome={false} handleDealer={handleClose}/>
 			<DealerLoginModal
 				open={showDealerLogin}
 				handleClose={() => setShowDealerLogin(!showDealerLogin)}
