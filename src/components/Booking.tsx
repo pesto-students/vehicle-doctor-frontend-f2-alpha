@@ -63,7 +63,6 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 			formData.pick_up_date = pickupDateValue;
 			formData.drop_date = addDays(pickupDateValue);
 		}
-		console.log('FormData', formData);
 		axios.post('/order/Service/Booking', formData).then((response: AxiosResponse) => {
 			SetSummaryID(response.data);
 		});
@@ -110,16 +109,10 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 
 	//Unccomment from section 100 to 114, once you check the Booking Summary Modal, this is for validation
 
-	// const schema = yup.object({
-	//     vName: yup.string().required('Field is required.'),
-	//     vReg: yup.string().required('Field is required.'),
-	//     cName: yup.string().required('Field is required.'),
-	//     cMobile: yup.string().required('Field is required.'),
-	//     cLocality: yup.string().required('Field is required.'),
-	//     cCity: yup.string().required('Field is required.'),
-	//     cState: yup.string().required('Field is required.'),
-	//     cEmail: yup.string().email('Must be a valid email').max(255).required('Email is required'),
-	// }).required();
+	const schema = yup.object({
+	    vName: yup.string().required('Please enter the vehicle name and model'),
+	    vReg: yup.string().required('Please enter the vehicle Registration Number.'),
+	}).required();
 
 	const {
 		register,
@@ -127,7 +120,8 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 		handleSubmit,
 		formState: { errors }
 	} = useForm<IFormInput>({
-		// resolver: yupResolver(schema)
+		mode: 'all',
+		 resolver: yupResolver(schema)
 	});
 
 	return (
@@ -192,6 +186,7 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 												<TextField style={{ width: '100%' }}
 													id='input-with-icon-textfield'
 													{...register('vName')}
+													error={errors.vName ? true : false}
 													helperText={errors.vName?.message}
 													label='Vehicle Model'
 													variant='outlined'
@@ -206,6 +201,7 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 												<TextField style={{ width: '100%' }}
 													id='input-with-icon-textfield'
 													{...register('vReg')}
+													error={errors.vReg ? true : false}
 													helperText={errors.vReg?.message}
 													label='Vehicle Reg No.'
 													variant='outlined'
