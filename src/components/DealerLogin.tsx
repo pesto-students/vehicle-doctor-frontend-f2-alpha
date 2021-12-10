@@ -154,7 +154,13 @@ const DealerLogin: React.FC<IDealerLogin> = () => {
 								onClick={checkLogin}
 								variant='contained'
 								fullWidth
-								className='button'>
+								className='button'
+								style={{
+									color: 'white',
+									backgroundColor: '#0275d8',
+									borderRadius: '5px',
+									height: '2.5rem'
+								}}>
 								Login
 							</Button>
 						</Grid>

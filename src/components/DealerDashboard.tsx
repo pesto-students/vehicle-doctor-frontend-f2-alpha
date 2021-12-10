@@ -2,7 +2,7 @@ import React, { SyntheticEvent, useState } from 'react';
 import { Tabs, Tab, Box, Typography } from '@mui/material';
 import DealerProfile from './DealerProfile';
 import DealerServices from './DealerServices';
-import { IDealerSignup } from '../Interfaces/IDealerRegistration';
+import DealerBookings from './DealerBookings';
 import { ISignedInDealer } from '../Interfaces/IDealerLogin';
 
 interface Props {
@@ -67,7 +67,7 @@ const DealerDashboard: React.FC<Props> = ({ show, loggedInDealer }): JSX.Element
 					<DealerServices loggedInDealer={loggedInDealer} />
 				</TabPanel>
 				<TabPanel value={tabStep} index={2}>
-					Bookings
+					<DealerBookings loggedInDealer={loggedInDealer} />
 				</TabPanel>
 			</Box>
 		</div>
