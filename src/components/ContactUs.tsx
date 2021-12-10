@@ -15,29 +15,29 @@ function ContactUs() {
                     <Grid container spacing={12}>
                         <Grid item xs={12} sm={4}>
                             <Box>
-                                <Link href="/" color="inherit" underline="none">
-                                    Home
+                                <Link href="#home" color="inherit" underline="none">
+                                    SEARCH DEALER
                                 </Link>
                             </Box>
                             <Box height={10}>
                             </Box>
                             <Box>
-                                <Link href="/" color="inherit" underline="none">
-                                    RoadSide Assistance
+                                <Link href="#services" color="inherit" underline="none">
+                                SERVICES
                                 </Link>
                             </Box>
                             <Box height={10}>
                             </Box>
                             <Box>
-                                <Link href="/" color="inherit" underline="none">
-                                    Services
+                                <Link href="#rewards" color="inherit" underline="none">
+                                TESTIMONIALS
                                 </Link>
                             </Box>
                             <Box height={10}>
                             </Box>
                             <Box>
-                                <Link href="/" color="inherit" underline="none">
-                                    Partners
+                                <Link href="#aboutus" color="inherit" underline="none">
+                                    ABOUT US
                                 </Link>
                             </Box>
                         </Grid>

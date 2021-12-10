@@ -11,7 +11,7 @@ function AboutUs() {
                 </div>
                 <div style={{ flex: '20%', padding: '5px', textAlign: 'left' }}>
                     <ul>
-                        <li><h3><span>Trusted</span> Mechanics</h3></li>
+                        <li><h3><span>Trusted</span> Dealers</h3></li>
                         <li><h3><span>Expert</span> mechanics for your every need</h3></li>
                         <li><h3><span>Best-in-class</span> workmanship</h3></li>
                         <li><h3>Top of the line equipment for the <span>best service</span> experience</h3></li>
