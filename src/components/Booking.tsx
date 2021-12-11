@@ -13,6 +13,7 @@ import axios from '../BaseURL';
 import { AxiosResponse } from 'axios';
 import { useForm } from 'react-hook-form';
 import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { ICustomerDetails } from '../Interfaces/ICustomerDetails';
@@ -31,6 +32,7 @@ type Props = {
 
 const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, customerData, isHome ,handleDealer}) => {
 	const [pickupDateValue, setpickupdateValue] = React.useState<Date | null>(new Date());
+	const [error,setError] = React.useState<boolean>();
 	const [formData, setFormData] = useState<IBookingService>({
 		refrence_id: '',
 		vehicle_reg_no: '',
@@ -59,7 +61,6 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 		formData.customer_id = 1;
 		formData.vehicle_type_id = SelectedDealer.vehicle_type_id;
 		if (pickupDateValue != null) {
-			console.log(value);
 			formData.pick_up_date = pickupDateValue;
 			formData.drop_date = addDays(pickupDateValue);
 		}
@@ -99,6 +100,7 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 	interface IFormInput {
 		vName: string;
 		vReg: string;
+		pick_up:number;
 		cName: string;
 		cMobile: string;
 		cEmail: string;
@@ -112,6 +114,7 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 	const schema = yup.object({
 	    vName: yup.string().required('Please enter the vehicle name and model'),
 	    vReg: yup.string().required('Please enter the vehicle Registration Number.'),
+		pick_up:yup.string().required()
 	}).required();
 
 	const {
@@ -231,12 +234,16 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 													<Select
 														labelId='demo-simple-select-standard-label'
 														id='demo-simple-select-standard'
+														{...register('pick_up')}
+														error={errors.pick_up ? true : false}
 														onChange={handleInput('pick_up')}
 														autoWidth
-														label='Age'>
+														label='Pick Up'
+														>
 														<MenuItem value={1}>YES</MenuItem>
 														<MenuItem value={0}>NO</MenuItem>
 													</Select>
+													{errors.pick_up && <FormHelperText  style={{color : "#d32f2f"}}>Please select the pick up option.</FormHelperText>}
 												</FormControl>
 											</div>
 										</td>
