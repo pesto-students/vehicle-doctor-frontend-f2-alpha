@@ -16,6 +16,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import DealerDashboard from '../DealerDashboard';
+import { blue } from '@mui/material/colors';
 
 type Props = {
 	open: boolean;
@@ -203,7 +204,7 @@ const DealerLoginModal: React.FC<Props> = ({ open, handleClose }) => {
 				<Modal.Header style={{ color: 'white', backgroundColor: '#0275d8' }}>
 					Dealer Dashboard
 					<IconButton color='secondary' onClick={handleDashboard}>
-						<LogoutIcon />
+						<LogoutIcon fontSize="large" sx={{ color:blue[50]}} />
 					</IconButton>
 				</Modal.Header>
 				<Modal.Body>

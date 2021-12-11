@@ -19,6 +19,9 @@ import ReactLoading from "react-loading";
 import Booking from '../Booking';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import { IconButton } from '@mui/material';
+import HomeIcon from '@mui/icons-material/Home';
+import { blue } from '@mui/material/colors';
 
 
 type Props = {
@@ -149,6 +152,9 @@ const LoginModal: React.FC<Props> = ({ open, handleClose, setToken ,SelectedDeal
         });
 
     }
+    const NavigateToHome = () => {
+        handleClose(true);
+    }
 
     return (
         <>
@@ -223,7 +229,12 @@ const LoginModal: React.FC<Props> = ({ open, handleClose, setToken ,SelectedDeal
             </Modal>
             <CustomerDeatailsModal mobile={state.mobile} open={showInfo} handleClose={CustomerDetailsClose} setToken={setToken} />
             <Modal fullscreen aria-labelledby="contained-modal-title-vcenter" centered show={showBook} onHide={handleBooking}>
-                <Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0275d8' }}>Booking Details</Modal.Header>
+                <Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0275d8' }}>
+                    Booking Details
+                  {isHome ? null :  <IconButton color="secondary" aria-label="add an home" onClick={NavigateToHome}>
+                        <HomeIcon sx={{ fontSize: 40 ,color:blue[50]}} />
+                    </IconButton> }
+                </Modal.Header>
                 <Modal.Body style={{backgroundColor:'lightgrey'}}>
                     <div>
                         {SelectedDealer ? <Booking SelectedDealer={SelectedDealer} serviceData={serviceData} handleClose={handleBooking} handleDealer={handleDealer} customerData={customerData} isHome={isHome} /> : null}
