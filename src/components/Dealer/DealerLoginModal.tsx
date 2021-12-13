@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import { DEALER_LOGIN_MODAL_HEADER } from '../../Constants/common.constant';
 import '../../css/dealerlogin.css';
-import { Button, Container, Grid, TextField, Link } from '@mui/material';
+import { Button, Container, Grid, TextField } from '@mui/material';
 import { Typography } from '@mui/material';
 import IconButton from '@material-ui/core/IconButton';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -175,12 +175,12 @@ const DealerLoginModal: React.FC<Props> = ({ open, handleClose }) => {
 										Login
 									</Button>
 								</Grid>
-								<Grid item className='item' xs={12}>
+								{/* <Grid item className='item' xs={12}>
 									<Typography>
 										Not a Partner?{'  '}
 										<Link underline='hover'>Sign Up</Link>
 									</Typography>
-								</Grid>
+								</Grid> */}
 
 								<Grid item className='item' xs={12}>
 									<Typography style={{ color: msgStatus === 'red' ? 'red' : 'green' }}>
@@ -204,7 +204,7 @@ const DealerLoginModal: React.FC<Props> = ({ open, handleClose }) => {
 				<Modal.Header style={{ color: 'white', backgroundColor: '#0275d8' }}>
 					Dealer Dashboard
 					<IconButton color='secondary' onClick={handleDashboard}>
-						<LogoutIcon fontSize="large" sx={{ color:blue[50]}} />
+						<LogoutIcon fontSize='large' sx={{ color: blue[50] }} />
 					</IconButton>
 				</Modal.Header>
 				<Modal.Body>
