@@ -33,7 +33,7 @@ const DealerLoginModal: React.FC<Props> = ({ open, handleClose }) => {
 		city: '',
 		state: '',
 		pincode: '',
-		email_ID: '',
+		email: '',
 		password: '',
 		Vehicletype: {
 			vehicle_type: ''
