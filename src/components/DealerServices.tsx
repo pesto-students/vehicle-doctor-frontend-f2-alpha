@@ -101,18 +101,18 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 			console.log(response.data);
 			if (response.data === 'Dealer service already exists') {
 				setMsgStatus(true);
+				SetSummaryID(JSON.stringify(response.data));
 			}
-			SetSummaryID(response.data);
 
 			setRenderTable(true);
 		});
 
-		setFormData({
-			dealerTblDealerId: loggedInDealer.dealer_id,
-			service_type_id: 0,
-			discription: '',
-			cost: 0
-		});
+		// setFormData({
+		// 	dealerTblDealerId: loggedInDealer.dealer_id,
+		// 	service_type_id: 0,
+		// 	discription: '',
+		// 	cost: 0
+		// });
 	};
 
 	const {
