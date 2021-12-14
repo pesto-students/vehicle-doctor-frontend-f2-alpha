@@ -1,14 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-	TextField,
-	Select,
-	MenuItem,
-	Button,
-	Grid,
-	FormControl,
-	InputLabel,
-	OutlinedInput
-} from '@mui/material';
+import { TextField, Select, MenuItem, Button, Grid, FormControl, InputLabel } from '@mui/material';
 import { ISignedInDealer, IDealerService } from '../Interfaces/IDealerLogin';
 import { IServices } from '../Interfaces/IDealerServiceType';
 
@@ -16,6 +7,7 @@ import { AxiosResponse } from 'axios';
 import axios from '../BaseURL';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import '../css/DealerService.css';
+
 // import AddServiceReadOnlyRow from '../components/Dealer/AddServiceReadOnlyRow';
 
 type Props = {
@@ -83,14 +75,14 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 		}));
 
 		SetSummaryID('');
-		console.log(formData);
+		// console.log(formData);
 	};
 
 	// Add the data to the table
 	const handleAddSubmit: SubmitHandler<IFormInput> = (data) => {
 		let body = JSON.stringify(formData);
 
-		console.log(`formData Stringified: ${body}`);
+		// console.log(`formData Stringified: ${body}`);
 		const config = {
 			headers: {
 				'Content-Type': 'application/JSON'
@@ -98,7 +90,7 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 		};
 
 		axios.post('/dealer/addService', body, config).then((response: AxiosResponse) => {
-			console.log(response.data);
+			// console.log(response.data);
 			if (response.data === 'Dealer service already exists') {
 				setMsgStatus(true);
 				SetSummaryID(JSON.stringify(response.data));
@@ -164,12 +156,13 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 									<Select
 										id='service_type_id'
 										labelId='service_type_label'
+										variant='standard'
 										defaultValue={1}
 										{...field}
 										onChange={handleInput('service_type_id')}
 										fullWidth
 										required
-										input={<OutlinedInput label='Service Type' />}
+										// input={<OutlinedInput label='Service Type' />}
 										MenuProps={MenuProps}>
 										{serviceType.map((item) => (
 											<MenuItem value={item.id}>{item.service_name}</MenuItem>
@@ -185,13 +178,14 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 							id='discription'
 							label='Description'
 							placeholder='Description'
-							variant='outlined'
+							variant='standard'
 							{...register('discription', { required: true })}
 							onChange={handleInput('discription')}
 							value={formData.discription}
 							fullWidth
 							required
 						/>
+						{errors.discription && <p className='text-error'>Description is required</p>}
 					</Grid>
 					<Grid item xs={3}>
 						<TextField
@@ -199,13 +193,14 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 							type='number'
 							label='Cost'
 							placeholder='Cost'
-							variant='outlined'
+							variant='standard'
 							{...register('cost', { required: true })}
 							onChange={handleInput('cost')}
 							value={formData.cost}
 							fullWidth
 							required
 						/>
+						{errors.cost && <p className='text-error'>Cost is required</p>}
 					</Grid>
 					<Grid item xs={3}>
 						<Button
