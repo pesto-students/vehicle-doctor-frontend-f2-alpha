@@ -45,3 +45,8 @@
 	background-color: #0d6efd;
 	color: #ffffff;
 }
+
+.text-error {
+	font-weight: 600;
+	color: red;
+}
