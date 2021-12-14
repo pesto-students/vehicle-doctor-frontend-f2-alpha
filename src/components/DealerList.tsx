@@ -4,9 +4,7 @@ import { Dealer } from '../Interfaces/IDealerInterface';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { useParams } from "react-router-dom";
 import Container from "@mui/material/Container";
-import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
 import Grid from "@mui/material/Grid";
 import Rating from '@mui/material/Rating';
@@ -19,13 +17,13 @@ import Stack from '@mui/material/Stack';
 import '../css/dealerlist.css';
 import axios from '../BaseURL';
 import LoginModal from './Customer/LoginModal';
-import useToken from '../useToken';
 import { useSelector, useDispatch } from "react-redux";
 import { getDealers } from "../actions/dealerAction";
 import { RootState } from "../reducers";
 import { IconButton } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import { blue } from '@mui/material/colors';
+import useGeoLocation from '../Hooks/GeolocationHook';
 
 function valuetext(value: number) {
     return `${value}RS`;
@@ -37,7 +35,6 @@ interface dealerProps {
     SetToken: (val: any) => void;
     Token: any;
     handleClose: (val: boolean) => void;
-    // parentCallBack:()=>void;
 }
 
 const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element => {
@@ -48,12 +45,14 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
     const [showReview, setShowReview] = useState<boolean>(false);
     const [showBook, setShowBook] = useState<boolean>(false);
     const [activeFilter, setactiveFilter] = useState<number[]>([]);
-    const [value, setValue] = React.useState<number[]>([250, 3000]);
+    const [value, setValue] = React.useState<number[]>([0, 3000]);
     const [loading, setLoading] = useState<boolean>(false);
     const [showLogin, setShowLogin] = useState<boolean>(false);
+    const location = useGeoLocation();
     const state = useSelector((state: RootState) => state.dealerList.dealer);
     console.log('state', state)
     const dispatch = useDispatch();
+    const city = location?.data[0]?.address_components[3].long_name;
 
     const NavigateToHome = () => {
         props.handleClose(true);
@@ -110,14 +109,15 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
 
     useEffect(() => {
         if (props.Id != null) {
-            axios.get<[]>(`/dealer/serviceType/${props.serviceData.id}/${props.Id}`)
+            axios.get<[]>(`/dealer/serviceType/${city}/${props.serviceData.id}/${props.Id}`)
                 .then((response: AxiosResponse) => {
                     setDealersData(response.data);
                     console.log(dealersData);
+                    dispatch(getDealers(response.data));
                     setLoading(true);
                 })
         } else {
-            axios.get<[]>(`/dealer/serviceType/${props.serviceData.id}`)
+            axios.get<[]>(`/dealer/serviceType/${city}/${props.serviceData.id}`)
                 .then((response: AxiosResponse) => {
                     setDealersData(response.data);
                     console.log(response.data)
@@ -125,8 +125,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                     setLoading(true);
                 })
         }
-
-    }, []);
+    }, [city]);
 
     useEffect(() => {
         let ratingResult = dealersData;
@@ -186,7 +185,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                                             <td>
                                                 PRICE:
                                                 <div style={{ margin: '2%', padding: '10px' }}>
-                                                    <Slider getAriaLabel={() => 'Price'} value={value} onChange={handleChange} valueLabelDisplay="on" step={50} aria-label="Always visible" getAriaValueText={valuetext} min={250} max={3000} />
+                                                    <Slider getAriaLabel={() => 'Price'} value={value} onChange={handleChange} valueLabelDisplay="on" step={50} aria-label="Always visible" getAriaValueText={valuetext} min={0} max={3000} />
                                                 </div>
                                             </td>
                                         </tr>

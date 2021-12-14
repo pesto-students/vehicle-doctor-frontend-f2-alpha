@@ -15,7 +15,6 @@ import { AxiosResponse } from 'axios';
 import axios from '../../BaseURL';
 import { ICustomerDetails } from '../../Interfaces/ICustomerDetails';
 import { Dealer } from '../../Interfaces/IDealerInterface';
-import ReactLoading from "react-loading";
 import Booking from '../Booking';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
