@@ -25,8 +25,6 @@ const Services : React.FC<Props> =({Token,SetToken}) => {
        const data={id,serviceName}
        setSelectedServiceData(data);
         setShowBook(!showBook)
-        console.log(id);
-        console.log('SelectedServiceData',SelectedServiceData);
 	};
 
     const DealerListBaseModalhandleClose = () => {

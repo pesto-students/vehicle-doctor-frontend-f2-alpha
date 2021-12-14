@@ -82,7 +82,6 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 			...prevState,
 			[input]: value
 		}));
-		console.log(formData);
 	};
 
 	//For Carousel
