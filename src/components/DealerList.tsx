@@ -49,8 +49,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
     const [loading, setLoading] = useState<boolean>(false);
     const [showLogin, setShowLogin] = useState<boolean>(false);
     const location = useGeoLocation();
-    const state = useSelector((state: RootState) => state.dealerList.dealer);
-    console.log('state', state)
+    const dealerList:Dealer[] = useSelector((state: RootState) => state.dealerList.dealer);
     const dispatch = useDispatch();
     const city = location?.data[0]?.address_components[3].long_name;
 
@@ -62,7 +61,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
     const handleChange = (event: Event, newValue: number | number[]) => {
         setValue(newValue as number[]);
         let result = [];
-        result = dealersData.filter((data) => {
+        result = dealerList.filter((data) => {
             return data.Services.every(dataItem => (dataItem.cost >= value[0] && dataItem.cost <= value[1]));
         });
         setFilteredData(result);
@@ -111,16 +110,12 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
         if (props.Id != null) {
             axios.get<[]>(`/dealer/serviceType/${city}/${props.serviceData.id}/${props.Id}`)
                 .then((response: AxiosResponse) => {
-                    setDealersData(response.data);
-                    console.log(dealersData);
                     dispatch(getDealers(response.data));
                     setLoading(true);
                 })
         } else {
             axios.get<[]>(`/dealer/serviceType/${city}/${props.serviceData.id}`)
                 .then((response: AxiosResponse) => {
-                    setDealersData(response.data);
-                    console.log(response.data)
                     dispatch(getDealers(response.data));
                     setLoading(true);
                 })
@@ -128,41 +123,41 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
     }, [city]);
 
     useEffect(() => {
-        let ratingResult = dealersData;
+        let ratingResult = dealerList;
         activeFilter.forEach((item) => {
             switch (item) {
                 case 1:
-                    ratingResult = dealersData.filter((dealerData) => {
+                    ratingResult = dealerList.filter((dealerData) => {
                         return dealerData.dealer_history.some(dataItem => (dataItem.rating >= 1 && dataItem.rating < 5));
                     });
                     break;
                 case 2:
-                    ratingResult = dealersData.filter((dealerData) => {
+                    ratingResult = dealerList.filter((dealerData) => {
                         return dealerData.dealer_history.some(dataItem => (dataItem.rating >= 2 && dataItem.rating < 5));
                     });
                     break;
                 case 3:
-                    ratingResult = dealersData.filter((dealerData) => {
+                    ratingResult = dealerList.filter((dealerData) => {
                         return dealerData.dealer_history.some(dataItem => (dataItem.rating == 3 && dataItem.rating < 5));
                     });
                     break;
                 case 4:
-                    ratingResult = dealersData.filter((dealerData) => {
+                    ratingResult = dealerList.filter((dealerData) => {
                         return dealerData.dealer_history.some(dataItem => (dataItem.rating == 4 && dataItem.rating < 5));
                     });
                     break;
                 case 5:
-                    ratingResult = dealersData.filter((dealerData) => {
+                    ratingResult = dealerList.filter((dealerData) => {
                         return dealerData.dealer_history.some(dataItem => (dataItem.rating == 5));
                     });
                     break;
                 default:
-                    ratingResult = dealersData;
+                    ratingResult = dealerList;
                     break;
             };
         });
         setFilteredData(ratingResult);
-    }, [activeFilter, dealersData])
+    }, [activeFilter, dealerList])
 
 
     //For Carousel
