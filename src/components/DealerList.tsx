@@ -225,7 +225,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                                                                             GST Num:{item.gst_no} <br />
                                                                             Service available for : {item.Vehicletype.vehicle_type}<br />
                                                                             Location:{item.locality}-{item.city}-{item.state}-{item.pincode}<br />
-                                                                            Reviews:<Button size="small" onClick={() => ReviewDialog(item)}>View Reviews</Button><p>Review Count:{item.dealer_history.length}</p>
+                                                                            Reviews:<Button size="small" onClick={() => ReviewDialog(item)}>{item.dealer_history.length} View Reviews</Button>
 
                                                                         </Typography>
                                                                     </div>
@@ -313,10 +313,10 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
             </Modal>
             <Modal fullscreen aria-labelledby="contained-modal-title-vcenter" centered show={showBook} onHide={handleBooking}>
                 <Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0275d8' }}>
-                    Booking Details
-                    <IconButton color="secondary" aria-label="add an home" onClick={NavigateToHome}>
-                        <HomeIcon sx={{ fontSize: 40 ,color:blue[50]}} />
+                <IconButton color="secondary" aria-label="add an home" onClick={NavigateToHome}>
+                        <HomeIcon sx={{ fontSize:35 ,color:blue[50]}} />
                     </IconButton>
+                  <span style={{paddingLeft:'500px',fontSize:35}}>Booking Details</span>
                 </Modal.Header>
                 <Modal.Body style={{ backgroundColor: 'lightgrey' }}>
                     <div>

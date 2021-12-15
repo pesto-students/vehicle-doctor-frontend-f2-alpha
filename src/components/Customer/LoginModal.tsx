@@ -225,10 +225,10 @@ const LoginModal: React.FC<Props> = ({ open, handleClose, setToken ,SelectedDeal
             <CustomerDeatailsModal mobile={state.mobile} open={showInfo} handleClose={CustomerDetailsClose} setToken={setToken} />
             <Modal fullscreen aria-labelledby="contained-modal-title-vcenter" centered show={showBook} onHide={handleBooking}>
                 <Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0275d8' }}>
-                    Booking Details
-                  {isHome ? null :  <IconButton color="secondary" aria-label="add an home" onClick={NavigateToHome}>
-                        <HomeIcon sx={{ fontSize: 40 ,color:blue[50]}} />
+                {isHome ? null :  <IconButton color="secondary" aria-label="add an home" onClick={NavigateToHome}>
+                        <HomeIcon sx={{ fontSize: 35 ,color:blue[50]}} />
                     </IconButton> }
+                    <span style={{paddingLeft:'500px',fontSize:35}}>Booking Details</span>
                 </Modal.Header>
                 <Modal.Body style={{backgroundColor:'lightgrey'}}>
                     <div>
