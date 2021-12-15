@@ -27,6 +27,11 @@ Nav {
   background-size: cover;
 }
 
+.bgImg{
+  background:linear-gradient(0deg, rgba(51, 50, 51, 0.5), rgba(37, 37, 37, 0.5)),url(./img/bg.jpg);
+  background-size: cover;
+}
+
 input, select {
   width: 50%;
   padding: 12px 20px;
