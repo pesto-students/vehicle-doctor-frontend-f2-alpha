@@ -75,8 +75,8 @@ const RoadSideAssisstanceModal: React.FC<Props> = ({ Token, SetToken }) => {
 				</Modal.Header>
 				<Modal.Body> */}
 
-			<div className='sos'>
-				<div id='sos' className="anim" >
+			<div id='sos'  className='anim bgimg2' style={{ padding: '5%' }}>
+				<div>
 					<div>
 						<h3 style={{ color: 'white' }}>{ROADSIDE_ASSISTANCE}</h3>
 					</div>
