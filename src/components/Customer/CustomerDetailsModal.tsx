@@ -39,7 +39,7 @@ interface IFormInput {
 
 const schema = yup.object({
     custName: yup.string().required('Name is required.'),
-    custEmail: yup.string().email('Must be a valid email').max(255).required('Email is required'),
+    custEmail: yup.string().email('Must be a valid email').max(255).required('Email is required')
 }).required();
 
 const CustomerDeatailsModal: React.FC<Props> = ({ open, handleClose, mobile ,setToken}) => {
@@ -95,6 +95,8 @@ const CustomerDeatailsModal: React.FC<Props> = ({ open, handleClose, mobile ,set
                                 id='input-with-icon-textfield'
                                 label='Name'
                                 {...register("custName")}
+                                error={errors.custName ? true : false}
+								helperText={errors.custName?.message}
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position='start'>
@@ -103,7 +105,6 @@ const CustomerDeatailsModal: React.FC<Props> = ({ open, handleClose, mobile ,set
                                     )
                                 }}
                                 variant='standard'
-                                helperText={errors.custName?.message}
                             />
                         </div>
                         <div className='modalBody'>
@@ -111,6 +112,8 @@ const CustomerDeatailsModal: React.FC<Props> = ({ open, handleClose, mobile ,set
                                 id='input-with-icon-textfield'
                                 label='E-Mail'
                                 {...register("custEmail")}
+                                error={errors.custEmail ? true : false}
+								helperText={errors.custEmail?.message}
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position='start'>
@@ -119,7 +122,6 @@ const CustomerDeatailsModal: React.FC<Props> = ({ open, handleClose, mobile ,set
                                     )
                                 }}
                                 variant='standard'
-                                helperText={errors.custEmail?.message}
                             />
                         </div>
                         <div className='modalBody'>
