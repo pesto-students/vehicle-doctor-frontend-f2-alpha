@@ -74,14 +74,13 @@ const RoadSideAssisstanceModal: React.FC<Props> = ({ Token, SetToken }) => {
 					{ROADSIDE_ASSISTANCE}
 				</Modal.Header>
 				<Modal.Body> */}
-			<div id='sos' className="anim" style={{ paddingTop: '5%' }}>
-				<div style={{ padding: '1%', color: 'white', backgroundColor: '#d9534f' }}>
-					<h3>{ROADSIDE_ASSISTANCE}</h3>
-				</div>
-				<div className='bgImg'>
-					<div style={{ textAlign: 'center', color: 'white', backgroundColor: 'black', marginBottom: '2%', border: '0.2px solid lightgray', borderRadius: '2%', padding: '1%' }}>
-						<span><h6><LocationOnTwoToneIcon fontSize="medium" /> - {location?.loaded ? location?.data[0]?.formatted_address : 'XXXXXX Area Road, XXXXXXX, XXXXXXX - 114001, New Delhi, India'}</h6></span>
+
+			<div className='sos'>
+				<div id='sos' className="anim" >
+					<div>
+						<h3 style={{ color: 'white' }}>{ROADSIDE_ASSISTANCE}</h3>
 					</div>
+
 					<div className='divModal'>
 						<div className="flex-container">
 							<div style={{ margin: '3%' }}>
@@ -107,6 +106,9 @@ const RoadSideAssisstanceModal: React.FC<Props> = ({ Token, SetToken }) => {
 									sx={{ width: 300 }}
 									renderInput={(params) => <TextField variant="filled" {...params} label='Services Name' />}
 								/>
+							</div>
+							<div style={{ textAlign: 'center', color: 'white', backgroundColor: 'rgba(0,0,0,.55)', marginBottom: '2%', border: '0.2px solid lightgray', borderRadius: '2%', padding: '1%' }}>
+								<span><h6><LocationOnTwoToneIcon fontSize="medium" /> - {location?.loaded ? location?.data[0]?.formatted_address : 'XXXXXX Area Road, XXXXXXX, XXXXXXX - 114001, New Delhi, India'}</h6></span>
 							</div>
 						</div>
 						<Button size-="lg" style={{ margin: '2%' }} variant='primary' onClick={handleSubmit} disabled={!vehicleData || !serviceData}>
