@@ -182,7 +182,7 @@ const LoginModal: React.FC<Props> = ({ open, handleClose, setToken ,SelectedDeal
                             <TextField
                                 id='input-with-icon-textfield'
                                 label='Mobile'
-                                type="number"
+                                type="mobile"
                                 {...register('mobile')}
                                 InputProps={{
                                     startAdornment: (

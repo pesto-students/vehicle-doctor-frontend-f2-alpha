@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Nav, Container, Navbar, Button, Modal, NavDropdown } from 'react-bootstrap';
-import RoadSideAssitanceModal from './RoadSideAssitanceModal';
+// import RoadSideAssitanceModal from './RoadSideAssitanceModal';
 import LoginModal from './Customer/LoginModal';
+import CustomerBookingHistory from './Customer/CustomerBookingHistory';
 import DealerReg from './DealerReg';
 import DealerLoginModal from './Dealer/DealerLoginModal';
 import logo from '../img/logo.jpg';
@@ -17,17 +18,17 @@ import {
 	LOGOUT
 } from '../Constants/common.constant';
 
-type Props ={
-	Token:any;
-	SetToken:(val:any) => void;
+type Props = {
+	Token: any;
+	SetToken: (val: any) => void;
 }
 
-const HNavbar: React.FC<Props> = ({Token,SetToken}) => {
+const HNavbar: React.FC<Props> = ({ Token, SetToken }) => {
 	const [showSOS, setShowSOS] = useState<boolean>(false);
 	const [showLogin, setShowLogin] = useState<boolean>(false);
 	const [showDealer, setShowDealer] = useState<boolean>(false);
 	const [showDealerLogin, setShowDealerLogin] = useState<boolean>(false);
-	const [open, setOpen] = useState<boolean>(false);
+	const [openHistory, setOpenHistory] = useState<boolean>(false);
 	const location = useGeoLocation();
 
 	const SOShandleOpen = () => {
@@ -47,9 +48,15 @@ const HNavbar: React.FC<Props> = ({Token,SetToken}) => {
 	const CustomerLogout = () => {
 		SetToken(null)
 	}
-	const handleClose = () =>{
-
+	const handleClose = () => {
 	}
+
+	const HistoryHandleOpen = () => {
+		setOpenHistory(true);
+	};
+	const HistoryHandleClose = () => {
+		setOpenHistory(false);
+	};
 
 	return (
 		<div className='anim'>
@@ -62,7 +69,7 @@ const HNavbar: React.FC<Props> = ({Token,SetToken}) => {
 					<Navbar.Toggle aria-controls='responsive-navbar-nav' />
 					<Navbar.Collapse id='responsive-navbar-nav'>
 						<Nav className='justify-content-end flex-grow-1 pe-3'>
-							<Button variant='danger' onClick={SOShandleOpen}>
+							<Button variant='danger' href='#sos'>
 								{ROADSIDE_ASSISTANCE}
 							</Button>
 							<Nav.Link href='#home'>SEARCH DEALER</Nav.Link>
@@ -75,15 +82,21 @@ const HNavbar: React.FC<Props> = ({Token,SetToken}) => {
 										{LOGIN}
 									</Button>
 									:
-									<><NavDropdown title={PROFILE} id='nav-dropdown-partners'>
-										<NavDropdown.Item style={{ textTransform: 'uppercase' }}>
-											{Token.customer_name}
-										</NavDropdown.Item>
-										<NavDropdown.Divider />
-										<NavDropdown.Item eventKey='7.2' onClick={CustomerLogout}>
-											{LOGOUT}
-										</NavDropdown.Item>
-									</NavDropdown></>
+									<>
+										<NavDropdown title={PROFILE} id='nav-dropdown-partners'>
+											<NavDropdown.Item style={{ textTransform: 'uppercase' }}>
+												{Token.customer_name}
+											</NavDropdown.Item>
+											<NavDropdown.Divider />
+											<NavDropdown.Item eventKey='7.2' onClick={HistoryHandleOpen}>
+												BOOKING HISTORY
+											</NavDropdown.Item>											
+											<NavDropdown.Divider />
+											<NavDropdown.Item eventKey='7.2' onClick={CustomerLogout}>
+												{LOGOUT}
+											</NavDropdown.Item>
+										</NavDropdown>
+									</>
 
 							}
 							{Token == null ?
@@ -107,7 +120,7 @@ const HNavbar: React.FC<Props> = ({Token,SetToken}) => {
 				</div>
 			</Navbar>
 
-			<RoadSideAssitanceModal open={showSOS} handleClose={SOShandleClose} Token={Token} SetToken={SetToken} />
+			{/* <RoadSideAssitanceModal open={showSOS} handleClose={SOShandleClose} Token={Token} SetToken={SetToken} /> */}
 
 			<Modal
 				aria-labelledby='contained-modal-title-vcenter'
@@ -125,11 +138,12 @@ const HNavbar: React.FC<Props> = ({Token,SetToken}) => {
 				<Modal.Footer>
 				</Modal.Footer>
 			</Modal>
-			<LoginModal open={showLogin} handleClose={LoginHandleClose} setToken={SetToken} SelectedDealer={undefined} serviceData={undefined} IsLogin={true} isHome={false} handleDealer={handleClose}/>
+			<LoginModal open={showLogin} handleClose={LoginHandleClose} setToken={SetToken} SelectedDealer={undefined} serviceData={undefined} IsLogin={true} isHome={false} handleDealer={handleClose} />
 			<DealerLoginModal
 				open={showDealerLogin}
 				handleClose={() => setShowDealerLogin(!showDealerLogin)}
 			/>
+			<CustomerBookingHistory handleClose={HistoryHandleClose} open={openHistory} />
 		</div>
 	);
 };

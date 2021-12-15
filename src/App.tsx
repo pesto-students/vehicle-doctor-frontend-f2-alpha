@@ -4,6 +4,7 @@ import ContactUs from "./components/ContactUs";
 import Testimonials from "./components/Testimonials";
 import Services from "./components/Services";
 import AboutUs from "./components/AboutUs";
+import RoadSideAssitanceModal from './components/RoadSideAssitanceModal';
 import { Provider } from "react-redux";
 import store from "./store";
 import './App.css';
@@ -18,6 +19,7 @@ function App() {
         <Home Token={token} SetToken={setToken} />
         <AboutUs />
         <Services Token={token} SetToken={setToken} />
+        <RoadSideAssitanceModal  Token={token} SetToken={setToken} />
         <Testimonials />
         <ContactUs />
       </div >
