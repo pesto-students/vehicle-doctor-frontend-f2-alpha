@@ -43,11 +43,11 @@ const Home: React.FC<Props> = ({Token,SetToken}) => {
 	};
 
 	function updateDealers(event: any, newValue: any) {
-		const city = location?.data[0]?.address_components[3].long_name || 'Moga';
+		const city = location?.data[0]?.address_components[3].long_name;
 		setDealersData([]);
 		if (newValue != null && city != null) {
 			axios
-				.get<Dealer[]>(`/dealer/dealersByCity/Moga/${newValue.id}`)
+				.get<Dealer[]>(`/dealer/dealersByCity/${city}/${newValue.id}`)
 				.then((response: AxiosResponse) => {
 					setDealersData(response.data);
 				});

@@ -15,7 +15,6 @@ import { AxiosResponse } from 'axios';
 import axios from '../../BaseURL';
 import { ICustomerDetails } from '../../Interfaces/ICustomerDetails';
 import { Dealer } from '../../Interfaces/IDealerInterface';
-import ReactLoading from "react-loading";
 import Booking from '../Booking';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
@@ -99,12 +98,10 @@ const LoginModal: React.FC<Props> = ({ open, handleClose, setToken ,SelectedDeal
     }
 
     const onSignInSubmit = (e: any) => {
-        console.log(state.mobile);
         e.preventDefault();
         setLoading(false);
         configureCaptcha()
         const phoneNumber = "+91" + state.mobile;
-        console.log(phoneNumber);
         const appVerifier = window.recaptchaVerifier;
         firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
             .then((confirmationResult) => {
@@ -113,7 +110,6 @@ const LoginModal: React.FC<Props> = ({ open, handleClose, setToken ,SelectedDeal
                 appVerifier.clear();
                 window.confirmationResult = confirmationResult;
                 setConfirmationResult(window.confirmationResult)
-                console.log(result);
                 console.log("OTP has been sent");
                 setLoading(true);
             }).catch((error) => {
@@ -130,7 +126,6 @@ const LoginModal: React.FC<Props> = ({ open, handleClose, setToken ,SelectedDeal
             // User signed in successfully.
             axios.get<ICustomerDetails>(`/customer/search/${state.mobile}`)
                 .then((response: AxiosResponse) => {
-                    console.log(response.data);
                     setLoading(true);
                     if (response.data.customer_name == null) {
                         setShowInfo(true);

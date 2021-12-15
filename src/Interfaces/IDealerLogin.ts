@@ -14,7 +14,7 @@ export interface ISignedInDealer {
 	city: string;
 	state: string;
 	pincode: string;
-	email_ID: string;
+	email: string;
 	password: string;
 	Vehicletype: {
 		vehicle_type: string;

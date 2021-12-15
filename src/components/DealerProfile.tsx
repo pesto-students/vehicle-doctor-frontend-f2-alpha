@@ -30,7 +30,7 @@ const DealerProfile: React.FC<Props> = ({ loggedInDealer }) => {
 						<h6>Email: </h6>
 					</td>
 					<td>
-						<p>{loggedInDealer.email_ID}</p>
+						<p>{loggedInDealer.email}</p>
 					</td>
 					<td>
 						<h6>Password: </h6>

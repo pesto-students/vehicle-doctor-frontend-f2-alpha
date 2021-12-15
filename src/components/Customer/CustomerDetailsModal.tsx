@@ -66,7 +66,6 @@ const CustomerDeatailsModal: React.FC<Props> = ({ open, handleClose, mobile ,set
     });
 
     const onSubmit = (data: IFormInput) => {
-        console.log(data);
         formData.customer_name = data.custName;
         formData.mobile = mobile;
         formData.email = data.custEmail;
@@ -74,8 +73,6 @@ const CustomerDeatailsModal: React.FC<Props> = ({ open, handleClose, mobile ,set
         formData.customer_location.city=data.customer_location.city;
         formData.customer_location.state=data.customer_location.state;
         formData.customer_location.pincode=data.customer_location.pincode;
-
-        console.log('FormData', formData);
         axios.post('/customer/add', formData)
             .then((response: AxiosResponse) => {
                 SetSummaryID(response.data);
