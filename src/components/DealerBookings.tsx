@@ -4,10 +4,11 @@ import { ISignedInDealer } from '../Interfaces/IDealerLogin';
 import { IDealerBookings, IServiceStatus } from '../Interfaces/IDealerBookings';
 import { AxiosResponse } from 'axios';
 import axios from '../BaseURL';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 type Props = {
 	loggedInDealer: ISignedInDealer;
-	//Token: any;
 };
 
 const DealerBookings: React.FC<Props> = ({ loggedInDealer }) => {
@@ -15,6 +16,7 @@ const DealerBookings: React.FC<Props> = ({ loggedInDealer }) => {
 	const [renderTable, setRenderTable] = useState<boolean>(true);
 	const [serviceStatus, setServiceStatus] = useState<IServiceStatus[]>([]);
 	const [status, setStatus] = useState<any>({});
+	const [loading, setLoading] = useState<boolean>(true);
 
 	useEffect(() => {
 		if (renderTable) {
@@ -33,10 +35,8 @@ const DealerBookings: React.FC<Props> = ({ loggedInDealer }) => {
 
 		serviceStatus.map((row) => (status[row.status_id] = row.status_name));
 		setStatus(status);
-		// console.log(bookingData);
 	}, [loggedInDealer.dealer_id, renderTable, serviceStatus, status]);
 
-	//console.log(bookingData);
 
 	const [columns, setColumns] = useState<any>([
 		{
@@ -99,6 +99,11 @@ const DealerBookings: React.FC<Props> = ({ loggedInDealer }) => {
 
 	return (
 		<div className='app-container'>
+			{loading ? null
+				: <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+					<CircularProgress />
+				</Box>
+			}
 			<MaterialTable
 				title='Your Bookings'
 				data={bookingData}
@@ -115,11 +120,11 @@ const DealerBookings: React.FC<Props> = ({ loggedInDealer }) => {
 				editable={{
 					onRowUpdate: (updatedRow: any, oldRow: any) =>
 						new Promise<void>((resolve, reject) => {
-							// console.log('updated row: ', updatedRow);
 							const index = oldRow.tableData.id;
 							const updatedRows = [...bookingData];
 							updatedRows[index] = updatedRow;
 							setTimeout(() => {
+								setLoading(true)
 								setBookingData([...updatedRows]);
 								resolve();
 							}, 1000);

@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { TextField, Select, MenuItem, Button, Grid, FormControl, InputLabel } from '@mui/material';
 import { ISignedInDealer, IDealerService } from '../Interfaces/IDealerLogin';
 import { IServices } from '../Interfaces/IDealerServiceType';
-
+import Box from '@mui/material/Box';
 import { AxiosResponse } from 'axios';
 import axios from '../BaseURL';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import '../css/DealerService.css';
+import CircularProgress from '@mui/material/CircularProgress';
 
 // import AddServiceReadOnlyRow from '../components/Dealer/AddServiceReadOnlyRow';
 
@@ -40,6 +41,7 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 	const [renderTable, setRenderTable] = useState<boolean>(true);
 	const [summary, SetSummaryID] = useState<string>();
 	const [msgStatus, setMsgStatus] = useState<boolean>(false);
+	const [loading, setLoading] = useState<boolean>(true);
 
 	const [formData, setFormData] = useState<IFormInput>({
 		dealerTblDealerId: loggedInDealer.dealer_id,
@@ -49,12 +51,14 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 	});
 
 	useEffect(() => {
+		setLoading(false);
 		if (renderTable) {
 			axios
 				.get<[]>(`/dealer/servicesByDealer/${loggedInDealer.dealer_id}`)
 				.then((response: AxiosResponse) => {
-					//console.log(response.data);
+					setLoading(true);
 					setServiceData(response.data);
+					
 				});
 		}
 
@@ -62,6 +66,7 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 
 		//Get Service Type Data
 		axios.get<[]>('/service/types').then((response: AxiosResponse) => {
+			setLoading(true);
 			setServiceType(response.data);
 		});
 	}, [loggedInDealer.dealer_id, renderTable]);
@@ -75,12 +80,12 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 		}));
 
 		SetSummaryID('');
-		// console.log(formData);
 	};
 
 	// Add the data to the table
 	const handleAddSubmit: SubmitHandler<IFormInput> = (data) => {
 		let body = JSON.stringify(formData);
+		setLoading(false);
 
 		// console.log(`formData Stringified: ${body}`);
 		const config = {
@@ -90,21 +95,15 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 		};
 
 		axios.post('/dealer/addService', body, config).then((response: AxiosResponse) => {
-			// console.log(response.data);
 			if (response.data === 'Dealer service already exists') {
 				setMsgStatus(true);
 				SetSummaryID(JSON.stringify(response.data));
 			}
-
+			setLoading(true);
 			setRenderTable(true);
 		});
 
-		// setFormData({
-		// 	dealerTblDealerId: loggedInDealer.dealer_id,
-		// 	service_type_id: 0,
-		// 	discription: '',
-		// 	cost: 0
-		// });
+		
 	};
 
 	const {
@@ -118,28 +117,7 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 
 	return (
 		<div className='app-container'>
-			<table className='data-table'>
-				<thead>
-					<tr>
-						<th className='head-row'>Service Name</th>
-						<th className='head-row'>Description</th>
-						<th className='head-row'>Cost</th>
-						{/* <th className='head-row'>Action</th> */}
-					</tr>
-				</thead>
-				<tbody>
-					{serviceData.map((item) => (
-						// <AddServiceReadOnlyRow item={item} />
-						<tr key={item.service_id}>
-							<td className='def-row'>{item.serviceTypes.service_name}</td>
-							<td className='def-row'>{item.discription}</td>
-							<td className='def-row'>{item.cost}</td>
-							{/* <td className='def-row' /> */}
-						</tr>
-					))}
-				</tbody>
-			</table>
-			<h5>Add a Service</h5>
+				<h5>Add a Service</h5>
 			<form
 				noValidate
 				autoComplete='off'
@@ -162,7 +140,7 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 										onChange={handleInput('service_type_id')}
 										fullWidth
 										required
-										// input={<OutlinedInput label='Service Type' />}
+
 										MenuProps={MenuProps}>
 										{serviceType.map((item) => (
 											<MenuItem value={item.id}>{item.service_name}</MenuItem>
@@ -221,6 +199,29 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 					</Grid>
 				</Grid>
 			</form>
+			{loading ? null
+                        :<Box sx={{ display: 'flex', justifyContent:'center' }}>
+                            <CircularProgress />
+                        </Box>
+                    }
+			<table className='data-table'>
+				<thead>
+					<tr>
+						<th className='head-row'>Service Name</th>
+						<th className='head-row'>Description</th>
+						<th className='head-row'>Cost</th>
+					</tr>
+				</thead>
+				<tbody>
+					{serviceData.map((item) => (
+						<tr key={item.service_id}>
+							<td className='def-row'>{item.serviceTypes.service_name}</td>
+							<td className='def-row'>{item.discription}</td>
+							<td className='def-row'>{item.cost}</td>
+						</tr>
+					))}
+				</tbody>
+			</table>
 		</div>
 	);
 };
