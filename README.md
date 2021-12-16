@@ -4,9 +4,9 @@ Vehicle Doctor is a customer-focused app where customers can book auto service a
 
 Customers can check ratings and reviews of each dealer while booking a service. Dealers can leverage this platform to build a good customer base.
 
-## Link to the App
+## Link to the Web Application
 
-[Vehicle Doctor](https://vehicle-doctor-frontend-f2-alpha.s3.us-east-2.amazonaws.com/index.html)
+[Vehicle Doctor](https://vehicledr.s3.us-east-2.amazonaws.com/index.html)
 
 ## Installation
 
@@ -19,7 +19,13 @@ Type the command **npm install** to install all necessary node modules in your m
 - TypeScript
 - Material UI
 - Firebase
+- Google Geolocation
 - Sentry
+
+## Test Data
+
+- Customer Test Credentails: 9643225436/123456
+- Dealer Test Credentials: test@gmail.com Singh@123
 
 ## Authors
 
