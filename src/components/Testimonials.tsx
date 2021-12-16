@@ -12,11 +12,11 @@ function Testimonials() {
                 </div>
                 <div className="ratingDiv">
                     <img src={logo} width="50px" height="50px" style={{borderRadius:'50%', border:'1px solid'}} alt="" />
-                    <p>"My car had some electrical issue, the service executive came at my place to examine the car and I was very surprised when the price quoted by him was much lesser than the estimate given by Honda service station. I am very happy with the work done on my car, thank you VehicleDr"</p>
+                    <p>"My car had some electrical issue, the service executive came at my place to examine the car and I was very surprised when the price quoted by him was much lesser than the estimate given by Honda service station."</p>
                 </div>
                 <div className="ratingDiv" style={{ borderRadius: '10px', boxShadow: '0 0 5px 0.2px', flex: '20%', margin: '3%', padding: '10px' }}>
                     <img src={logo} width="50px" height="50px" style={{borderRadius:'50%', border:'1px solid'}} alt="" />
-                    <p>"A friend told me about VehicleDr, thought to give it a try for service of my eco sport. Their service quality is amazing, my car was serviced in Rs 3000 only, will be getting my wagon-r serviced from them soon. Great work VehicleDr"</p>
+                    <p>"A friend told me about VehicleDr, thought to give it a try for service of my eco sport. Their service quality is amazing, will be getting my eco sport serviced from them soon. Great work VehicleDr"</p>
                 </div>
             </div>
         </div>

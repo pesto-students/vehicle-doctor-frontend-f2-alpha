@@ -202,7 +202,7 @@ const DealerLoginModal: React.FC<Props> = ({ open, handleClose }) => {
 				show={showDashboard}
 				onHide={handleDashboard}>
 				<Modal.Header style={{ color: 'white', backgroundColor: '#0275d8' }}>
-					Dealer Dashboard
+				<span style={{fontSize:30}}>Dealer Dashboard</span>
 					<Button
 						variant='outlined'
 						color='secondary'
