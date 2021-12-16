@@ -6,7 +6,7 @@ Customers can check ratings and reviews of each dealer while booking a service. 
 
 ## Link to the App
 
-[Vehicle Doctor](https://vehicle-doctor-frontend-f2-alpha.s3.us-east-2.amazonaws.com/index.html)
+[Vehicle Doctor](https://vehicledr.s3.us-east-2.amazonaws.com/index.html)
 
 ## Installation
 
