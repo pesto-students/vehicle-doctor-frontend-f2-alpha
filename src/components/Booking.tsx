@@ -1,9 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Button, Carousel, Modal } from 'react-bootstrap';
 import TextField from '@mui/material/TextField';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import DateTimePicker from '@mui/lab/DateTimePicker';
 import { Dealer } from '../Interfaces/IDealerInterface';
 import { IBookingService } from '../Interfaces/IBookingServiceInterface';
 import Select from '@mui/material/Select';
@@ -20,6 +17,9 @@ import { ICustomerDetails } from '../Interfaces/ICustomerDetails';
 import ReactToPrint from 'react-to-print';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
+import  Datetime  from "react-datetime";
+import "react-datetime/css/react-datetime.css";
+import moment, { Moment } from "moment";
 
 type Props = {
 	SelectedDealer: Dealer;
@@ -27,19 +27,20 @@ type Props = {
 	handleClose: (val: boolean) => void;
 	customerData: ICustomerDetails | undefined;
 	isHome: boolean | undefined;
-	handleDealer:(val: boolean) => void;
+	handleDealer: (val: boolean) => void;
 };
 
-const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, customerData, isHome ,handleDealer}) => {
-	const [pickupDateValue, setpickupdateValue] = React.useState<Date | null>(new Date());
-	const [error,setError] = React.useState<boolean>();
+const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, customerData, isHome, handleDealer }) => {
+	//const [pickupDateValue, setpickupdateValue] = React.useState<Date | null>(new Date());
+	const [pickupDateValue, setpickupdateValue] = React.useState<Moment|string>();
+	const [error, setError] = React.useState<boolean>();
 	const [formData, setFormData] = useState<IBookingService>({
 		refrence_id: '',
 		vehicle_reg_no: '',
 		vehicle_model: '',
 		pick_up: 0,
-		pick_up_date: new Date(),
-		drop_date: new Date(),
+		pick_up_date: '',
+		drop_date: '',
 		customer_id: 0,
 		dealer_id: 0,
 		service_id: 0,
@@ -62,12 +63,12 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 		formData.vehicle_type_id = SelectedDealer.vehicle_type_id;
 		if (pickupDateValue != null) {
 			formData.pick_up_date = pickupDateValue;
-			formData.drop_date = addDays(pickupDateValue);
+			formData.drop_date = moment(pickupDateValue,'DD-MM-YYYY').add('days',5);
 		}
 		axios.post('/order/Service/Booking', formData).then((response: AxiosResponse) => {
 			SetSummaryID(response.data);
 		});
-		setShowInvoice(true);	
+		setShowInvoice(true);
 	};
 
 	function addDays(pick_up_date: Date) {
@@ -91,7 +92,7 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 		setIndex(selectedIndex);
 	};
 
-	const SummaryhandleClose = () =>{
+	const SummaryhandleClose = () => {
 		handleClose(true);
 		handleDealer(true);
 	}
@@ -99,7 +100,7 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 	interface IFormInput {
 		vName: string;
 		vReg: string;
-		pick_up:number;
+		pick_up: number;
 		cName: string;
 		cMobile: string;
 		cEmail: string;
@@ -108,12 +109,17 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 		cState: string;
 	}
 
+
+	var yesterday = moment().subtract(1, "day");
+	function valid(current:any) {
+		return current.isAfter(yesterday);
+	}
 	//Unccomment from section 100 to 114, once you check the Booking Summary Modal, this is for validation
 
 	const schema = yup.object({
-	    vName: yup.string().required('Please enter the vehicle name and model'),
-	    vReg: yup.string().required('Please enter the vehicle Registration Number.'),
-		pick_up:yup.string().required()
+		vName: yup.string().required('Please enter the vehicle name and model'),
+		vReg: yup.string().required('Please enter the vehicle Registration Number.'),
+		pick_up: yup.string().required()
 	}).required();
 
 	const {
@@ -123,7 +129,7 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 		formState: { errors }
 	} = useForm<IFormInput>({
 		mode: 'all',
-		 resolver: yupResolver(schema)
+		resolver: yupResolver(schema)
 	});
 
 	return (
@@ -215,17 +221,9 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 									<tr>
 										<td className='flex-container'>
 											<div>
-												<LocalizationProvider dateAdapter={AdapterDateFns}>
-													<DateTimePicker
-														renderInput={(params) => <TextField {...params} />}
-														label='Pick Up Date/Time'
-														value={pickupDateValue}
-														onChange={(newValue) => {
+												<Datetime initialValue={new Date()} isValidDate={valid} onChange={(newValue) => {
 															setpickupdateValue(newValue);
-														}}
-														minDateTime={new Date()}
-													/>
-												</LocalizationProvider>
+														}} />
 											</div>
 											<div>
 												<FormControl sx={{ m: 1, minWidth: 120 }}>
@@ -238,18 +236,18 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 														onChange={handleInput('pick_up')}
 														autoWidth
 														label='Pick Up'
-														>
+													>
 														<MenuItem value={1}>YES</MenuItem>
 														<MenuItem value={0}>NO</MenuItem>
 													</Select>
-													{errors.pick_up && <FormHelperText  style={{color : "#d32f2f"}}>Please select the pick up option.</FormHelperText>}
+													{errors.pick_up && <FormHelperText style={{ color: "#d32f2f" }}>Please select the pick up option.</FormHelperText>}
 												</FormControl>
 											</div>
 										</td>
 									</tr>
 									<tr>
 										<td>
-											<div style={{ textAlign: 'center', padding:'1%' }}>
+											<div style={{ textAlign: 'center', padding: '1%' }}>
 												<Button size='lg' variant='primary' type='submit'>
 													Book Now
 												</Button>
@@ -260,7 +258,7 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 							</table>
 						</div>
 					</form>
-					<div style={{marginTop:'5%'}}>
+					<div style={{ marginTop: '5%' }}>
 						<div style={{ width: '100%', padding: '2%', backgroundColor: 'white' }}>
 							<div><h6>Customer Details:</h6></div>
 							<Typography component={'span'} color="text.secondary">
@@ -282,9 +280,9 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 					</div>
 				</div>
 			</div>
-			<div style={{ padding: '2%', margin:'2%', alignItems: 'flex-start', backgroundColor: 'white' }}>				
+			<div style={{ padding: '2%', margin: '2%', alignItems: 'flex-start', backgroundColor: 'white' }}>
 				<div>
-				<ul style={{ listStyleType: 'none' }}>
+					<ul style={{ listStyleType: 'none' }}>
 						<li>
 							<h4>Service Description</h4>
 							{isHome ? <p>{serviceData.discription}</p> :
@@ -299,7 +297,7 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 							{SelectedDealer.dealer_history.map((dataItem) => (
 								<ul style={{ listStyleType: 'none' }}>
 									<li>
-										<Rating name="size-small" size="small" value={dataItem.rating} readOnly /> - {dataItem.comments} 
+										<Rating name="size-small" size="small" value={dataItem.rating} readOnly /> - {dataItem.comments}
 									</li>
 								</ul>
 							))}
@@ -389,7 +387,7 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 						</table>
 
 						<div style={{ textAlign: 'center', marginTop: '2%' }}>
-							<ReactToPrint 
+							<ReactToPrint
 								content={() => printRef.current as HTMLDivElement}
 								trigger={() => (
 									<input
@@ -400,8 +398,8 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 								)}
 							/>
 							<Button size='lg' variant='primary' onClick={SummaryhandleClose}>
-										Close
-									</Button>
+								Close
+							</Button>
 						</div>
 					</div>
 				</Modal.Body>
@@ -410,4 +408,8 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 	);
 };
 
+
 export default Booking;
+
+
+
