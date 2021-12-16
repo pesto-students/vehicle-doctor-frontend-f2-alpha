@@ -19,6 +19,7 @@ Type the command **npm install** to install all necessary node modules in your m
 - TypeScript
 - Material UI
 - Firebase
+- Google Geolocation
 - Sentry
 
 ## Authors
