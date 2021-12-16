@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import { IDealerSignup } from '../Interfaces/IDealerRegistration';
 import FormDealerCredentials from './DealerSignup/FormDealerCredentials';
 import FormDealerDetails from './DealerSignup/FormDealerDetails';
-import FormDealerService from './DealerSignup/FormDealerService';
 import Success from './DealerSignup/Success';
 
 const DealerReg: React.FC = () => {
 	const [step, setStep] = useState<number>(1);
 
-	const [formData, setFormData] = useState<IDealerSignup>({
+	const defaultData: IDealerSignup = {
 		name: '',
 		locality: '',
 		city: '',
@@ -16,14 +15,22 @@ const DealerReg: React.FC = () => {
 		pincode: '',
 		mobile: '',
 		gst_no: '',
-		email_ID: '',
+		email: '',
 		password: '',
-		confirm_password: '',
-		vehicle_type: ''
-		// service_type: 0,
-		// service_name: '',
-		// cost: 0
-	});
+		confirmPassword: '',
+		vehicle_type_id: 0,
+		lat: 0,
+		lng: 0
+		// services: [
+		// 	{
+		// 		serviceTypeId: 0,
+		// 		discription: '',
+		// 		cost: 0
+		// 	}
+		// ]
+	};
+
+	const [formData, setFormData] = useState<IDealerSignup>(defaultData);
 
 	/**
 	 * Increases the Step state variable by 1.
@@ -65,30 +72,31 @@ const DealerReg: React.FC = () => {
 	 *
 	 * @beta
 	 */
-	const handleInput = (input: string) => (e: any) => {
-		const { value } = e.target;
-		setFormData((prevState) => ({
-			...prevState,
-			[input]: value
-		}));
-	};
+	// const handleInput = (input: string) => (e: any) => {
+	// 	const { value } = e.target;
+	// 	setFormData((prevState) => ({
+	// 		...prevState,
+	// 		[input]: value
+	// 	}));
+	// };
 
 	switch (step) {
 		case 1:
 			return (
-				<FormDealerCredentials nextStep={nextStep} handleFormData={handleInput} values={formData} />
+				<FormDealerCredentials nextStep={nextStep} formData={formData} setFormData={setFormData} />
 			);
 		case 2:
 			return (
 				<FormDealerDetails
 					nextStep={nextStep}
 					prevStep={prevStep}
-					handleFormData={handleInput}
-					values={formData}
+					formData={formData}
+					setFormData={setFormData}
 				/>
 			);
 		case 3:
 			return <Success />;
+
 		default:
 			// do nothing
 			return null;

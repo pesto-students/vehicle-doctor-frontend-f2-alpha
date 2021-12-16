@@ -4,7 +4,7 @@ export interface IDealerVehService {
 	prevStep: Function;
 	handleFormData: any;
 	values: {
-		vehicle_type: string;
+		vehicle_type: number;
 		service_type: number;
 		service_name: string;
 		cost: number;

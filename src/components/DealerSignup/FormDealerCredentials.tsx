@@ -4,24 +4,25 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { NEXT, DEALER_SIGNUP_FORM_HEADER, STEP_1 } from '../../Constants/common.constant';
-import { IDealerCredentials, IDealerCredForm } from '../../Interfaces/IDealerCredentials';
+import { IDealerCredForm } from '../../Interfaces/IDealerCredentials';
 import '../../css/dealersignup.css';
 import { IDealerSignup } from '../../Interfaces/IDealerRegistration';
 
 type Props = {
 	nextStep: () => void;
-	handleFormData: (input: string) => (e: any) => void;
-	values: IDealerSignup;
+	setFormData: (input: any) => void;
+	formData: IDealerSignup;
 };
 
-const FormDealerCredentials: React.FC<Props> = ({ nextStep, handleFormData, values }) => {
+const FormDealerCredentials: React.FC<Props> = ({ nextStep, formData, setFormData }) => {
 	//Regex for Mobile No field
 	const phoneRegExp = /^[1-9][0-9]{9}$/;
-	const nameRegExp = /^[a-z]+\s?[a-z]+$/i;
+	const nameRegExp = /^[a-zA-Z]+\s?[a-zA-Z]+\s?[a-zA-Z]+$/i;
 
 	// Function to continue to next step of the form
 	const Continue = (e: any) => {
 		e.preventDefault();
+		// console.log('formData', formData);
 		nextStep();
 	};
 
@@ -37,12 +38,12 @@ const FormDealerCredentials: React.FC<Props> = ({ nextStep, handleFormData, valu
 			.required('Please enter 10-Digit Mobile Number')
 			.min(10, 'Mobile Number should have 10 digits')
 			.max(12, 'Mobile Number should have 10 digits'),
-		email_ID: Yup.string().required('Please enter the Email').email('Email is invalid'),
+		email: Yup.string().required('Please enter the Email').email('Email is invalid'),
 		password: Yup.string()
 			.required('Password is required')
 			.min(6, 'Password must be at least 6 characters')
 			.max(20, 'Password must not exceed 20 characters'),
-		confirm_password: Yup.string()
+		confirmPassword: Yup.string()
 			.required('Confirm Password is required')
 			.oneOf([Yup.ref('password'), null], 'Confirm Password does not match')
 	});
@@ -50,10 +51,8 @@ const FormDealerCredentials: React.FC<Props> = ({ nextStep, handleFormData, valu
 	//Resolve useForm hook with the validation schema declared above
 	const {
 		register,
-		control,
-		handleSubmit,
 		formState: { errors, isValid }
-	} = useForm<IDealerSignup>({
+	} = useForm<IDealerCredForm>({
 		mode: 'all',
 		resolver: yupResolver(validationSchema)
 	});
@@ -81,8 +80,8 @@ const FormDealerCredentials: React.FC<Props> = ({ nextStep, handleFormData, valu
 								name='name'
 								placeholder='Enter Name'
 								variant='outlined'
-								defaultValue={values.name}
-								onChange={handleFormData('name')}
+								value={formData.name}
+								onChange={(event) => setFormData({ ...formData, name: event.target.value })}
 								fullWidth
 								required
 								error={errors.name ? true : false}
@@ -98,9 +97,9 @@ const FormDealerCredentials: React.FC<Props> = ({ nextStep, handleFormData, valu
 								name='mobile'
 								placeholder='Enter 10-digit Mobile Number'
 								variant='outlined'
-								defaultValue={values.mobile}
+								value={formData.mobile}
 								inputProps={{ maxLength: 10 }}
-								onChange={handleFormData('mobile')}
+								onChange={(event) => setFormData({ ...formData, mobile: event.target.value })}
 								fullWidth
 								required
 								error={errors.mobile ? true : false}
@@ -109,19 +108,19 @@ const FormDealerCredentials: React.FC<Props> = ({ nextStep, handleFormData, valu
 						</Grid>
 						<Grid item>
 							<TextField
-								id='email_ID'
+								id='email'
 								type='email'
 								label='Email ID'
-								{...register('email_ID')}
-								name='email_ID'
-								placeholder='Enter Email ID'
+								{...register('email')}
+								name='email'
+								placeholder='Enter Email'
 								variant='outlined'
-								defaultValue={values.email_ID}
-								onChange={handleFormData('email_ID')}
+								value={formData.email}
+								onChange={(event) => setFormData({ ...formData, email: event.target.value })}
 								fullWidth
 								required
-								error={errors.email_ID ? true : false}
-								helperText={errors.email_ID ? errors.email_ID.message : ' '}
+								error={errors.email ? true : false}
+								helperText={errors.email ? errors.email.message : ' '}
 							/>
 						</Grid>
 						<Grid item>
@@ -133,8 +132,8 @@ const FormDealerCredentials: React.FC<Props> = ({ nextStep, handleFormData, valu
 								name='password'
 								placeholder='Password'
 								variant='outlined'
-								defaultValue={values.password}
-								onChange={handleFormData('password')}
+								value={formData.password}
+								onChange={(event) => setFormData({ ...formData, password: event.target.value })}
 								fullWidth
 								required
 								error={errors.password ? true : false}
@@ -146,16 +145,18 @@ const FormDealerCredentials: React.FC<Props> = ({ nextStep, handleFormData, valu
 								id='confirmPassword'
 								type='password'
 								label='Confirm Password'
-								{...register('confirm_password')}
-								name='confirm_password'
+								{...register('confirmPassword')}
+								name='confirmPassword'
 								placeholder='Confirm Password'
 								variant='outlined'
-								defaultValue={values.confirm_password}
-								onChange={handleFormData('confirm_password')}
+								value={formData.confirmPassword}
+								onChange={(event) =>
+									setFormData({ ...formData, confirmPassword: event.target.value })
+								}
 								fullWidth
 								required
-								error={errors.confirm_password ? true : false}
-								helperText={errors.confirm_password ? errors.confirm_password.message : ' '}
+								error={errors.confirmPassword ? true : false}
+								helperText={errors.confirmPassword ? errors.confirmPassword.message : ' '}
 							/>
 						</Grid>
 

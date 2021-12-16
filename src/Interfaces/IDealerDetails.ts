@@ -19,7 +19,7 @@ export interface IDealerDetailForm {
 	state: string;
 	pincode: string;
 	gst_no: string;
-	vehicle_type: string;
+	vehicle_type_id: number;
 }
 
 // interface for Vehicle Type
@@ -43,6 +43,6 @@ export interface IDealerData {
 	lng: number;
 	vehicle_type_id: number;
 	Services: any[];
-	Vehicletype: object
+	Vehicletype: object;
 	dealer_history: any[];
 }
