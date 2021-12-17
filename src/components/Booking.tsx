@@ -51,7 +51,6 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 		status_id: 0,
 		vehicle_type_id: 0
 	});
-	const [summary, SetSummaryID] = useState<string>();
 	const [showInvoice, setShowInvoice] = useState<boolean>(false);
 
 	const printRef = useRef<HTMLDivElement>(null);
@@ -72,7 +71,6 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 		}
 		axios.post('/order/Service/Booking', formData).then((response: AxiosResponse) => {
 			setLoading(true)
-			SetSummaryID(response.data);
 			setShowInvoice(true);
 
 		}).catch((error) => {
@@ -81,12 +79,6 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 			setError(true)
 		});
 	};
-
-	function addDays(pick_up_date: Date) {
-		var result = new Date(pick_up_date);
-		result.setDate(result.getDate() + 7);
-		return result;
-	}
 
 	const handleInput = (input: string) => (e: any) => {
 		const { value } = e.target;
@@ -276,7 +268,7 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 									</tr>
 									<tr>
 										<td>
-											{error == true ? <p>Please Retry.</p> : null}
+											{error === true ? <p>Please Retry.</p> : null}
 										</td>
 									</tr>
 								</tbody>

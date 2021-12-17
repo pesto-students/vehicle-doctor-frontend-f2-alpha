@@ -38,9 +38,7 @@ const FormDealerDetails: React.FC<Props> = ({ nextStep, prevStep, setFormData, f
 	const [vehicleData, setVehicleData] = useState<IVehicleType[]>([]);
 	const location = useGeoLocation();
 
-	// console.log('City: ', location?.data[0]?.address_components[3].long_name);
-	//const cityGeoLocation = location?.data[0]?.address_components[3].long_name;
-	//formData.city = cityGeoLocation;
+	
 
 	useEffect(() => {
 		//Get vehicle data

@@ -4,11 +4,8 @@ import  { AxiosResponse } from 'axios';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import { CardActionArea } from '@mui/material';
-import serviceImg from '../img/s1.jpg';
 import axios from '../BaseURL';
 import DealerListBaseModal from './DealerListBaseModal';
-import Typography from '@mui/material/Typography';
 import { Button } from 'react-bootstrap';
 
 type Props ={

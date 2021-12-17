@@ -1,5 +1,5 @@
-import { Button, Modal } from 'react-bootstrap';
-import { ROADSIDE_ASSISTANCE, SUBMIT } from '../Constants/common.constant';
+import { Button } from 'react-bootstrap';
+import { ROADSIDE_ASSISTANCE } from '../Constants/common.constant';
 import React from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -14,13 +14,11 @@ import DealerListBaseModal from './DealerListBaseModal';
 
 
 type Props = {
-	// open: boolean;
-	// handleClose: (val: boolean) => void;
+	
 	Token: any;
 	SetToken: (val: any) => void;
 }
 
-// const RoadSideAssisstanceModal: React.FC<Props> = ({ open, handleClose,Token,SetToken }) => {
 const RoadSideAssisstanceModal: React.FC<Props> = ({ Token, SetToken }) => {
 
 	const [showDealer, setshowDealer] = useState<boolean>(false);
@@ -31,7 +29,6 @@ const RoadSideAssisstanceModal: React.FC<Props> = ({ Token, SetToken }) => {
 	const vehicleData = useVehicleData();
 	// function which will be invoked on click of Submit
 	const handleSubmit = () => {
-		// handleClose(true);
 		setshowDealer(true);
 	}
 
@@ -65,16 +62,6 @@ const RoadSideAssisstanceModal: React.FC<Props> = ({ Token, SetToken }) => {
 
 	return (
 		<>
-			{/* <Modal
-				aria-labelledby='contained-modal-title-vcenter'
-				centered
-				show={open}
-				onHide={handleClose}>
-				<Modal.Header closeButton style={{ color: 'white', backgroundColor: '#d9534f' }}>
-					{ROADSIDE_ASSISTANCE}
-				</Modal.Header>
-				<Modal.Body> */}
-
 			<div id='sos'  className='anim bgimg2' style={{ padding: '5%' }}>
 				<div>
 					<div>
@@ -116,13 +103,6 @@ const RoadSideAssisstanceModal: React.FC<Props> = ({ Token, SetToken }) => {
 						</Button>
 					</div>
 				</div>
-				{/* </Modal.Body> */}
-				{/* <Modal.Footer>
-					<Button size='sm' variant='primary' onClick={handleSubmit}>
-						{SUBMIT}
-					</Button>
-				</Modal.Footer> */}
-				{/* </Modal> */}
 			</div>
 			{vehicleData && serviceData ? (<DealerListBaseModal open={showDealer} handleClose={DealerListBaseModalhandleClose} serviceData={selectedserviceData} Id={selectedvehicleID} setToken={SetToken} token={Token} />) : null}
 		</>

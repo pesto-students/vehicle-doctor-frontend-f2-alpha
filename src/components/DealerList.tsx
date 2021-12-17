@@ -39,8 +39,7 @@ interface dealerProps {
 
 const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element => {
 
-    const [dealersData, setDealersData] = useState<Dealer[]>([]);
-    const [filteredData, setFilteredData] = useState<Dealer[]>(dealersData);
+    const [filteredData, setFilteredData] = useState<Dealer[]>([]);
     const [selectedDealer, setSelectedDealer] = useState<Dealer>();
     const [showReview, setShowReview] = useState<boolean>(false);
     const [showBook, setShowBook] = useState<boolean>(false);
@@ -74,7 +73,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
             if (e.target.checked) {
                 nextActiveFilter.push(value);
             } else {
-                nextActiveFilter = nextActiveFilter.filter((valueItem) => (value != valueItem));
+                nextActiveFilter = nextActiveFilter.filter((valueItem) => (value !== valueItem));
             }
             return nextActiveFilter;
         });
@@ -137,17 +136,17 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
                     break;
                 case 3:
                     ratingResult = dealerList.filter((dealerData) => {
-                        return dealerData.dealer_history.some(dataItem => (dataItem.rating == 3 && dataItem.rating < 5));
+                        return dealerData.dealer_history.some(dataItem => (dataItem.rating === 3 && dataItem.rating < 5));
                     });
                     break;
                 case 4:
                     ratingResult = dealerList.filter((dealerData) => {
-                        return dealerData.dealer_history.some(dataItem => (dataItem.rating == 4 && dataItem.rating < 5));
+                        return dealerData.dealer_history.some(dataItem => (dataItem.rating === 4 && dataItem.rating < 5));
                     });
                     break;
                 case 5:
                     ratingResult = dealerList.filter((dealerData) => {
-                        return dealerData.dealer_history.some(dataItem => (dataItem.rating == 5));
+                        return dealerData.dealer_history.some(dataItem => (dataItem.rating === 5));
                     });
                     break;
                 default:

@@ -10,7 +10,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
 import axios from '../../BaseURL';
 import { AxiosResponse } from 'axios';
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { ICustomerDetails } from '../../Interfaces/ICustomerDetails';
@@ -44,8 +44,6 @@ const schema = yup.object({
 
 const CustomerDeatailsModal: React.FC<Props> = ({ open, handleClose, mobile ,setToken}) => {
 
-    const [summary, SetSummaryID] = useState<string>();
-
     const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>({
         resolver: yupResolver(schema)
     });
@@ -75,7 +73,6 @@ const CustomerDeatailsModal: React.FC<Props> = ({ open, handleClose, mobile ,set
         formData.customer_location.pincode=data.customer_location.pincode;
         axios.post('/customer/add', formData)
             .then((response: AxiosResponse) => {
-                SetSummaryID(response.data);
                 setToken(response.data);
             });
             handleClose(false);
