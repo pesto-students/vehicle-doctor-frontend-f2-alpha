@@ -76,7 +76,6 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
             } else {
                 nextActiveFilter = nextActiveFilter.filter((valueItem) => (value != valueItem));
             }
-            console.log(nextActiveFilter);
             return nextActiveFilter;
         });
     }

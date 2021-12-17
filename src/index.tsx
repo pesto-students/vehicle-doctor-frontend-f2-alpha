@@ -5,6 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as Sentry from "@sentry/react";
 import { Integrations } from "@sentry/tracing";
+import ErrorBoundary from './errorboundary'
 
 Sentry.init({
   dsn: "https://5c442eb6857348fbac3134834e2dbac9@o1087566.ingest.sentry.io/6100962",
@@ -17,9 +18,9 @@ Sentry.init({
 });
 
 ReactDOM.render(
-  <React.StrictMode>
+  <ErrorBoundary>
     <App />
-  </React.StrictMode>,
+  </ErrorBoundary>,
   document.getElementById('root')
 );
 

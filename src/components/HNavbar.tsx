@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Nav, Container, Navbar, Button, Modal, NavDropdown } from 'react-bootstrap';
-// import RoadSideAssitanceModal from './RoadSideAssitanceModal';
 import LoginModal from './Customer/LoginModal';
 import CustomerBookingHistory from './Customer/CustomerBookingHistory';
 import DealerReg from './DealerReg';
@@ -24,20 +23,13 @@ type Props = {
 }
 
 const HNavbar: React.FC<Props> = ({ Token, SetToken }) => {
-	const [showSOS, setShowSOS] = useState<boolean>(false);
 	const [showLogin, setShowLogin] = useState<boolean>(false);
 	const [showDealer, setShowDealer] = useState<boolean>(false);
 	const [showDealerLogin, setShowDealerLogin] = useState<boolean>(false);
 	const [openHistory, setOpenHistory] = useState<boolean>(false);
 	const location = useGeoLocation();
 
-	const SOShandleOpen = () => {
-		setShowSOS(true);
-	};
-
-	const SOShandleClose = () => {
-		setShowSOS(false);
-	};
+	
 
 	const LoginHandleOpen = () => {
 		setShowLogin(true);
@@ -119,8 +111,6 @@ const HNavbar: React.FC<Props> = ({ Token, SetToken }) => {
 					<LocationOnOutlinedIcon /><span>{location?.loaded ? location?.data[0]?.address_components[3].long_name : "New Delhi"}</span>
 				</div>
 			</Navbar>
-
-			{/* <RoadSideAssitanceModal open={showSOS} handleClose={SOShandleClose} Token={Token} SetToken={SetToken} /> */}
 
 			<Modal
 				aria-labelledby='contained-modal-title-vcenter'

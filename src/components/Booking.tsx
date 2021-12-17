@@ -17,9 +17,12 @@ import { ICustomerDetails } from '../Interfaces/ICustomerDetails';
 import ReactToPrint from 'react-to-print';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
-import  Datetime  from "react-datetime";
+import Datetime from "react-datetime";
 import "react-datetime/css/react-datetime.css";
 import moment, { Moment } from "moment";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+
 
 type Props = {
 	SelectedDealer: Dealer;
@@ -32,8 +35,9 @@ type Props = {
 
 const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, customerData, isHome, handleDealer }) => {
 	//const [pickupDateValue, setpickupdateValue] = React.useState<Date | null>(new Date());
-	const [pickupDateValue, setpickupdateValue] = React.useState<Moment|string>();
+	const [pickupDateValue, setpickupdateValue] = React.useState<Moment | string>();
 	const [error, setError] = React.useState<boolean>();
+	const [loading, setLoading] = useState<boolean>(true);
 	const [formData, setFormData] = useState<IBookingService>({
 		refrence_id: '',
 		vehicle_reg_no: '',
@@ -53,6 +57,7 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 	const printRef = useRef<HTMLDivElement>(null);
 
 	const onSubmit = () => {
+		setLoading(false);
 		// e.preventDefault();
 		var value = Math.random().toString(36).substr(2, 6);
 		formData.refrence_id = value.toUpperCase();
@@ -63,12 +68,18 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 		formData.vehicle_type_id = SelectedDealer.vehicle_type_id;
 		if (pickupDateValue != null) {
 			formData.pick_up_date = pickupDateValue;
-			formData.drop_date = moment(pickupDateValue,'DD-MM-YYYY').add('days',5);
+			formData.drop_date = moment(pickupDateValue, 'DD-MM-YYYY').add('days', 5);
 		}
 		axios.post('/order/Service/Booking', formData).then((response: AxiosResponse) => {
+			setLoading(true)
 			SetSummaryID(response.data);
+			setShowInvoice(true);
+
+		}).catch((error) => {
+			setLoading(true)
+			console.log(error);
+			setError(true)
 		});
-		setShowInvoice(true);
 	};
 
 	function addDays(pick_up_date: Date) {
@@ -111,10 +122,9 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 
 
 	var yesterday = moment().subtract(1, "day");
-	function valid(current:any) {
+	function valid(current: any) {
 		return current.isAfter(yesterday);
 	}
-	//Unccomment from section 100 to 114, once you check the Booking Summary Modal, this is for validation
 
 	const schema = yup.object({
 		vName: yup.string().required('Please enter the vehicle name and model'),
@@ -132,8 +142,11 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 		resolver: yupResolver(schema)
 	});
 
+
+
 	return (
 		<>
+
 			<div className='flex-container' style={{ alignItems: 'flex-start' }}>
 				<div style={{ flex: '40%', padding: '2%' }}>
 					<div>
@@ -222,8 +235,8 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 										<td className='flex-container'>
 											<div>
 												<Datetime initialValue={new Date()} isValidDate={valid} onChange={(newValue) => {
-															setpickupdateValue(newValue);
-														}} />
+													setpickupdateValue(newValue);
+												}} />
 											</div>
 											<div>
 												<FormControl sx={{ m: 1, minWidth: 120 }}>
@@ -247,11 +260,23 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 									</tr>
 									<tr>
 										<td>
+
 											<div style={{ textAlign: 'center', padding: '1%' }}>
-												<Button size='lg' variant='primary' type='submit'>
+												<Button size='lg' variant='primary' type='submit' disabled={!loading}>
 													Book Now
 												</Button>
+												{loading ? null
+													: <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+														<CircularProgress />
+													</Box>
+												}
 											</div>
+										</td>
+
+									</tr>
+									<tr>
+										<td>
+											{error == true ? <p>Please Retry.</p> : null}
 										</td>
 									</tr>
 								</tbody>

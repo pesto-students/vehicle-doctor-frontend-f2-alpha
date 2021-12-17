@@ -48,7 +48,7 @@ const Services : React.FC<Props> =({Token,SetToken}) => {
                         serviceData.map((item, idx) =>
                             <div style={{ margin: '10px' }} key={idx}>
                                 <Card>
-                                    {/* <CardActionArea> */}
+                                    
                                         <CardMedia
                                             component="img"
                                             height="140"
@@ -58,7 +58,7 @@ const Services : React.FC<Props> =({Token,SetToken}) => {
                                         <CardContent>
                                          <Button variant='warning'  onClick={() => handleShow(`${item.id}`,`${item.service_name}`)}>{item.service_name}</Button>
                                         </CardContent>
-                                    {/* </CardActionArea> */}
+                                    
                                 </Card>
                             </div>
                         )
