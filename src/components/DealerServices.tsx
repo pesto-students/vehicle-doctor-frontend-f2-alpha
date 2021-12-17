@@ -58,7 +58,6 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 				.then((response: AxiosResponse) => {
 					setLoading(true);
 					setServiceData(response.data);
-					
 				});
 		}
 
@@ -101,9 +100,14 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 			}
 			setLoading(true);
 			setRenderTable(true);
+			//Re-initialize state
+			setFormData({
+				dealerTblDealerId: loggedInDealer.dealer_id,
+				service_type_id: 0,
+				discription: '',
+				cost: 0
+			});
 		});
-
-		
 	};
 
 	const {
@@ -117,7 +121,7 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 
 	return (
 		<div className='app-container'>
-				<h5>Add a Service</h5>
+			<h5>Add a Service</h5>
 			<form
 				noValidate
 				autoComplete='off'
@@ -140,7 +144,6 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 										onChange={handleInput('service_type_id')}
 										fullWidth
 										required
-
 										MenuProps={MenuProps}>
 										{serviceType.map((item) => (
 											<MenuItem value={item.id}>{item.service_name}</MenuItem>
@@ -199,11 +202,11 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 					</Grid>
 				</Grid>
 			</form>
-			{loading ? null
-                        :<Box sx={{ display: 'flex', justifyContent:'center' }}>
-                            <CircularProgress />
-                        </Box>
-                    }
+			{loading ? null : (
+				<Box sx={{ display: 'flex', justifyContent: 'center' }}>
+					<CircularProgress />
+				</Box>
+			)}
 			<table className='data-table'>
 				<thead>
 					<tr>
