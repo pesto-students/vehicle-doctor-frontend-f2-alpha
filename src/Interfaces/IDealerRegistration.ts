@@ -8,11 +8,17 @@ export interface IDealerSignup {
 	city: string,
 	state: string,
 	pincode: string,
-	email_ID: string,
+	email: string,
 	password: string,
-	confirm_password: string,
-	vehicle_type: string,
-	// service_type: number,
-	// service_name: string,
-	// cost: number	
+	confirmPassword: string,
+	vehicle_type_id: number,
+	lat: number,
+	lng: number
+// 	services: [
+// 		{
+// 		serviceTypeId: number,
+// 		discription: string,
+// 		cost: number
+// 	}
+// ]		
 }

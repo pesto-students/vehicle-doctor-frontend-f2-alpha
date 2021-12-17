@@ -5,9 +5,9 @@ export interface IDealerCredentials {
 	values: {
 		name: string;
 		mobile: string;
-		email_ID: string;
+		email: string;
 		password: string;
-		confirm_password?: string;
+		confirmPassword?: string;
 	};
 }
 
@@ -15,7 +15,7 @@ export interface IDealerCredentials {
 export interface IDealerCredForm {
 	name: string;
 	mobile: string;
-	email_ID: string;
+	email: string;
 	password: string;
-	confirm_password?: string;
+	confirmPassword?: string;
 }
