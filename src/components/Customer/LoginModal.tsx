@@ -214,10 +214,10 @@ const LoginModal: React.FC<Props> = ({ open, handleClose, setToken ,SelectedDeal
 
                 <Modal.Footer>
                     {window.confirmationResult == null ?
-                        <Button size='sm' variant='primary' type="submit" onClick={onSignInSubmit} disabled={!isValid}>
+                        <Button size='sm' variant='primary' type="submit" onClick={onSignInSubmit} disabled={!isValid || !loading}>
                             {SUBMIT}
                         </Button> :
-                        <Button size='sm' variant='primary' type="submit" onClick={onSubmitOTP}>
+                        <Button size='sm' variant='primary' type="submit"  onClick={onSubmitOTP} disabled={!loading}>
                             {VALIDATE}
                         </Button>}
                 </Modal.Footer>

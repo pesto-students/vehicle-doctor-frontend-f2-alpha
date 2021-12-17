@@ -202,7 +202,7 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 													error={errors.vName ? true : false}
 													helperText={errors.vName?.message}
 													label='Vehicle Model'
-													variant='outlined'
+													variant='filled'
 													onChange={handleInput('vehicle_model')}
 												/>
 											</div>
@@ -217,7 +217,7 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 													error={errors.vReg ? true : false}
 													helperText={errors.vReg?.message}
 													label='Vehicle Reg No.'
-													variant='outlined'
+													variant='filled'
 													onChange={handleInput('vehicle_reg_no')}
 												/>
 											</div>
@@ -268,7 +268,7 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 									</tr>
 									<tr>
 										<td>
-											{error === true ? <p>Please Retry.</p> : null}
+											{error === true ? <p style={{ color: "#d32f2f" }}>Please retry after sometime</p> : null}
 										</td>
 									</tr>
 								</tbody>
