@@ -84,7 +84,7 @@ function Row(props: { row: ReturnType<typeof createData> }) {
                                         <TableCell>Date</TableCell>
                                         <TableCell>Booking Id</TableCell>
                                         {/* <TableCell align="center">No.</TableCell> */}
-                                        <TableCell align="center">Total price ($)</TableCell>
+                                        <TableCell align="center">Total price (₹)</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody style={{backgroundColor:'lightgrey'}}>
