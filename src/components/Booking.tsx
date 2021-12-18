@@ -333,76 +333,78 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 					Booking Summary
 				</Modal.Header>
 				<Modal.Body>
-					<div className='divModal' ref={printRef}>
-						<h6>Dear Customer, your booking has been confirmed.</h6>
-						<div style={{ border: '0.2px solid lightgrey', padding: '2%' }}>
-							<div style={{ backgroundColor: 'rgb(2, 117, 216)', color: 'white', width: '100%' }}>
-								<h5>Booking Details</h5>
+					<div>
+						<div className='divModal' ref={printRef}>
+							<h6>Dear Customer, your booking has been confirmed.</h6>
+							<div style={{ border: '0.2px solid lightgrey', padding: '2%' }}>
+								<div style={{width: '100%' }}>
+									<h5>Booking Details</h5>
+								</div>
+								<table width='100%' style={{ marginLeft: '5%' }}>
+									<tr>
+										<td>
+											<h6>Booking ID</h6>
+										</td>
+										<td>
+											<b>{formData.refrence_id}</b>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<h6>Customer Name</h6>
+										</td>
+										<td>{customerData?.customer_name}</td>
+									</tr>
+									<tr>
+										<td>
+											<h6>Vehicle Model</h6>
+										</td>
+										<td>{formData.vehicle_model}</td>
+									</tr>
+									<tr>
+										<td>
+											<h6>Vehicle Reg No.</h6>
+										</td>
+										<td>{formData.vehicle_reg_no}</td>
+									</tr>
+									<tr>
+										<td>
+											<h6>Service</h6>
+										</td>
+										{isHome ? <td>{serviceData.serviceTypes.service_name}</td> :
+											<td>{serviceData.serviceName}</td>
+										}
+									</tr>
+								</table>
 							</div>
-							<table width='100%' style={{ marginLeft: '5%' }}>
+							<div
+								className='flex-container'
+								style={{ border: '0.2px solid lightgrey', padding: '2%', width: '100%' }}>
+								<div style={{ flex: '100%' }}>
+									<div style={{width: '100%' }}>
+										<h5>Dealer Details</h5>
+									</div>
+									<p>
+										<h6>{SelectedDealer.name},</h6> {SelectedDealer.mobile},{SelectedDealer.email},
+										<br /> {SelectedDealer.locality}, {SelectedDealer.city}, {SelectedDealer.state},
+										IND. - {SelectedDealer.pincode}
+									</p>
+								</div>
+							</div>
+							<table width='100%' style={{ border: '0.2px solid lightgrey', color: 'orangered' }}>
 								<tr>
 									<td>
-										<h6>Booking ID</h6>
+										<h4>Total Cost paid (incl. GST)</h4>
 									</td>
 									<td>
-										<b>{formData.refrence_id}</b>
+										{isHome ? <h4>₹ {serviceData.cost}</h4> : SelectedDealer.Services.map((dataItem) => (
+											<h4>₹ {dataItem.cost}</h4>
+										))}
 									</td>
-								</tr>
-								<tr>
-									<td>
-										<h6>Customer Name</h6>
-									</td>
-									<td>{customerData?.customer_name}</td>
-								</tr>
-								<tr>
-									<td>
-										<h6>Vehicle Model</h6>
-									</td>
-									<td>{formData.vehicle_model}</td>
-								</tr>
-								<tr>
-									<td>
-										<h6>Vehicle Reg No.</h6>
-									</td>
-									<td>{formData.vehicle_reg_no}</td>
-								</tr>
-								<tr>
-									<td>
-										<h6>Service</h6>
-									</td>
-									{isHome ? <td>{serviceData.serviceTypes.service_name}</td> :
-										<td>{serviceData.serviceName}</td>
-									}
 								</tr>
 							</table>
-						</div>
-						<div
-							className='flex-container'
-							style={{ border: '0.2px solid lightgrey', padding: '2%', width: '100%' }}>
-							<div style={{ flex: '100%' }}>
-								<div style={{ backgroundColor: 'rgb(2, 117, 216)', color: 'white', width: '100%' }}>
-									<h5>Dealer Details</h5>
-								</div>
-								<p>
-									<h6>{SelectedDealer.name},</h6> {SelectedDealer.mobile},{SelectedDealer.email},
-									<br /> {SelectedDealer.locality}, {SelectedDealer.city}, {SelectedDealer.state},
-									IND. - {SelectedDealer.pincode}
-								</p>
-							</div>
-						</div>
-						<table width='100%' style={{ border: '0.2px solid lightgrey', color: 'orangered' }}>
-							<tr>
-								<td>
-									<h4>Total Cost paid (incl. GST)</h4>
-								</td>
-								<td>
-									{isHome ? <h4>₹ {serviceData.cost}</h4> : SelectedDealer.Services.map((dataItem) => (
-										<h4>₹ {dataItem.cost}</h4>
-									))}
-								</td>
-							</tr>
-						</table>
 
+						</div>
 						<div style={{ textAlign: 'center', marginTop: '2%' }}>
 							<ReactToPrint
 								content={() => printRef.current as HTMLDivElement}
@@ -414,8 +416,10 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 									/>
 								)}
 							/>
-							<Button size='lg' variant='primary' onClick={SummaryhandleClose}>
-								Close
+						</div>
+						<div style={{textAlign:"center", marginTop: '2%' }}>
+							<Button size='lg' variant='primary'  onClick={SummaryhandleClose}>
+								Back To Home
 							</Button>
 						</div>
 					</div>

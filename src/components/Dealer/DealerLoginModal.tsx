@@ -17,6 +17,9 @@ import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import DealerDashboard from '../DealerDashboard';
 import { blue } from '@mui/material/colors';
+import logo from '../../img/logo.jpg';
+
+
 
 type Props = {
 	open: boolean;
@@ -202,6 +205,7 @@ const DealerLoginModal: React.FC<Props> = ({ open, handleClose }) => {
 				show={showDashboard}
 				onHide={handleDashboard}>
 				<Modal.Header style={{ color: 'white', backgroundColor: '#0275d8' }}>
+				<div><img src={logo} width='30px' className='d-inline-block align-top' alt='logo' /><b>VehicleDr.com</b></div>    
 				<span style={{fontSize:30}}>Dealer Dashboard</span>
 					<Button
 						variant='outlined'
