@@ -42,6 +42,7 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 	const [summary, SetSummaryID] = useState<string>();
 	const [msgStatus, setMsgStatus] = useState<boolean>(false);
 	const [loading, setLoading] = useState<boolean>(true);
+	const [error, setError] = React.useState<boolean>();
 
 	const [formData, setFormData] = useState<IFormInput>({
 		dealerTblDealerId: loggedInDealer.dealer_id,
@@ -107,7 +108,11 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 				discription: '',
 				cost: 0
 			});
-		});
+		}).catch((error) => {
+			setLoading(true)
+			console.log(error);
+			setError(true)
+		});;
 	};
 
 	const {
@@ -122,6 +127,7 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 	return (
 		<div className='app-container'>
 			<h5>Add a Service</h5>
+			
 			<form
 				noValidate
 				autoComplete='off'
@@ -202,6 +208,9 @@ const DealerServices: React.FC<Props> = ({ loggedInDealer }) => {
 					</Grid>
 				</Grid>
 			</form>
+			<div>
+			{error === true ? <p style={{textAlign: 'center', color: "#d32f2f" }}>Please retry after sometime or change the service Type</p> : null}
+			</div>
 			{loading ? null : (
 				<Box sx={{ display: 'flex', justifyContent: 'center' }}>
 					<CircularProgress />

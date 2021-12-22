@@ -9,7 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { ILoginInterface } from '../../Interfaces/ILoginInterface';
-import { SUBMIT, VALIDATE } from '../../Constants/common.constant';
+import { SUBMIT, VALIDATE,GuestLogin } from '../../Constants/common.constant';
 import CustomerDeatailsModal from './CustomerDetailsModal';
 import { AxiosResponse } from 'axios';
 import axios from '../../BaseURL';
@@ -29,9 +29,9 @@ type Props = {
     setToken: (val: any) => void;
     SelectedDealer: Dealer | undefined;
     serviceData: any;
-    IsLogin :boolean;
-    isHome:boolean;
-    handleDealer:(val:boolean)=>void;
+    IsLogin: boolean;
+    isHome: boolean;
+    handleDealer: (val: boolean) => void;
 }
 declare global {
     interface Window {
@@ -40,7 +40,7 @@ declare global {
     }
 }
 
-const LoginModal: React.FC<Props> = ({ open, handleClose, setToken ,SelectedDealer,serviceData,IsLogin,isHome,handleDealer}) => {
+const LoginModal: React.FC<Props> = ({ open, handleClose, setToken, SelectedDealer, serviceData, IsLogin, isHome, handleDealer }) => {
     const initialState = {
         mobile: "",
         otp: ""
@@ -50,7 +50,7 @@ const LoginModal: React.FC<Props> = ({ open, handleClose, setToken ,SelectedDeal
     const [showInfo, setShowInfo] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(true);
     const [showBook, setShowBook] = useState<boolean>(false);
-    const [customerData,setCustomerData]=useState<ICustomerDetails>();
+    const [customerData, setCustomerData] = useState<ICustomerDetails>();
     window.recaptchaVerifier = window.recaptchaVerifier || {};
     const phoneRegExp = /^[1-9][0-9]{9}$/;
 
@@ -79,8 +79,8 @@ const LoginModal: React.FC<Props> = ({ open, handleClose, setToken ,SelectedDeal
         }))
     }
     const clearState = () => {
-        setState({...initialState});
-      };
+        setState({ ...initialState });
+    };
 
     const { register, formState: { errors, isValid } } = useForm<ILoginInterface>({
         mode: 'all',
@@ -118,6 +118,29 @@ const LoginModal: React.FC<Props> = ({ open, handleClose, setToken ,SelectedDeal
             });
     }
 
+    const onTestLogin = (e: any) => {
+        e.preventDefault();
+        setLoading(false);
+        state.mobile='9643225436'
+        axios.get<ICustomerDetails>(`/customer/search/${state.mobile}`)
+        .then((response: AxiosResponse) => {
+            handleClose(true);
+            setLoading(true);
+            if (response.data.customer_name == null) {
+                setShowInfo(true);
+            } else {
+                setToken(response.data);
+                setCustomerData(response.data);
+                setShowInfo(false);
+                if (IsLogin) {
+                    setShowBook(false);
+                } else {
+                    setShowBook(true);
+                }
+            }
+        });
+    }
+
     const onSubmitOTP = (e: any) => {
         e.preventDefault();
         setLoading(false);
@@ -133,10 +156,10 @@ const LoginModal: React.FC<Props> = ({ open, handleClose, setToken ,SelectedDeal
                         setToken(response.data);
                         setCustomerData(response.data);
                         setShowInfo(false);
-                        if(IsLogin){
-                        setShowBook(false);
-                        }else{
-                            setShowBook(true); 
+                        if (IsLogin) {
+                            setShowBook(false);
+                        } else {
+                            setShowBook(true);
                         }
                     }
                 });
@@ -147,6 +170,7 @@ const LoginModal: React.FC<Props> = ({ open, handleClose, setToken ,SelectedDeal
         });
 
     }
+   
     const NavigateToHome = () => {
         handleClose(true);
     }
@@ -167,7 +191,7 @@ const LoginModal: React.FC<Props> = ({ open, handleClose, setToken ,SelectedDeal
 
                 <Modal.Body>
                     {loading ? null
-                        :<Box sx={{ display: 'flex', justifyContent:'center' }}>
+                        : <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                             <CircularProgress />
                         </Box>
                     }
@@ -214,23 +238,34 @@ const LoginModal: React.FC<Props> = ({ open, handleClose, setToken ,SelectedDeal
 
                 <Modal.Footer>
                     {window.confirmationResult == null ?
-                        <Button size='sm' variant='primary' type="submit" onClick={onSignInSubmit} disabled={!isValid || !loading}>
-                            {SUBMIT}
-                        </Button> :
-                        <Button size='sm' variant='primary' type="submit"  onClick={onSubmitOTP} disabled={!loading}>
+                        <>
+                            <div>
+                                <Button size='sm' variant='primary' type="submit" onClick={onSignInSubmit} disabled={!isValid || !loading}>
+                                    {SUBMIT}
+                                </Button>
+                            </div>
+                            <div>
+                                <Button size='sm' variant='primary' type="submit" onClick={onTestLogin}>
+                                    {GuestLogin}
+                                </Button>
+                            </div>
+                        </>
+                        :
+                        <Button size='sm' variant='primary' type="submit" onClick={onSubmitOTP} disabled={!loading}>
                             {VALIDATE}
                         </Button>}
+                        
                 </Modal.Footer>
             </Modal>
             <CustomerDeatailsModal mobile={state.mobile} open={showInfo} handleClose={CustomerDetailsClose} setToken={setToken} />
             <Modal fullscreen aria-labelledby="contained-modal-title-vcenter" centered show={showBook} onHide={handleBooking}>
                 <Modal.Header closeButton style={{ color: 'white', backgroundColor: '#0275d8' }}>
-                {isHome ? null :  <IconButton color="secondary" aria-label="add an home" onClick={NavigateToHome}>
-                        <HomeIcon sx={{ fontSize: 35 ,color:blue[50]}} />
-                    </IconButton> }
-                    <span style={{paddingLeft:'500px',fontSize:35}}>Booking Details</span>
+                    {isHome ? null : <IconButton color="secondary" aria-label="add an home" onClick={NavigateToHome}>
+                        <HomeIcon sx={{ fontSize: 35, color: blue[50] }} />
+                    </IconButton>}
+                    <span style={{ paddingLeft: '500px', fontSize: 35 }}>Booking Details</span>
                 </Modal.Header>
-                <Modal.Body style={{backgroundColor:'lightgrey'}}>
+                <Modal.Body style={{ backgroundColor: 'lightgrey' }}>
                     <div>
                         {SelectedDealer ? <Booking SelectedDealer={SelectedDealer} serviceData={serviceData} handleClose={handleBooking} handleDealer={handleDealer} customerData={customerData} isHome={isHome} /> : null}
                     </div>

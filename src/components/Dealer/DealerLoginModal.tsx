@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Modal } from 'react-bootstrap';
-import { DEALER_LOGIN_MODAL_HEADER } from '../../Constants/common.constant';
+import { DEALER_LOGIN_MODAL_HEADER,GuestLogin } from '../../Constants/common.constant';
 import '../../css/dealerlogin.css';
 import { Button, Container, Grid, TextField } from '@mui/material';
 import { Typography } from '@mui/material';
@@ -55,7 +55,7 @@ const DealerLoginModal: React.FC<Props> = ({ open, handleClose }) => {
 	// Function to check Dealer Login credentials
 	const checkLogin = () => {
 		if (isValid) {
-			// console.log(`state: ${state}`);
+
 			axios
 				.get(`/dealer/checkLogin/${state.email}/${state.password}`)
 				.then((response: AxiosResponse) => {
@@ -72,6 +72,26 @@ const DealerLoginModal: React.FC<Props> = ({ open, handleClose }) => {
 					}
 				});
 		}
+	};
+
+	const testLogin = () => {
+		state.email='test1@gmail.com';
+		state.password='Singh@123';
+			axios
+				.get(`/dealer/checkLogin/${state.email}/${state.password}`)
+				.then((response: AxiosResponse) => {
+					if (response.data.message) {
+						setMsgStatus('red');
+						setLoginStatus(response.data.message);
+					} else {
+						if (response.data.dealer_id) {
+							setLoggedInDealer(response.data);
+
+							setShowDashboard(true);
+							handleClose(false);
+						}
+					}
+				});
 	};
 
 	// Toggle Password Visibility
@@ -178,13 +198,22 @@ const DealerLoginModal: React.FC<Props> = ({ open, handleClose }) => {
 										Login
 									</Button>
 								</Grid>
-								{/* <Grid item className='item' xs={12}>
-									<Typography>
-										Not a Partner?{'  '}
-										<Link underline='hover'>Sign Up</Link>
-									</Typography>
-								</Grid> */}
-
+								<Grid item className='item' xs={12}>
+									<Button
+										type='submit'
+										onClick={testLogin}
+										variant='contained'
+										fullWidth
+										className='button'
+										style={{
+											color: 'white',
+											backgroundColor: '#0275d8',
+											borderRadius: '5px',
+											height: '2.5rem'
+										}}>
+										{GuestLogin}
+									</Button>
+								</Grid>
 								<Grid item className='item' xs={12}>
 									<Typography style={{ color: msgStatus === 'red' ? 'red' : 'green' }}>
 										{loginStatus}
@@ -194,7 +223,6 @@ const DealerLoginModal: React.FC<Props> = ({ open, handleClose }) => {
 						</div>
 					</Modal.Body>
 					<Modal.Footer>
-						{/* <Button size="sm" variant="primary" onClick={() => setShow(!showHome)}>Register</Button> */}
 					</Modal.Footer>
 				</Modal>
 			</Container>

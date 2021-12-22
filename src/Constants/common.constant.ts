@@ -15,3 +15,4 @@ export const LOGOUT = 'LOGOUT';
 export const STEP_1 = 'Step 1';
 export const STEP_2 = 'Step 2';
 export const STEP_3 = 'Step 3';
+export const GuestLogin = 'Sign in as a Guest'
