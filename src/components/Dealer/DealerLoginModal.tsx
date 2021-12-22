@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Modal } from 'react-bootstrap';
-import { DEALER_LOGIN_MODAL_HEADER,GuestLogin } from '../../Constants/common.constant';
+import { DEALER_LOGIN_MODAL_HEADER, GuestLogin } from '../../Constants/common.constant';
 import '../../css/dealerlogin.css';
 import { Button, Container, Grid, TextField } from '@mui/material';
 import { Typography } from '@mui/material';
@@ -45,7 +45,6 @@ const DealerLoginModal: React.FC<Props> = ({ open, handleClose }) => {
 
 	// State variables
 	const [state, setState] = useState<IDealerLogin>({ email: '', password: '' });
-
 	const [loginStatus, setLoginStatus] = useState<string>('');
 	const [showPassword, setShowPassword] = useState<boolean>(false);
 	const [msgStatus, setMsgStatus] = useState<string>('');
@@ -72,26 +71,27 @@ const DealerLoginModal: React.FC<Props> = ({ open, handleClose }) => {
 					}
 				});
 		}
+
 	};
 
 	const testLogin = () => {
-		state.email='test@gmail.com';
-		state.password='Singh@123';
-			axios
-				.get(`/dealer/checkLogin/${state.email}/${state.password}`)
-				.then((response: AxiosResponse) => {
-					if (response.data.message) {
-						setMsgStatus('red');
-						setLoginStatus(response.data.message);
-					} else {
-						if (response.data.dealer_id) {
-							setLoggedInDealer(response.data);
+		state.email = 'test@gmail.com';
+		state.password = 'Singh@123';
+		axios
+			.get(`/dealer/checkLogin/${state.email}/${state.password}`)
+			.then((response: AxiosResponse) => {
+				if (response.data.message) {
+					setMsgStatus('red');
+					setLoginStatus(response.data.message);
+				} else {
+					if (response.data.dealer_id) {
+						setLoggedInDealer(response.data);
 
-							setShowDashboard(true);
-							handleClose(false);
-						}
+						setShowDashboard(true);
+						handleClose(false);
 					}
-				});
+				}
+			});
 	};
 
 	// Toggle Password Visibility
@@ -102,7 +102,7 @@ const DealerLoginModal: React.FC<Props> = ({ open, handleClose }) => {
 	const validationSchema: Yup.SchemaOf<IDealerLogin> = Yup.object().shape({
 		email: Yup.string().required('Please enter your login email'),
 		password: Yup.string().required('Please enter your password')
-	});
+	}).required();
 
 	const handleChange = (input: string) => (e: any) => {
 		const { value } = e.target;
@@ -215,7 +215,7 @@ const DealerLoginModal: React.FC<Props> = ({ open, handleClose }) => {
 									</Button>
 								</Grid>
 								<Grid item className='item' xs={12}>
-									<Typography style={{ color: msgStatus === 'red' ? 'red' : 'green' }}>
+								<Typography style={{ color: msgStatus === 'red' ? 'red' : 'green' }}>
 										{loginStatus}
 									</Typography>
 								</Grid>
@@ -233,8 +233,8 @@ const DealerLoginModal: React.FC<Props> = ({ open, handleClose }) => {
 				show={showDashboard}
 				onHide={handleDashboard}>
 				<Modal.Header style={{ color: 'white', backgroundColor: '#0275d8' }}>
-				<div><img src={logo} width='30px' className='d-inline-block align-top' alt='logo' /><b>VehicleDr.com</b></div>    
-				<span style={{fontSize:30}}>Dealer Dashboard</span>
+					<div><img src={logo} width='30px' className='d-inline-block align-top' alt='logo' /><b>VehicleDr.com</b></div>
+					<span style={{ fontSize: 30 }}>Dealer Dashboard</span>
 					<Button
 						variant='outlined'
 						color='secondary'

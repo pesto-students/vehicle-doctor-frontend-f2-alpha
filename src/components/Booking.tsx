@@ -203,6 +203,7 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 													helperText={errors.vName?.message}
 													label='Vehicle Model'
 													variant='filled'
+													required
 													onChange={handleInput('vehicle_model')}
 												/>
 											</div>
@@ -218,6 +219,7 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 													helperText={errors.vReg?.message}
 													label='Vehicle Reg No.'
 													variant='filled'
+													required
 													onChange={handleInput('vehicle_reg_no')}
 												/>
 											</div>
@@ -226,13 +228,13 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 									<tr>
 										<td className='flex-container'>
 											<div>
-												<Datetime initialValue={new Date()} isValidDate={valid} onChange={(newValue) => {
+												<Datetime initialValue={new Date()}  isValidDate={valid} onChange={(newValue) => {
 													setpickupdateValue(newValue);
 												}} />
 											</div>
 											<div>
 												<FormControl sx={{ m: 1, minWidth: 120 }}>
-													<InputLabel id='demo-simple-select-standard-label'>Pick UP</InputLabel>
+													<InputLabel required id='demo-simple-select-standard-label'>Pick UP</InputLabel>
 													<Select
 														labelId='demo-simple-select-standard-label'
 														id='demo-simple-select-standard'
@@ -240,6 +242,7 @@ const Booking: React.FC<Props> = ({ SelectedDealer, serviceData, handleClose, cu
 														error={errors.pick_up ? true : false}
 														onChange={handleInput('pick_up')}
 														autoWidth
+														
 														label='Pick Up'
 													>
 														<MenuItem value={1}>YES</MenuItem>
