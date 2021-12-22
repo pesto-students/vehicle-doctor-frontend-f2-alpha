@@ -75,7 +75,7 @@ const DealerLoginModal: React.FC<Props> = ({ open, handleClose }) => {
 	};
 
 	const testLogin = () => {
-		state.email='test1@gmail.com';
+		state.email='test@gmail.com';
 		state.password='Singh@123';
 			axios
 				.get(`/dealer/checkLogin/${state.email}/${state.password}`)
