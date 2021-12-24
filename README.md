@@ -26,8 +26,8 @@ Customers can check ratings and reviews of each dealer while booking a service. 
 ## Installation
 
 - Fork or directly clone this repository to your local machine.
-- Type the command **npm install** to install all necessary dependencies.
-- Once dependencies are installed, use the command **npm start** to open the app in your browser.
+- Type the command `npm install` to install all necessary dependencies.
+- Once dependencies are installed, use the command `npm start` to open the app in your browser.
   <br />
   <br />
 
@@ -47,13 +47,13 @@ Customers can check ratings and reviews of each dealer while booking a service. 
 
 We can login to the platform as one of two entities - **customer** or **dealer**.
 
-- To login as a Customer, click the blue Login button in the Navigation Bar. Then click on **Sign In As a Guest** button.
-- To login as a Dealer, select the Partners menu in the Navigation Bar, click on Login, then click on **Sign In As a Guest** button.
+- To login as a Customer, click the blue Login button in the Navigation Bar. Then click on `Sign In As a Guest` button.
+- To login as a Dealer, select the Partners menu in the Navigation Bar, click on Login, then click on `Sign In As a Guest` button.
 
 We can also login with the below test credentials using the normal Login buttons for both entities.
 
-- Customer Test Credentials: 9643225436 / 123456
-- Dealer Test Credentials: test@gmail.com / Singh@123
+- Customer Test Credentials: `9643225436 / 123456`
+- Dealer Test Credentials: `test@gmail.com / Singh@123`
   <br />
   <br />
 
