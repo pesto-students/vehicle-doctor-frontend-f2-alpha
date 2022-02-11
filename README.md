@@ -42,7 +42,7 @@ We can also login with the below test credentials using the normal Login buttons
 
 ## Technology Stack
 
-- [React](https://reactjs.org/)
+- [React JS](https://reactjs.org/)
 - [Redux](https://redux.js.org/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Material-UI](https://mui.com/)
