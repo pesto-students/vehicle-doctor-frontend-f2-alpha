@@ -1,0 +1,44 @@
+{"cities": [
+    {
+        "id": "35",
+        "name": "Amritsar",
+        "state": "Punjab"
+    },
+    {
+        "id": "3",
+        "name": "Bengaluru",
+        "state": "Karnataka"
+    },
+    
+    {
+        "id": "44",
+        "name": "Chandigarh",
+        "state": "Chandigarh"
+    },
+    {
+        "id": "2",
+        "name": "Delhi",
+        "state": "Delhi"
+    },
+    {
+        "id": "48",
+        "name": "Gurgaon",
+        "state": "Haryana"
+    },
+    {
+        "id": "21",
+        "name": "Ludhiana",
+        "state": "Punjab"
+    },
+    {
+        "id": "1",
+        "name": "Mumbai",
+        "state": "Maharashtra"
+    },
+    {
+        "id": "64",
+        "name": "Noida",
+        "state": "Uttar Pradesh"
+    }
+]
+}

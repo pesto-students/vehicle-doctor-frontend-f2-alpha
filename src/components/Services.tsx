@@ -11,9 +11,10 @@ import { Button } from 'react-bootstrap';
 type Props ={
     Token:any;
 	SetToken:(val:any) => void;
+    City:any;
 }
 
-const Services : React.FC<Props> =({Token,SetToken}) => {
+const Services : React.FC<Props> =({Token,SetToken,City}) => {
     const [serviceData, setServiceData] = useState<Service[]>([]);
     const [showBook, setShowBook] = useState<boolean>(false);
     const [SelectedServiceData, setSelectedServiceData] = useState<any>({});
@@ -62,7 +63,7 @@ const Services : React.FC<Props> =({Token,SetToken}) => {
                     }
                 </div>
             </div>
-            <DealerListBaseModal open={showBook} handleClose={DealerListBaseModalhandleClose} serviceData={SelectedServiceData}  Id={null} setToken={SetToken}  token={Token}/>
+            <DealerListBaseModal open={showBook} handleClose={DealerListBaseModalhandleClose} serviceData={SelectedServiceData}  Id={null} setToken={SetToken}  token={Token} city={City}/>
             
         </>
     );

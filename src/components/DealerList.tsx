@@ -35,6 +35,7 @@ interface dealerProps {
     SetToken: (val: any) => void;
     Token: any;
     handleClose: (val: boolean) => void;
+    city:any;
 }
 
 const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element => {
@@ -50,7 +51,7 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
     const location = useGeoLocation();
     const dealerList:Dealer[] = useSelector((state: RootState) => state.dealerList.dealer);
     const dispatch = useDispatch();
-    const city = location?.data[0]?.address_components[3].long_name;
+    //const city = location?.data[0]?.address_components[3].long_name;
 
     const NavigateToHome = () => {
         props.handleClose(true);
@@ -106,19 +107,19 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
 
     useEffect(() => {
         if (props.Id != null) {
-            axios.get<[]>(`/dealer/serviceType/${city}/${props.serviceData.id}/${props.Id}`)
+            axios.get<[]>(`/dealer/serviceType/${props.city}/${props.serviceData.id}/${props.Id}`)
                 .then((response: AxiosResponse) => {
                     dispatch(getDealers(response.data));
                     setLoading(true);
                 })
         } else {
-            axios.get<[]>(`/dealer/serviceType/${city}/${props.serviceData.id}`)
+            axios.get<[]>(`/dealer/serviceType/${props.city}/${props.serviceData.id}`)
                 .then((response: AxiosResponse) => {
                     dispatch(getDealers(response.data));
                     setLoading(true);
                 })
         }
-    }, [city]);
+    }, [props.city]);
 
     useEffect(() => {
         let ratingResult = dealerList;

@@ -17,9 +17,10 @@ type Props = {
 	
 	Token: any;
 	SetToken: (val: any) => void;
+	City:any;
 }
 
-const RoadSideAssisstanceModal: React.FC<Props> = ({ Token, SetToken }) => {
+const RoadSideAssisstanceModal: React.FC<Props> = ({ Token, SetToken,City }) => {
 
 	const [showDealer, setshowDealer] = useState<boolean>(false);
 	const [serviceData, setServiceData] = useState<Service[]>([]);
@@ -94,9 +95,9 @@ const RoadSideAssisstanceModal: React.FC<Props> = ({ Token, SetToken }) => {
 									renderInput={(params) => <TextField variant="filled" {...params} label='Services Name' />}
 								/>
 							</div>
-							<div style={{ textAlign: 'center', color: 'white', backgroundColor: 'rgba(0,0,0,.55)', marginBottom: '2%', border: '0.2px solid lightgray', borderRadius: '2%', padding: '1%' }}>
+							{/* <div style={{ textAlign: 'center', color: 'white', backgroundColor: 'rgba(0,0,0,.55)', marginBottom: '2%', border: '0.2px solid lightgray', borderRadius: '2%', padding: '1%' }}>
 								<span><h6><LocationOnTwoToneIcon fontSize="medium" /> - {location?.loaded ? location?.data[0]?.formatted_address : 'XXXXXX Area Road, XXXXXXX, XXXXXXX - 114001, New Delhi, India'}</h6></span>
-							</div>
+							</div> */}
 						</div>
 						<Button size-="lg" style={{ margin: '2%' }} variant='primary' onClick={handleSubmit} disabled={!vehicleData || !serviceData}>
 							BOOK NOW
@@ -104,7 +105,7 @@ const RoadSideAssisstanceModal: React.FC<Props> = ({ Token, SetToken }) => {
 					</div>
 				</div>
 			</div>
-			{vehicleData && serviceData ? (<DealerListBaseModal open={showDealer} handleClose={DealerListBaseModalhandleClose} serviceData={selectedserviceData} Id={selectedvehicleID} setToken={SetToken} token={Token} />) : null}
+			{vehicleData && serviceData ? (<DealerListBaseModal open={showDealer} handleClose={DealerListBaseModalhandleClose} serviceData={selectedserviceData} Id={selectedvehicleID} setToken={SetToken} token={Token}  city={City} />) : null}
 		</>
 	)
 }
