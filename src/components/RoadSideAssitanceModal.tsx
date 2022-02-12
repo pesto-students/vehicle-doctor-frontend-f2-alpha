@@ -7,9 +7,7 @@ import useVehicleData from '../Hooks/VehicleDataHook';
 import { AxiosResponse } from 'axios';
 import { useState } from 'react';
 import { Service } from '../Interfaces/IServiceInterfaces';
-import useGeoLocation from '../Hooks/GeolocationHook';
 import axios from '../BaseURL';
-import LocationOnTwoToneIcon from '@mui/icons-material/LocationOnTwoTone';
 import DealerListBaseModal from './DealerListBaseModal';
 
 
@@ -26,7 +24,6 @@ const RoadSideAssisstanceModal: React.FC<Props> = ({ Token, SetToken,City }) => 
 	const [serviceData, setServiceData] = useState<Service[]>([]);
 	const [selectedserviceData, setSelectedServiceData] = useState<any>({});
 	const [selectedvehicleID, setSelectedVehicleID] = useState<any>();
-	const location = useGeoLocation();
 	const vehicleData = useVehicleData();
 	// function which will be invoked on click of Submit
 	const handleSubmit = () => {
@@ -95,9 +92,6 @@ const RoadSideAssisstanceModal: React.FC<Props> = ({ Token, SetToken,City }) => 
 									renderInput={(params) => <TextField variant="filled" {...params} label='Services Name' />}
 								/>
 							</div>
-							{/* <div style={{ textAlign: 'center', color: 'white', backgroundColor: 'rgba(0,0,0,.55)', marginBottom: '2%', border: '0.2px solid lightgray', borderRadius: '2%', padding: '1%' }}>
-								<span><h6><LocationOnTwoToneIcon fontSize="medium" /> - {location?.loaded ? location?.data[0]?.formatted_address : 'XXXXXX Area Road, XXXXXXX, XXXXXXX - 114001, New Delhi, India'}</h6></span>
-							</div> */}
 						</div>
 						<Button size-="lg" style={{ margin: '2%' }} variant='primary' onClick={handleSubmit} disabled={!vehicleData || !serviceData}>
 							BOOK NOW

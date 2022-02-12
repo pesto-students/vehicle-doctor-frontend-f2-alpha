@@ -23,7 +23,6 @@ import { RootState } from "../reducers";
 import { IconButton } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import { blue } from '@mui/material/colors';
-import useGeoLocation from '../Hooks/GeolocationHook';
 
 function valuetext(value: number) {
     return `${value}RS`;
@@ -48,10 +47,8 @@ const DealerList: React.FunctionComponent<dealerProps> = (props): JSX.Element =>
     const [value, setValue] = React.useState<number[]>([0, 3000]);
     const [loading, setLoading] = useState<boolean>(false);
     const [showLogin, setShowLogin] = useState<boolean>(false);
-    const location = useGeoLocation();
     const dealerList:Dealer[] = useSelector((state: RootState) => state.dealerList.dealer);
     const dispatch = useDispatch();
-    //const city = location?.data[0]?.address_components[3].long_name;
 
     const NavigateToHome = () => {
         props.handleClose(true);

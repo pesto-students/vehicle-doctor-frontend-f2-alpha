@@ -1,11 +1,10 @@
-import { useState } from 'react';
+import { useState ,useEffect} from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { DealerService } from '../Interfaces/IDealerServiceInterface';
 import { Dealer } from '../Interfaces/IDealerInterface';
 import { AxiosResponse } from 'axios';
-import useGeoLocation from '../Hooks/GeolocationHook';
 import useVehicleData from '../Hooks/VehicleDataHook';
 import axios from '../BaseURL';
 import Booking from './Booking';
@@ -23,9 +22,12 @@ const Home: React.FC<Props> = ({Token,SetToken,City}) => {
 	const [dealersData, setDealersData] = useState<Dealer[]>([]);
 	const [dealerData, setDealerData] = useState<Dealer>();
 	const [serviceData, setServiceData] = useState<DealerService>();
-	const location = useGeoLocation();
 	const vehicleData = useVehicleData();
 	const [showLogin, setShowLogin] = useState<boolean>(false);
+
+	useEffect(() => {
+		setDealersData([]);
+	  }, [City])
 
 	const handleOpen = () => {
       if(Token==null){

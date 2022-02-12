@@ -25,7 +25,6 @@ import { IDealerDetailForm } from '../../Interfaces/IDealerDetails';
 import '../../css/dealersignup.css';
 import { IDealerSignup } from '../../Interfaces/IDealerRegistration';
 import { IVehicleType } from '../../Interfaces/IDealerServiceType';
-import useGeoLocation from '../../Hooks/GeolocationHook';
 
 type Props = {
 	nextStep: () => void;
@@ -36,9 +35,6 @@ type Props = {
 
 const FormDealerDetails: React.FC<Props> = ({ nextStep, prevStep, setFormData, formData }) => {
 	const [vehicleData, setVehicleData] = useState<IVehicleType[]>([]);
-	const location = useGeoLocation();
-
-	
 
 	useEffect(() => {
 		//Get vehicle data
@@ -99,7 +95,7 @@ const FormDealerDetails: React.FC<Props> = ({ nextStep, prevStep, setFormData, f
 	const {
 		register,
 		handleSubmit,
-		formState: { errors, isValid }
+		formState: { errors }
 	} = useForm<IDealerDetailForm>({
 		mode: 'all',
 		resolver: yupResolver(validationSchema)

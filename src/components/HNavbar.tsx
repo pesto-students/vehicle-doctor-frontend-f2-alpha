@@ -6,7 +6,6 @@ import CustomerBookingHistory from './Customer/CustomerBookingHistory';
 import DealerReg from './DealerReg';
 import DealerLoginModal from './Dealer/DealerLoginModal';
 import logo from '../img/logo.jpg';
-import useGeoLocation from '../Hooks/GeolocationHook';
 import CityModal from './CityModal'
 import {
 	ROADSIDE_ASSISTANCE,
